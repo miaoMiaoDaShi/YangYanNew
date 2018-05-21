@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mTvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="类型"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/mTvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"
+        android:text="这是标题"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp" />
+
+    <com.yangyan.xxp.yangyannew.widget.TopCropImageView
+        android:id="@+id/mIvImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@android:color/darker_gray" />
+</LinearLayout>

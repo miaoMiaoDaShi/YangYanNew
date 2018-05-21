@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/colorPrimary" />
+  <RelativeLayout
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="0dp">
+      <FrameLayout
+          android:id="@+id/mFlContent"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+      </FrameLayout>
+      <include layout="@layout/include_error_block" />
+  </RelativeLayout>
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/mBNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.ashokvarma.bottomnavigation.BottomNavigationBar>
+</LinearLayout>

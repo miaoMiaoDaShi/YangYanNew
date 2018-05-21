@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRlErrorBlock"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorAccent"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/mTvErrorContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        tools:text="加载的时候遇到了一个错误~" />
+
+    <TextView
+        android:id="@+id/mTvErrorRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:text="重试~"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+</RelativeLayout>
