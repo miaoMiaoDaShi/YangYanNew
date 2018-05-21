@@ -7,6 +7,9 @@ import dagger.Provides
 
 import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.model.MainModel
+import com.yangyan.xxp.yangyannew.mvp.ui.fragment.CategoryFragment
+import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
+import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
 
 
 @Module
@@ -29,4 +32,17 @@ class MainModule
     internal fun provideMainModel(model: MainModel): MainContract.Model {
         return model
     }
+
+    @ActivityScope
+    @Provides
+    internal fun provideHomeFragment() = HomeFragment.newInstance()
+
+    @ActivityScope
+    @Provides
+    internal fun provideCategoryFragment() = CategoryFragment.newInstance()
+
+    @ActivityScope
+    @Provides
+    internal fun provideMineFragment() = MineFragment.newInstance()
 }
+

@@ -1,8 +1,12 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import com.jess.arms.integration.IRepositoryManager
+import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.utils.AnalysisHTMLUtils
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 
 /**
  * Author : zhongwenpeng
@@ -10,10 +14,11 @@ import io.reactivex.Observable
  * Time :  2018/5/21
  * Description :
  */
-class HomeModel : HomeContract.Model {
+class HomeModel(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), HomeContract.Model {
     override fun getHomeData(pageIndex: Int): Observable<List<ImagesInfo>> {
-
-        return Observable.just(listOf<ImagesInfo>())
+        return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                .getNewAtlasList(pageIndex)
+                .map { html: ResponseBody -> AnalysisHTMLUtils.HomePageToList(html.string()) }
     }
 
     override fun onDestroy() {

@@ -30,18 +30,18 @@ import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jsoup.Jsoup
+import javax.inject.Inject
 
 
 class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNavigationBar.OnTabSelectedListener {
-    private val mHomeFragment by lazy {
-        HomeFragment.newInstance()
-    }
-    private val mCategoryFragment by lazy {
-        CategoryFragment.newInstance()
-    }
-    private val mMineFragment by lazy {
-        MineFragment.newInstance()
-    }
+
+
+    @Inject
+    lateinit var mHomeFragment: HomeFragment
+    @Inject
+    lateinit var mCategoryFragment: CategoryFragment
+    @Inject
+    lateinit var mMineFragment: MineFragment
 
     private var mCurrentFragment: Fragment? = null
 
@@ -59,20 +59,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        Observable.create(object : ObservableOnSubscribe<String> {
-            override fun subscribe(emitter: ObservableEmitter<String>) {
-                val content = Jsoup.connect("http://www.xxxiao.com/new/")
-                        .get().body().html()
-                val imagesInfos = AnalysisHTMLUtils.HomePageToList(content)
-                for (imagesInfo in imagesInfos) {
-                    println(imagesInfo.toString())
-                }
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .subscribe {
 
-                }
 
     }
 
