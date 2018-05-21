@@ -73,6 +73,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
                 .subscribe {
 
                 }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

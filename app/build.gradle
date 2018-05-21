@@ -37,6 +37,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies["circleimageview"]
     implementation rootProject.ext.dependencies["shadow"]
+    implementation rootProject.ext.dependencies["rxKotlin"]
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]
     implementation 'me.jessyan:arms:2.4.1'
