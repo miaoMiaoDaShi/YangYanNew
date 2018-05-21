@@ -13,15 +13,15 @@ class CategoryUtils {
          * value name
          */
         val categoryNameMap = mapOf(
-                "tag" to "t",
-                "xinggan" to "x",
-                "shaonv" to "s",
-                "mrxt" to "m",
-                "swmt" to "s",
-                "xgtx" to "f",
-                "oumei" to "g",
-                "rihandongya" to "h",
-                "collection" to "i"
+                "tag" to "标致美人",
+                "xinggan" to "性感美女",
+                "shaonv" to "少女萝莉",
+                "mrxt" to "美乳香臀",
+                "swmt" to "丝袜美腿",
+                "xgtx" to "性感特写",
+                "oumei" to "欧美女神",
+                "rihandongya" to "日韩东亚",
+                "collection" to "女神合集"
         )
 
         /**

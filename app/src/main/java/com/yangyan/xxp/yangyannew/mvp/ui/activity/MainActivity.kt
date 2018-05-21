@@ -23,7 +23,13 @@ import com.jess.arms.utils.Preconditions.checkNotNull
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.CategoryFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
+import com.yangyan.xxp.yangyannew.utils.AnalysisHTMLUtils
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jsoup.Jsoup
 
 
 class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNavigationBar.OnTabSelectedListener {
@@ -53,7 +59,20 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        Observable.create(object : ObservableOnSubscribe<String> {
+            override fun subscribe(emitter: ObservableEmitter<String>) {
+                val content = Jsoup.connect("http://www.xxxiao.com/new/")
+                        .get().body().html()
+                val imagesInfos = AnalysisHTMLUtils.HomePageToList(content)
+                for (imagesInfo in imagesInfos) {
+                    println(imagesInfo.toString())
+                }
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .subscribe {
 
+                }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

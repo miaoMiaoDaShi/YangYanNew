@@ -40,4 +40,5 @@ dependencies {
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]
     implementation 'me.jessyan:arms:2.4.1'
+    implementation 'org.jsoup:jsoup:1.11.3'
 }

@@ -1,8 +1,6 @@
 package com.yangyan.xxp.yangyannew.utils;
 
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo;
-import com.zcoder.xxp.yangyan.app.Constant;
-import com.zcoder.xxp.yangyan.mvp.model.entity.ImagesInfo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -88,12 +86,13 @@ public class AnalysisHTMLUtils {
                 final String link = element.select("header.entry-header").select("h2").select("a").attr("href");
                 final String imgUrl = element.select("img").attr("src");
 
-                final ImagesInfo image = new ImagesInfo();
-                image.setTitle(title);
-                image.setCategory(categorys.toString().substring(0, categorys.length() - 1));
-                image.setImgUrl(imgUrl);
-                image.setId(id);
-                image.setLink(link.replace(Constant.FOR_HTML_BASE_URL, ""));
+                final ImagesInfo image = new ImagesInfo(
+                        id,
+                        title,
+                        "",
+                        imgUrl,
+                        categorys.toString().substring(0, categorys.length() - 1)
+                        );
                 images.add(image);
             }
 
@@ -124,9 +123,13 @@ public class AnalysisHTMLUtils {
 
                 String imgUrl = imgUrlAll.substring(0, spaceIndex) + ".jpg";
                 String imgDisplay = element.attr("data-src");
-                ImagesInfo image = new ImagesInfo();
-                image.setDisplayImaUrl(imgDisplay);
-                image.setImgUrl(imgUrl);
+                ImagesInfo image = new ImagesInfo(
+                        "",
+                        "",
+                        imgDisplay,
+                        imgUrl,
+                        ""
+                        );
                 images.add(image);
 
             }
