@@ -54,6 +54,7 @@ ext {
             "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
             "circleimageview"          : "de.hdodenhof:circleimageview:2.2.0",
             "shadow"                   : "com.loopeer.lib:shadow:0.0.4-beta3",
+            "systembar"                : "com.jaeger.statusbarutil:library:1.5.1",
             "bottom-navigation-bar"    : "com.ashokvarma.android:bottom-navigation-bar:2.0.4",
 
             //rx1
@@ -70,7 +71,7 @@ ext {
             //rx2
             "rxandroid2"               : "io.reactivex.rxjava2:rxandroid:2.0.2",
             "rxjava2"                  : "io.reactivex.rxjava2:rxjava:2.1.12",
-            "rxKotlin2"                : "io.reactivex.rxjava2:rxkotlin:2.2.0",
+            "rxkotlin2"                : "io.reactivex.rxjava2:rxkotlin:2.2.0",
             "rxlifecycle2"             : "com.trello.rxlifecycle2:rxlifecycle:${version["rxlifecycle2SdkVersion"]}",
             "rxlifecycle2-android"     : "com.trello.rxlifecycle2:rxlifecycle-android:${version["rxlifecycle2SdkVersion"]}",
             "rxlifecycle2-components"  : "com.trello.rxlifecycle2:rxlifecycle-components:${version["rxlifecycle2SdkVersion"]}",
@@ -94,7 +95,7 @@ ext {
             "progressmanager"          : "me.jessyan:progressmanager:1.5.0",
             "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.2.5",
             "lifecyclemodel"           : "me.jessyan:lifecyclemodel:1.0.1",
-
+            "anko"                     : "org.jetbrains.anko:anko-commons:0.10.5",
             //test
             "junit"                    : "junit:junit:4.12",
             "androidJUnitRunner"       : "android.support.test.runner.AndroidJUnitRunner",

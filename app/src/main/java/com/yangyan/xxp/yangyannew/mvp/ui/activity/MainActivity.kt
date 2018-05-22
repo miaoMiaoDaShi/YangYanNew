@@ -2,7 +2,9 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Message
 import android.support.v4.app.Fragment
+import android.view.WindowManager
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 
@@ -86,8 +88,8 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
                         .setInActiveColorResource(R.color.colorTabInActive))
                 .setFirstSelectedPosition(0)
                 .initialise()
-        onTabSelected(0)
         mBNavBar.setTabSelectedListener(this)
+        onTabSelected(0)
     }
 
     /**
@@ -111,7 +113,24 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
         }
     }
 
+    /**
+     * 再次点击
+     */
     override fun onTabReselected(position: Int) {
+        when (position) {
+            0 -> {
+                //刷新home页面
+                mHomeFragment.onRefresh()
+            }
+            1 -> {
+                //刷新分类页面
+            }
+            2 -> {
+                //刷新个人页面
+            }
+            else -> {
+            }
+        }
     }
 
     override fun onTabUnselected(position: Int) {

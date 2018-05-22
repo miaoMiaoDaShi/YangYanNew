@@ -1,4 +1,4 @@
-package com.yangyan.xxp.yangyannew.mvp.model
+package com.yangyan.xxp.yangyannew.mvp.model.service
 
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -12,6 +12,8 @@ import retrofit2.http.Path
  * Description :api
  */
 interface CommonService {
+
+
     /**
      * 获取最新的套图推荐
      */
@@ -27,6 +29,9 @@ interface CommonService {
     /**
      * 根据分类
      */
-    @GET("/cat/{category}")
-    fun getAtlasListByCategory(@Path("category") category: String): Observable<ResponseBody>
+    @GET("/cat/{category}/page/{page}")
+    fun getAtlasListByCategory(
+            @Path("category") category: String,
+            @Path("page") page: Int
+    ): Observable<ResponseBody>
 }

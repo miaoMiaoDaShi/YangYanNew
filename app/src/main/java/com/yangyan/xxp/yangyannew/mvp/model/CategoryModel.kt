@@ -1,9 +1,12 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import com.jess.arms.integration.IRepositoryManager
+import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.CategoryInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng
@@ -11,11 +14,10 @@ import io.reactivex.Observable
  * Time :  2018/5/21
  * Description :分类
  */
-class CategoryModel:CategoryContract.Model {
-    override fun getCategoryData(): Observable<List<CategoryInfo>> {
+class CategoryModel
+@Inject
+constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager),CategoryContract.Model {
 
-        return Observable.just(listOf<CategoryInfo>())
-    }
 
     override fun onDestroy() {
     }
