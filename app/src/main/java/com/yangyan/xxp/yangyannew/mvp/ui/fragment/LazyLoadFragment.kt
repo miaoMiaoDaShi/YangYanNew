@@ -26,7 +26,7 @@ abstract class LazyLoadFragment<P : IPresenter> : BaseFragment<P>() {
         isViewPrepare = true
     }
     override fun initData(savedInstanceState: Bundle?) {
-        lazyLoadDataIfPrepared()
+
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

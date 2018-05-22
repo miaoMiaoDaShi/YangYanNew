@@ -79,14 +79,14 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
     private fun initPaginate() {
         Paginate.with(mRvCategoryChild, object : Paginate.Callbacks {
             override fun onLoadMore() {
-                mPresenter?.getCategoryData(arguments?.getString("categoryCode") ?: "tag", true)
+                mPresenter?.getCategoryData(arguments?.getString("categoryCode") ?: "tag", false)
             }
 
             override fun isLoading(): Boolean = mIsLoadMoreing
 
             override fun hasLoadedAllItems(): Boolean = false
         })
-                .setLoadingTriggerThreshold(4)
+                .setLoadingTriggerThreshold(0)
                 .build()
     }
 

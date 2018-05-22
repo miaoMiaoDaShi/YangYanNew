@@ -26,6 +26,13 @@ interface CommonService {
     @GET("/{id}")
     fun getAtlasDetailById(@Path("id") id: String): Observable<ResponseBody>
 
+
+    /**
+     * 获取标志的套图推荐
+     */
+    @GET("tag/page/{page}")
+    fun getTagAtlasList(@Path("page") page: Int): Observable<ResponseBody>
+
     /**
      * 根据分类
      */

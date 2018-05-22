@@ -19,11 +19,18 @@ import javax.inject.Inject
  */
 class CategoryChildModel
 @Inject
-constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), CategoryChildContract.Model{
-    override fun getCategoryChildData(categoryCode:String,pageIndex: Int): Observable<List<ImagesInfo>> {
-        return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
-                .getAtlasListByCategory(categoryCode,pageIndex)
-                .map { html: ResponseBody -> AnalysisHTMLUtils.HomePageToList(html.string()) }
+constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), CategoryChildContract.Model {
+    override fun getCategoryChildData(categoryCode: String, pageIndex: Int): Observable<List<ImagesInfo>> {
+        return if ("tag" == categoryCode) {
+            mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                    .getTagAtlasList(pageIndex)
+                    .map { html: ResponseBody -> AnalysisHTMLUtils.HomePageToList(html.string()) }
+        } else {
+            mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                    .getAtlasListByCategory(categoryCode, pageIndex)
+                    .map { html: ResponseBody -> AnalysisHTMLUtils.HomePageToList(html.string()) }
+        }
+
     }
 
     override fun onDestroy() {

@@ -25,11 +25,15 @@ class GlobalConfiguration : ConfigModule {
         if (!BuildConfig.LOG_DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
             builder.printHttpLogLevel(RequestInterceptor.Level.NONE)
         }
-
         builder.baseurl(Constant.API_HOST)
+                .gsonConfiguration { context, builder ->
+                    builder.serializeNulls()
+                            .enableComplexMapKeySerialization()
+                }
     }
 
     override fun injectAppLifecycle(context: Context?, lifecycles: MutableList<AppLifecycles>?) {
+        lifecycles?.add(AppLifecyclesImpl())
     }
 
     override fun injectActivityLifecycle(context: Context?, lifecycles: MutableList<Application.ActivityLifecycleCallbacks>?) {

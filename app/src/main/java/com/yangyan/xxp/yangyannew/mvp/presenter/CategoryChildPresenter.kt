@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -42,6 +43,7 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
 
     private var mPageIndex = 0
     fun getCategoryData(categoryCode:String ,pullToRefresh: Boolean) {
+        Timber.i(categoryCode)
         if (pullToRefresh) mPageIndex = 0
 
 
