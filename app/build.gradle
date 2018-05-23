@@ -48,6 +48,7 @@ dependencies {
     // implementation rootProject.ext.dependencies["rxkotlin2"]
     implementation rootProject.ext.dependencies["systembar"]
     implementation rootProject.ext.dependencies["anko"]
+    implementation rootProject.ext.dependencies["toast"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["paginate"]
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]

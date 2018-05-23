@@ -9,6 +9,5 @@ import cn.bmob.v3.BmobUser
  * Description :用户信息
  */
 data class UserInfo(
-        val id: String,//用户ID
         val userPortrait: String//头像
 ):BmobUser()

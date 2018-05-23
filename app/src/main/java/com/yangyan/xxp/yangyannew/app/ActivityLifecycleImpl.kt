@@ -2,9 +2,12 @@ package com.yangyan.xxp.yangyannew.app
 
 import android.app.Activity
 import android.app.Application
+import android.graphics.Color
 import android.os.Bundle
 import cn.bmob.v3.Bmob
 import com.jaeger.library.StatusBarUtil
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.LoginActivity
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.SignUpActivity
 import timber.log.Timber
 
 /**
@@ -36,7 +39,13 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         Timber.i("onActivityCreated")
-        StatusBarUtil.setLightMode(activity)
+
         Bmob.initialize(activity, Constant.BMOB_APPLICATION_KEY)
+        if (activity is LoginActivity || activity is SignUpActivity) {
+            //StatusBarUtil.setDarkMode(activity)
+            StatusBarUtil.setTranslucent(activity, 55)
+        } else {
+            StatusBarUtil.setLightMode(activity)
+        }
     }
 }

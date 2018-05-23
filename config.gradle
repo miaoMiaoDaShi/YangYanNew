@@ -56,6 +56,7 @@ ext {
             "shadow"                   : "com.loopeer.lib:shadow:0.0.4-beta3",
             "systembar"                : "com.jaeger.statusbarutil:library:1.5.1",
             "bottom-navigation-bar"    : "com.ashokvarma.android:bottom-navigation-bar:2.0.4",
+            "toast"                    : "com.github.GrenderG:Toasty:1.3.0",
 
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",
