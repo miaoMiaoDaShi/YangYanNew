@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
     override fun getContext(): Context = super.getContext()!!
 
     override fun showLoading() {
-        mSwipeRefreshLayout.isRefreshing = true
+       // mSwipeRefreshLayout.isRefreshing = true
     }
 
     override fun launchActivity(intent: Intent) {

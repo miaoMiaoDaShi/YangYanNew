@@ -3,6 +3,7 @@ package com.yangyan.xxp.yangyannew.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import cn.bmob.v3.Bmob
 import com.jaeger.library.StatusBarUtil
 import timber.log.Timber
 
@@ -36,5 +37,6 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         Timber.i("onActivityCreated")
         StatusBarUtil.setLightMode(activity)
+        Bmob.initialize(activity, Constant.BMOB_APPLICATION_KEY)
     }
 }

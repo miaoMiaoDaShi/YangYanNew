@@ -18,6 +18,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        //Bmob的maven仓库地址--必填
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
         maven { url "https://jitpack.io" }//RxCache 需要 jitpack 仓库
         maven { url "https://maven.google.com" }//Support-library 需要 Google 仓库
         google() //AndroidStudio v3.0 可以使用 google() 替代 maven { url "https://maven.google.com" }

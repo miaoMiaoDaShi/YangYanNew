@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryContract
@@ -14,6 +15,7 @@ import javax.inject.Inject
  * Time :  2018/5/21
  * Description :分类
  */
+@FragmentScope
 class CategoryModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager),CategoryContract.Model {

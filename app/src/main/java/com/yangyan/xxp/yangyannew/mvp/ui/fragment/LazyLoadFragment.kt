@@ -24,6 +24,7 @@ abstract class LazyLoadFragment<P : IPresenter> : BaseFragment<P>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepare = true
+        lazyLoadDataIfPrepared()
     }
     override fun initData(savedInstanceState: Bundle?) {
 

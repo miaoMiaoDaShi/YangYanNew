@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -44,12 +45,34 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation rootProject.ext.dependencies["circleimageview"]
     implementation rootProject.ext.dependencies["shadow"]
-    implementation rootProject.ext.dependencies["rxkotlin2"]
+    // implementation rootProject.ext.dependencies["rxkotlin2"]
     implementation rootProject.ext.dependencies["systembar"]
     implementation rootProject.ext.dependencies["anko"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["paginate"]
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]
-    implementation 'me.jessyan:arms:2.4.1'
-    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation('me.jessyan:arms:2.4.1') {
+        //exclude module: 'okhttp3'
+         exclude group: 'com.google.code.gson'
+        //exclude group: 'com.squareup.retrofit2'
+        exclude group: 'com.squareup.okio'
+        //exclude group: 'com.google.code.gson'
+    }
+
+    implementation ('org.jsoup:jsoup:1.11.3'){
+       // exclude module: 'okio'
+    }
+
+//    bmob
+    implementation ('cn.bmob.android:bmob-sdk:3.6.2') {
+       // exclude group: 'com.squareup.okhttp3'
+        //exclude module: 'rxjava'
+        //exclude module: 'okhttp3'
+        //exclude module: 'okio'
+        //exclude module: 'rxandroid'
+        //exclude module: 'gson'
+    }
+    //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+    // implementation 'cn.bmob.android:http-legacy:1.0'
 }

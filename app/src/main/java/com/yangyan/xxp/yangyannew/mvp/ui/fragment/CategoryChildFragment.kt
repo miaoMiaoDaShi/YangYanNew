@@ -15,7 +15,6 @@ import com.yangyan.xxp.yangyannew.di.component.DaggerCategoryChildComponent
 import com.yangyan.xxp.yangyannew.di.module.CategoryChildModule
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryChildContract
 import com.yangyan.xxp.yangyannew.mvp.presenter.CategoryChildPresenter
-import com.yangyan.xxp.yangyannew.mvp.presenter.CategoryPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.fragment_category_child.*
 import javax.inject.Inject
@@ -38,6 +37,8 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
      */
     private var mIsLoadMoreing = false
 
+    private var mFristLoad = true
+
     override fun startLoadMore() {
         mIsLoadMoreing = true
 
@@ -48,7 +49,7 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
     }
 
     override fun showLoading() {
-        mSwipeRefreshLayout.isRefreshing = true
+       // mSwipeRefreshLayout.isRefreshing = true
     }
 
     override fun launchActivity(intent: Intent) {
@@ -79,6 +80,10 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
     private fun initPaginate() {
         Paginate.with(mRvCategoryChild, object : Paginate.Callbacks {
             override fun onLoadMore() {
+                if (mFristLoad) {
+                    mFristLoad = false
+                    return
+                }
                 mPresenter?.getCategoryData(arguments?.getString("categoryCode") ?: "tag", false)
             }
 

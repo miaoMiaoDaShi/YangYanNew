@@ -18,12 +18,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.ui.activity.MainActivity">
+        <activity
+            android:name=".mvp.ui.activity.SignUpActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--主页-->
+        <activity
+            android:name=".mvp.ui.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <!--登录页面-->
+        <activity
+            android:name=".mvp.ui.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <!--祖册页面-->
+        <!--<activity-->
+            <!--android:name=".mvp.ui.activity.SignUpActivity"-->
+            <!--android:screenOrientation="portrait" />-->
+
 
         <meta-data
             android:name="com.yangyan.xxp.yangyannew.app.GlobalConfiguration"

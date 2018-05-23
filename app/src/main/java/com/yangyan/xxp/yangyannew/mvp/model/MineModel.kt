@@ -1,6 +1,10 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import com.jess.arms.di.scope.FragmentScope
+import com.jess.arms.integration.IRepositoryManager
+import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
+import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng
@@ -8,7 +12,11 @@ import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
  * Time :  2018/5/21
  * Description :个人页面
  */
-class MineModel :MineContract.Model{
+@FragmentScope
+class MineModel
+@Inject
+constructor(repositoryManager: IRepositoryManager)
+    : BaseModel(repositoryManager), MineContract.Model {
     override fun loadMineData() {
 
 

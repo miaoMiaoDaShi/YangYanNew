@@ -10,4 +10,8 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="HintErrorAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="textColorError">@android:color/holo_red_dark</item>
+    </style>
 </resources>

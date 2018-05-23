@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.loopeer.shadow.ShadowView
+        android:id="@+id/mShadowView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:cornerRadius="0dp"
@@ -17,6 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/mIvToAbout"
                 android:layout_alignParentRight="true"
                 android:padding="16dp"
                 android:layout_width="wrap_content"
@@ -45,10 +47,12 @@
     </com.loopeer.shadow.ShadowView>
 
     <RelativeLayout
+        android:layout_marginTop="185dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/mTvCollectIsEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -56,6 +60,13 @@
             android:maxEms="8"
             android:text="你收藏的图片或图集将会展示在这里"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:visibility="invisible"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvMineCollect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

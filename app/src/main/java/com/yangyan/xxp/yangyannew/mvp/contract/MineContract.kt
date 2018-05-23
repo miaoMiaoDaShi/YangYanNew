@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
+import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 
@@ -10,7 +11,9 @@ import com.jess.arms.mvp.IView
  * Description :个人页面
  */
 interface MineContract {
-    interface View : IView
+    interface View : IView{
+        fun getContext(): Context
+    }
 
     interface Model : IModel {
         /**

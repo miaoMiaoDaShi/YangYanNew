@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/holo_blue_dark"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Hello!"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="不要把密码忘记罗"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="45dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="注 册"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        app:hintTextAppearance="@style/HintErrorAppearance"
+        android:textColorHint="@color/colorGray">
+
+        <EditText
+            android:id="@+id/mEtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="邮箱"
+            android:background="@null"
+            android:inputType="textEmailAddress"
+            android:lines="1"
+            android:textCursorDrawable="@drawable/ic_cursor"
+            android:drawableBottom="@drawable/select_edit_text"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        app:hintTextAppearance="@style/HintErrorAppearance"
+        android:textColorHint="@color/colorGray">
+
+        <EditText
+            android:id="@+id/mEtPwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="密码"
+            android:textColor="@android:color/white"
+            android:background="@null"
+            android:lines="1"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@drawable/ic_cursor"
+            android:drawableBottom="@drawable/select_edit_text"
+            android:textSize="15sp" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        app:hintTextAppearance="@style/HintErrorAppearance"
+        android:textColorHint="@color/colorGray">
+
+        <EditText
+            android:id="@+id/mEtConfirmPwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="确认密码"
+            android:textColor="@android:color/white"
+            android:background="@null"
+            android:lines="1"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@drawable/ic_cursor"
+            android:drawableBottom="@drawable/select_edit_text"
+            android:textSize="15sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mFabToSignUp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabCustomSize="55dp"
+        app:backgroundTint="@android:color/white"
+        android:src="@drawable/ic_next"/>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:textColor="#f6f4f4"
+        android:textSize="15sp"
+        android:text="已有账号?"/>
+</LinearLayout>

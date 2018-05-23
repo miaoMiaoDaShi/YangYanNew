@@ -1,5 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import com.jess.arms.di.scope.ActivityScope
+import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
@@ -16,13 +18,14 @@ import javax.inject.Inject
  * Time :  2018/5/21
  * Description :
  */
+@FragmentScope
 class HomeModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), HomeContract.Model {
     override fun getHomeData(pageIndex: Int): Observable<List<ImagesInfo>> {
         return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
                 .getNewAtlasList(pageIndex)
-                .map { html: ResponseBody -> AnalysisHTMLUtils.HomePageToList(html.string()) }
+                .map { html: ResponseBody -> AnalysisHTMLUtils.translationHomePageToList(html.string()) }
     }
 
     override fun onDestroy() {

@@ -2,9 +2,7 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import android.support.v4.app.Fragment
-import android.view.WindowManager
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 
@@ -25,13 +23,7 @@ import com.jess.arms.utils.Preconditions.checkNotNull
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.CategoryFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
-import com.yangyan.xxp.yangyannew.utils.AnalysisHTMLUtils
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jsoup.Jsoup
 import javax.inject.Inject
 
 
