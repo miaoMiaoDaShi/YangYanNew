@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.SignUpActivity"
+            android:name=".mvp.ui.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,13 +34,14 @@
         <!--登录页面-->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <!--祖册页面-->
-        <!--<activity-->
-            <!--android:name=".mvp.ui.activity.SignUpActivity"-->
-            <!--android:screenOrientation="portrait" />-->
+        <activity
+        android:name=".mvp.ui.activity.SignUpActivity"
+        android:screenOrientation="portrait" />
 
-
+        <service android:name=".mvp.ui.service.DownloadService" />
         <meta-data
             android:name="com.yangyan.xxp.yangyannew.app.GlobalConfiguration"
             android:value="ConfigModule" />

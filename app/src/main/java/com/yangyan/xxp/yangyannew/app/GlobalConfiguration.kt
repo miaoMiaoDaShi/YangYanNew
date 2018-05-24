@@ -26,6 +26,7 @@ class GlobalConfiguration : ConfigModule {
             builder.printHttpLogLevel(RequestInterceptor.Level.NONE)
         }
         builder.baseurl(Constant.API_HOST)
+                .responseErrorListener(ResponseErrorListenerImpl())
                 .gsonConfiguration { context, builder ->
                     builder.serializeNulls()
                             .enableComplexMapKeySerialization()

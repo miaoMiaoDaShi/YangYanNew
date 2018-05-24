@@ -34,16 +34,33 @@ constructor(model: SignUpContract.Model, rootView: SignUpContract.View)
     @Inject
     lateinit var mAppManager: AppManager
 
-    fun toSignUp(user: UserInfo) {
-        mModel.toSignUp(user)
+    fun toSignUp(email: String, pwd: String, confirmPwd: String) {
+        if (email.isEmpty() || pwd.isEmpty() || confirmPwd.isEmpty()) {
+            mRootView.showMessage("任何一项不能为空")
+            return
+        }
+
+        if (pwd != confirmPwd) {
+            mRootView.showMessage("两次输入的密码不一致")
+            return
+        }
+        val userInfo = UserInfo()
+        userInfo.email = email
+        userInfo.username = email
+        userInfo.setPassword(pwd)
+
+        mModel.toSignUp(userInfo)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     mRootView.showLoading()
                 }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
                 .subscribe(object : ErrorHandleSubscriber<UserInfo>(mErrorHandler) {
                     override fun onNext(t: UserInfo) {
+                        mRootView.signUpSuccess(t)
+                        mRootView.killMyself()
                         Timber.i("用户信息 : ${t.toString()}")
                     }
                 })

@@ -12,9 +12,11 @@ import io.reactivex.Observable
  * Description :注册
  */
 interface SignUpContract {
-    interface View :IView
+    interface View : IView {
+        fun signUpSuccess(userInfo: UserInfo)
+    }
 
-    interface Model :IModel{
-        fun toSignUp(user:UserInfo):Observable<UserInfo>
+    interface Model : IModel {
+        fun toSignUp(user: UserInfo): Observable<UserInfo>
     }
 }

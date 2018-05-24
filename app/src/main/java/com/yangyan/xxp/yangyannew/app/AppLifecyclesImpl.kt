@@ -42,7 +42,7 @@ class AppLifecyclesImpl : AppLifecycles {
     }
 
     override fun onCreate(application: Application) {
-
+        Preference.init(application)
         if (BuildConfig.LOG_DEBUG) {//Timber初始化
             //Timber 是一个日志框架容器,外部使用统一的Api,内部可以动态的切换成任何日志框架(打印策略)进行日志打印
             //并且支持添加多个日志框架(打印策略),做到外部调用一次 Api,内部却可以做到同时使用多个策略

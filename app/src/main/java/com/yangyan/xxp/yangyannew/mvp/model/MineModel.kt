@@ -1,9 +1,17 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
+import cn.bmob.v3.listener.SaveListener
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
 import javax.inject.Inject
 
 /**
@@ -17,8 +25,25 @@ class MineModel
 @Inject
 constructor(repositoryManager: IRepositoryManager)
     : BaseModel(repositoryManager), MineContract.Model {
-    override fun loadMineData() {
-
+    override fun loadMineData(userInfo: UserInfo):Observable<UserInfo> {
+        return Observable.create(object : ObservableOnSubscribe<UserInfo> {
+            override fun subscribe(emitter: ObservableEmitter<UserInfo>) {
+                val bmobQuery = BmobQuery<UserInfo>()
+                bmobQuery.addWhereEqualTo("username",userInfo.username)
+                bmobQuery.findObjects(object :FindListener<UserInfo>(){
+                    override fun done(p0: MutableList<UserInfo>?, p1: BmobException?) {
+                        p0?.let {
+                            emitter.onNext(it[0])
+                            emitter.onComplete()
+                            return
+                        }
+                        p1?.let {
+                            emitter.onError(it)
+                        }
+                    }
+                })
+            }
+        })
 
     }
 

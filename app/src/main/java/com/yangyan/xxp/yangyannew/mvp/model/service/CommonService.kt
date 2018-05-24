@@ -1,9 +1,12 @@
 package com.yangyan.xxp.yangyannew.mvp.model.service
 
+import com.yangyan.xxp.yangyannew.app.Constant
+import com.yangyan.xxp.yangyannew.mvp.model.entity.SplashImageInfo
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 /**
  * Author : zhongwenpeng
@@ -41,4 +44,18 @@ interface CommonService {
             @Path("category") category: String,
             @Path("page") page: Int
     ): Observable<ResponseBody>
+
+    /**
+     * 启动页的图片  来自gank
+     */
+    @GET()
+    fun getSplashImage(@Url url: String = Constant.SPLASH_IMAGE_URL): Observable<SplashImageInfo>
+
+    /**
+     * 下载图片
+     */
+    @GET()
+    fun download(@Url url: String): Observable<ResponseBody>
+
+
 }

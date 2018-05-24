@@ -8,6 +8,7 @@ import cn.bmob.v3.Bmob
 import com.jaeger.library.StatusBarUtil
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.LoginActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.SignUpActivity
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.SplashActivity
 import timber.log.Timber
 
 /**
@@ -41,11 +42,18 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         Timber.i("onActivityCreated")
 
         Bmob.initialize(activity, Constant.BMOB_APPLICATION_KEY)
-        if (activity is LoginActivity || activity is SignUpActivity) {
-            //StatusBarUtil.setDarkMode(activity)
-            StatusBarUtil.setTranslucent(activity, 55)
-        } else {
-            StatusBarUtil.setLightMode(activity)
+        activity?.let {
+            when (it) {
+                is LoginActivity, is SignUpActivity -> {
+                    StatusBarUtil.setTranslucent(activity, 55)
+                }
+                is SplashActivity -> StatusBarUtil.setTranslucent(it)
+                else -> {
+                    StatusBarUtil.setLightMode(activity)
+                }
+            }
         }
+
     }
+
 }

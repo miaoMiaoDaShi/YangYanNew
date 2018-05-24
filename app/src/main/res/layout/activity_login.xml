@@ -58,11 +58,12 @@
             app:hintTextAppearance="@style/HintErrorAppearance">
 
             <EditText
+                android:id="@+id/mEtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:drawableBottom="@drawable/select_edit_text"
-                android:hint="用户名"
+                android:hint="邮箱"
                 android:inputType="textEmailAddress"
                 android:lines="1"
                 android:textColor="@android:color/white"
@@ -80,6 +81,7 @@
             app:hintTextAppearance="@style/HintErrorAppearance">
 
             <EditText
+                android:id="@+id/mEtPwd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -92,13 +94,28 @@
                 android:textSize="15sp" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_next"
-            app:backgroundTint="@android:color/white"
-            app:fabCustomSize="55dp" />
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/mFabToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_next"
+                app:backgroundTint="@android:color/white"
+                app:fabCustomSize="55dp" />
+
+            <ProgressBar
+                android:id="@+id/mProBar"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@android:color/white"
+                android:visibility="gone" />
+        </RelativeLayout>
+
 
         <Space
             android:layout_width="wrap_content"
@@ -106,6 +123,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/mTvToSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="45dp"

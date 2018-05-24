@@ -8,6 +8,8 @@ import cn.bmob.v3.BmobUser
  * Time :  2018/5/23
  * Description :用户信息
  */
-data class UserInfo(
-        val userPortrait: String//头像
-):BmobUser()
+class UserInfo: BmobUser() {
+    //昵称
+    val nickname: String = "小眼"
+    val userPortrait: String ="http://bmob-cdn-19399.b0.upaiyun.com/2018/05/23/4cb77ae840c8f9108028c2edf75cc350.png"//头像
+}

@@ -1,12 +1,14 @@
 package com.yangyan.xxp.yangyannew.mvp.presenter
 
 import android.app.Application
+import com.google.gson.Gson
 
 import com.jess.arms.integration.AppManager
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.http.imageloader.ImageLoader
+import com.yangyan.xxp.yangyannew.app.Preference
 import com.yangyan.xxp.yangyannew.mvp.contract.LoginContract
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
@@ -16,7 +18,12 @@ import javax.inject.Inject
 import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import timber.log.Timber
 
 /**
  * Author : zhongwenpeng
@@ -37,7 +44,40 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View)
     @Inject
     lateinit var mAppManager: AppManager
     @Inject
+    lateinit var mGson: Gson
 
+    private var mUserInfoString by Preference("userInfo", "")
+
+    fun cleanUserInfo() {
+        mUserInfoString = ""
+    }
+
+    fun toLogin(email: String, pwd: String) {
+        if (email.isEmpty() || pwd.isEmpty()) {
+            mRootView.showMessage("任何一项不能为空")
+            return
+        }
+        val userInfo = UserInfo()
+        userInfo.username = email
+        userInfo.setPassword(pwd)
+        mModel.toLogin(userInfo)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
+                .subscribe(object : ErrorHandleSubscriber<UserInfo>(mErrorHandler) {
+                    override fun onNext(t: UserInfo) {
+                        //存储用户信息
+                        mUserInfoString = mGson.toJson(t)
+                        mRootView.loginSuccess(t)
+                        Timber.i("用户信息 : ${t.toString()}")
+                    }
+                })
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()

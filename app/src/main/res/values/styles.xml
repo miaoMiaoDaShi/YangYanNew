@@ -14,4 +14,16 @@
         <item name="android:textColor">@color/colorGray</item>
         <item name="textColorError">@android:color/holo_red_dark</item>
     </style>
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog"></style>
+
+    <style name="dialogTransparent" parent="DialogTheme">
+        <!-- 更换背景图片实现全透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="dialogDimEnabledFalse" parent="dialogTransparent">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
 </resources>

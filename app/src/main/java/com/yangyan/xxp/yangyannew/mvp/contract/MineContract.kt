@@ -3,6 +3,8 @@ package com.yangyan.xxp.yangyannew.mvp.contract
 import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
+import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
+import io.reactivex.Observable
 
 /**
  * Author : zhongwenpeng
@@ -13,13 +15,14 @@ import com.jess.arms.mvp.IView
 interface MineContract {
     interface View : IView{
         fun getContext(): Context
+        fun loadUserInfoSuccess(userInfo: UserInfo)
     }
 
     interface Model : IModel {
         /**
          * 加载个人信息
          */
-        fun loadMineData()
+        fun loadMineData(userInfo:UserInfo): Observable<UserInfo>
 
         /**
          * 加载收藏标签(简化   主要从数据库里获取)

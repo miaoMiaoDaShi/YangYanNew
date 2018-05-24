@@ -116,19 +116,25 @@
             android:textSize="15sp" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/mFabToSignUp"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fabCustomSize="55dp"
-        app:backgroundTint="@android:color/white"
-        android:src="@drawable/ic_next"/>
-        <ProgressBar
-            android:id="@+id/mProBar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:visibility="gone"/>
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <android.support.design.widget.FloatingActionButton
+           android:id="@+id/mFabToSignUp"
+           android:layout_marginTop="20dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:fabCustomSize="55dp"
+           app:backgroundTint="@android:color/white"
+           android:src="@drawable/ic_next"/>
+       <ProgressBar
+           android:id="@+id/mProBar"
+           android:layout_centerInParent="true"
+           android:indeterminateTint="@android:color/white"
+           android:layout_width="45dp"
+           android:layout_height="45dp"
+           android:visibility="gone"/>
+   </RelativeLayout>
 
     <Space
         android:layout_width="wrap_content"
