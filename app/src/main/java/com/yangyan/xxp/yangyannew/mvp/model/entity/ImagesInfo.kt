@@ -7,9 +7,11 @@ package com.yangyan.xxp.yangyannew.mvp.model.entity
  * Description : 图片信息 (通用)
  */
 data class ImagesInfo(
-        val id:String,//id
-        val title:String,//显示标题
-        val displayImageUrl:String,//缩略图
-        val HDImageUrl:String,//高清图片地址
-        val category:String//分类
+        val id: String,//id
+        val title: String,//显示标题
+        val displayImageUrl: String,//缩略图
+        val HDImageUrl: String,//高清图片地址
+        val category: String,//分类
+        val width: Int, //宽度
+        var height: Int//高度
 )

@@ -15,6 +15,7 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.DaggerHomeComponent
 import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.HomePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -49,7 +50,7 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
     override fun getContext(): Context = super.getContext()!!
 
     override fun showLoading() {
-       // mSwipeRefreshLayout.isRefreshing = true
+        // mSwipeRefreshLayout.isRefreshing = true
     }
 
     override fun launchActivity(intent: Intent) {
@@ -90,7 +91,9 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
 
     private fun initPaginate() {
         Paginate.with(mRvHome, object : Paginate.Callbacks {
-            override fun onLoadMore() { mPresenter?.getHomeData(false) }
+            override fun onLoadMore() {
+                mPresenter?.getHomeData(false)
+            }
 
             override fun isLoading(): Boolean = mIsLoadMoreing
 
@@ -103,6 +106,12 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
     private fun initRecyclerView() {
         mRvHome.layoutManager = mLayoutManager
         mRvHome.adapter = mAdapter
+        mAdapter.setOnItemClickListener { view, viewType, data, position ->
+            kotlin.run {
+                val imagesInfo = data as ImagesInfo
+                mPresenter?.getIamgeCollection(data.id)
+            }
+        }
 
 
     }

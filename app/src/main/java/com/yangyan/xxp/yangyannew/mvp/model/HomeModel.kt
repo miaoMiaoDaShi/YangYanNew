@@ -28,6 +28,14 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .map { html: ResponseBody -> AnalysisHTMLUtils.translationHomePageToList(html.string()) }
     }
 
+    override fun getIamgeCollection(id:String): Observable<List<ImagesInfo>> {
+        return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                .getAtlasDetailById(id)
+                .map { html: ResponseBody ->
+                    AnalysisHTMLUtils.translationParticularsToList(html.string(),id) }
+    }
+
+
     override fun onDestroy() {
     }
 }

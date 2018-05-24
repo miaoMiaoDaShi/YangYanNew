@@ -48,7 +48,8 @@ object AnalysisHTMLUtils {
                         title,
                         "",
                         imgUrl,
-                        categorys.toString().substring(0, categorys.length - 1)
+                        categorys.toString().substring(0, categorys.length - 1),
+                        0,0
                 )
                 images.add(image)
             }
@@ -95,7 +96,9 @@ object AnalysisHTMLUtils {
                         title,
                         "",
                         imgUrl,
-                        categorys.toString().substring(0, categorys.length - 1)
+                        categorys.toString().substring(0, categorys.length - 1),
+                        0,
+                        0
                 )
                 images.add(image)
             }
@@ -128,12 +131,17 @@ object AnalysisHTMLUtils {
 
                 val imgUrl = imgUrlAll.substring(0, spaceIndex) + ".jpg"
                 val imgDisplay = element.attr("data-src")
+                //http://m.xxxiao.com/wp-content/uploads/sites/3/2018/05/438ccb1f61b3d73a-200x300.jpg
+                val width = element.attr("data-width").toInt()
+                val height = element.attr("data-height").toInt()
                 val image = ImagesInfo(
                         "",
                         "",
                         imgDisplay,
                         imgUrl,
-                        ""
+                        "",
+                        width,
+                        height
                 )
                 images.add(image)
 

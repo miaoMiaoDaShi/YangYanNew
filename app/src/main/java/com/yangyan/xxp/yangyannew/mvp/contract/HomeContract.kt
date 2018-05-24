@@ -22,5 +22,7 @@ interface HomeContract {
     interface Model : IModel {
         //首页的信息 获取的主要是最新的图集
         fun getHomeData(pageIndex: Int): Observable<List<ImagesInfo>>
+
+        fun getIamgeCollection(id:String): Observable<List<ImagesInfo>>
     }
 }

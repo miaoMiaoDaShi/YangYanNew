@@ -20,11 +20,13 @@ import javax.inject.Inject
 import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.model.HomeModel
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import timber.log.Timber
 
 /**
  * Author : zhongwenpeng
@@ -53,7 +55,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     internal fun onCreate() {
-       // getHomeData(true)//打开 App 时自动加载列表
+        // getHomeData(true)//打开 App 时自动加载列表
     }
 
     fun getHomeData(pullToRefresh: Boolean) {
@@ -92,6 +94,27 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                     }
 
 
+                })
+    }
+
+
+    fun getIamgeCollection(id: String) {
+        mModel.getIamgeCollection(id)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    //mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally {
+                    //mRootView.hideLoading()
+                }
+                .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
+                    override fun onNext(t: List<ImagesInfo>) {
+                        t.forEach(::println)
+                        //存储用户信息
+                        Timber.i("用户信息 : ${t.toString()}")
+                    }
                 })
     }
 
