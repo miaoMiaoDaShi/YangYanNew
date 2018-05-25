@@ -6,9 +6,9 @@ import android.graphics.Color
 import android.os.Bundle
 import cn.bmob.v3.Bmob
 import com.jaeger.library.StatusBarUtil
-import com.yangyan.xxp.yangyannew.mvp.ui.activity.LoginActivity
-import com.yangyan.xxp.yangyannew.mvp.ui.activity.SignUpActivity
-import com.yangyan.xxp.yangyannew.mvp.ui.activity.SplashActivity
+import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.*
+import org.jetbrains.anko.find
 import timber.log.Timber
 
 /**
@@ -45,15 +45,19 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
         activity?.let {
             when (it) {
                 is LoginActivity, is SignUpActivity -> {
-                    StatusBarUtil.setTranslucent(activity, 55)
+                    StatusBarUtil.setTranslucent(it, 55)
                 }
                 is SplashActivity -> StatusBarUtil.setTranslucent(it)
-                else -> {
-                    StatusBarUtil.setLightMode(activity)
-                }
+                is GalleryActivity,is ImageCollectionActivity -> {
+                    StatusBarUtil.setTranslucent(it, 55)
+                    StatusBarUtil.setLightMode(it)
             }
+            else -> {
+            StatusBarUtil.setLightMode(it)
         }
-
+        }
     }
+
+}
 
 }

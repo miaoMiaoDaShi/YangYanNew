@@ -98,26 +98,6 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     }
 
 
-    fun getIamgeCollection(id: String) {
-        mModel.getIamgeCollection(id)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe {
-                    //mRootView.showLoading()
-                }
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally {
-                    //mRootView.hideLoading()
-                }
-                .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
-                    override fun onNext(t: List<ImagesInfo>) {
-                        t.forEach(::println)
-                        //存储用户信息
-                        Timber.i("用户信息 : ${t.toString()}")
-                    }
-                })
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()

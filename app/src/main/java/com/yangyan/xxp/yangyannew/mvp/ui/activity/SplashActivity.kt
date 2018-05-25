@@ -3,6 +3,7 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.http.imageloader.ImageLoader
@@ -10,6 +11,7 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.Constant
 import com.yangyan.xxp.yangyannew.app.Preference
+import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.di.component.DaggerSplashComponent
 import com.yangyan.xxp.yangyannew.di.module.SplashModule
 import com.yangyan.xxp.yangyannew.mvp.contract.SplashContract
@@ -27,7 +29,6 @@ import javax.inject.Inject
 class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     @Inject
     lateinit var mImageLoader: ImageLoader
-
 
 
     override fun showLoading() {
@@ -59,13 +60,13 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
 
     override fun alreadyHavePermission() {
         //加载本地图片
-        mImageLoader.loadImage(applicationContext,
+        mIvSplash.loadImage(
                 ImageConfigImpl.builder()
                         .url(Constant.SPLASH_LOCAL_PATH + Constant.SPLASH_LOCAL_NAME)
                         .imageView(mIvSplash)
+                        .cacheStrategy(1)
                         .errorPic(R.drawable.bg_default_splash)
-                        .build()
-        )
+                        .build())
 
 
     }
@@ -85,5 +86,7 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.getSplashImageInfo()
     }
+
+
 
 }

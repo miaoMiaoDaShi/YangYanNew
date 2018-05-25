@@ -17,8 +17,10 @@ import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.HomePresenter
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.ImageCollectionActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 /**
@@ -108,8 +110,13 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
         mRvHome.adapter = mAdapter
         mAdapter.setOnItemClickListener { view, viewType, data, position ->
             kotlin.run {
-                val imagesInfo = data as ImagesInfo
-                mPresenter?.getIamgeCollection(data.id)
+                data as ImagesInfo
+                activity?.startActivity<ImageCollectionActivity>(
+                        "id" to data.id,
+                        "category" to data.category,
+                        "title" to data.title,
+                        "cover" to data.HDImageUrl
+                )
             }
         }
 

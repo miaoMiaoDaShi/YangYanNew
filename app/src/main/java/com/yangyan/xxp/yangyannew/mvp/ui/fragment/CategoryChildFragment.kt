@@ -14,9 +14,12 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.DaggerCategoryChildComponent
 import com.yangyan.xxp.yangyannew.di.module.CategoryChildModule
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryChildContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.CategoryChildPresenter
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.ImageCollectionActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.fragment_category_child.*
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 /**
@@ -49,7 +52,7 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
     }
 
     override fun showLoading() {
-       // mSwipeRefreshLayout.isRefreshing = true
+        // mSwipeRefreshLayout.isRefreshing = true
     }
 
     override fun launchActivity(intent: Intent) {
@@ -98,7 +101,17 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
     private fun initRecyclerView() {
         mRvCategoryChild.layoutManager = mLayoutManager
         mRvCategoryChild.adapter = mAdapter
-
+        mAdapter.setOnItemClickListener { view, viewType, data, position ->
+            kotlin.run {
+                data as ImagesInfo
+                activity?.startActivity<ImageCollectionActivity>(
+                        "id" to data.id,
+                        "category" to data.category,
+                        "title" to data.title,
+                        "cover" to data.HDImageUrl
+                )
+            }
+        }
 
     }
 

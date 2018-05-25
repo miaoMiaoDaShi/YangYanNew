@@ -51,6 +51,9 @@ dependencies {
     implementation rootProject.ext.dependencies["toast"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["lottie"]
+    implementation (rootProject.ext.dependencies["photoview"]){
+        exclude group: 'com.android.support'
+    }
     implementation rootProject.ext.dependencies["paginate"]
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]

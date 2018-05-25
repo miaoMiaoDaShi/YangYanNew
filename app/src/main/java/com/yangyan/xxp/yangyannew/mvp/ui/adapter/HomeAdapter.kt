@@ -1,12 +1,14 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import org.jetbrains.anko.find
 import javax.inject.Inject
@@ -27,17 +29,9 @@ constructor(val mDatas: MutableList<ImagesInfo>) : DefaultAdapter<ImagesInfo>(mD
     companion object {
         class HomeHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
             override fun setData(data: ImagesInfo, position: Int) {
-                itemView.find<TextView>(R.id.mTvCategory).text = "测试"
-                itemView.find<TextView>(R.id.mTvTitle).text = "测试"
-//                ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
-//                        .imageLoader().loadImage(itemView.context,
-//                                ImageConfigImpl
-//                                        .builder()
-//                                        .url(data.HDImageUrl)
-//                                        .imageView(itemView.find(R.id.mIvImage))
-//                                        .isCenterCrop(false)
-//                                        .build()
-//                        )
+                itemView.find<TextView>(R.id.mTvCategory).text = data.category
+                itemView.find<TextView>(R.id.mTvTitle).text = data.title
+                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.HDImageUrl)
             }
 
         }

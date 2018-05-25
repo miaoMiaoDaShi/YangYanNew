@@ -11,6 +11,11 @@ import android.view.View.VISIBLE
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
+import com.jess.arms.http.imageloader.ImageConfig
+import com.jess.arms.http.imageloader.glide.ImageConfigImpl
+import com.jess.arms.utils.ArmsUtils
+import com.yangyan.xxp.yangyannew.R
+import org.jetbrains.anko.find
 import java.io.File
 
 /**
@@ -53,4 +58,20 @@ fun Fragment.showDialog(dialog: DialogFragment) {
 
 fun dismissDialog(dialog: DialogFragment) {
     dialog.dismiss()
+}
+
+/**
+ *
+ */
+fun <T: ImageConfig> ImageView.loadImage(config:T){
+    ArmsUtils.obtainAppComponentFromContext(this.getContext())
+            .imageLoader().loadImage(this.context, config)
+}
+
+fun ImageView.loadImage(url:String){
+    ArmsUtils.obtainAppComponentFromContext(this.getContext())
+            .imageLoader().loadImage(this.context,   ImageConfigImpl.builder()
+                    .url(url)
+                    .imageView(this)
+                    .build())
 }

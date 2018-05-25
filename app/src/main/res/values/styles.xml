@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -14,6 +13,7 @@
         <item name="android:textColor">@color/colorGray</item>
         <item name="textColorError">@android:color/holo_red_dark</item>
     </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog"></style>
 
     <style name="dialogTransparent" parent="DialogTheme">
@@ -25,5 +25,10 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    </style>
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark">
+
+    </style>
 </resources>

@@ -25,6 +25,7 @@ import org.jetbrains.anko.startActivity
  */
 class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View {
     override fun loginSuccess(userInfo: UserInfo) {
+        Toasty.success(applicationContext, "登录成功").show()
         startActivity<MainActivity>()
         finish()
 
