@@ -51,7 +51,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     @Inject
     lateinit var mData: MutableList<ImagesInfo>
 
-    private var mPageIndex = 0
+    /**
+     * 页数是从 1开始的
+     */
+    private var mPageIndex = 1
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     internal fun onCreate() {
@@ -59,7 +62,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     }
 
     fun getHomeData(pullToRefresh: Boolean) {
-        if (pullToRefresh) mPageIndex = 0
+        if (pullToRefresh) mPageIndex = 1
 
 
         mModel.getHomeData(mPageIndex)

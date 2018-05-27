@@ -10,8 +10,7 @@
         android:id="@+id/mAppBar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:fitsSystemWindows="true"
-        >
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -19,18 +18,20 @@
             app:contentScrim="@android:color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@id/mToolbar">
+
             <ImageView
                 android:id="@+id/mIvCollectCover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/bg_test" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#60ffffff"
-                android:fitsSystemWindows="true"/>
+                android:fitsSystemWindows="true" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/mToolbar"
@@ -40,7 +41,18 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
             </android.support.v7.widget.Toolbar>
+            <ProgressBar
+                android:id="@+id/mProbar"
+                android:layout_gravity="bottom"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                />
         </android.support.design.widget.CollapsingToolbarLayout>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

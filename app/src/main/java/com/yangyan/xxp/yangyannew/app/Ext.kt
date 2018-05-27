@@ -2,6 +2,7 @@ package com.yangyan.xxp.yangyannew.app
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.support.constraint.Placeholder
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -69,9 +70,14 @@ fun <T: ImageConfig> ImageView.loadImage(config:T){
 }
 
 fun ImageView.loadImage(url:String){
+    loadImage(url,0)
+}
+fun ImageView.loadImage(url:String,placeholder:Int){
     ArmsUtils.obtainAppComponentFromContext(this.getContext())
             .imageLoader().loadImage(this.context,   ImageConfigImpl.builder()
                     .url(url)
+                    .placeholder(placeholder)
                     .imageView(this)
                     .build())
 }
+

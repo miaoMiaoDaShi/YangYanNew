@@ -15,7 +15,7 @@ import org.jetbrains.anko.find
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
  * Time :  2018/5/25
- * Description : 套图集合
+ * Description : 套图集合页面
  */
 
 class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : DefaultAdapter<ImagesInfo>(mDatas) {
@@ -43,7 +43,7 @@ class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : 
     companion object {
         class ImageCollectionHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
             override fun setData(data: ImagesInfo, position: Int) {
-                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.displayImageUrl)
+                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.displayImageUrl,R.drawable.bg_loading)
 
             }
 

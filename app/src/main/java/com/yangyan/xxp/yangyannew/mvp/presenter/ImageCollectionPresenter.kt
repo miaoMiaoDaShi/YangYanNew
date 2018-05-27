@@ -48,7 +48,7 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
         mModel.getIamgeCollection(id)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
-                    //mRootView.showLoading()
+                    mRootView.showLoading()
                 }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .map { t ->
@@ -62,13 +62,13 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
                             typeB.add(it)
                         }
                     }
-                    typeMixture.addAll(typeB)
                     typeMixture.addAll(typeA)
+                    typeMixture.addAll(typeB)
                     typeMixture
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally {
-                    //mRootView.hideLoading()
+                    mRootView.hideLoading()
                 }
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
                     override fun onNext(t: List<ImagesInfo>) {

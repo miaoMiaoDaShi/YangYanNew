@@ -9,6 +9,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.HomeModel
 import com.yangyan.xxp.yangyannew.mvp.model.MainModel
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
+import com.yangyan.xxp.yangyannew.mvp.ui.fragment.SearchFragment
 import dagger.Module
 import dagger.Provides
 
@@ -32,6 +33,10 @@ constructor(private val view: HomeContract.View) {
     internal fun provideHomeModel(model: HomeModel): HomeContract.Model {
         return model
     }
+
+    @FragmentScope
+    @Provides
+    fun provideSearchFragment() = SearchFragment.newInstance()
 
     @FragmentScope
     @Provides

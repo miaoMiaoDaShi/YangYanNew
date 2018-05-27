@@ -68,6 +68,7 @@ class ResponseErrorListenerImpl : ResponseErrorListener {
             500 -> "服务器发生错误"
             404 -> "请求地址不存在"
             403 -> "请求被服务器拒绝"
+            304 -> "304,看看其他的图集吧"
             307 -> "请求被重定向到其他页面"
             202 -> "用户名已经存在"
             203 -> "邮箱已经存在"
@@ -79,7 +80,7 @@ class ResponseErrorListenerImpl : ResponseErrorListener {
     private fun convertStatusCode(bmobException: BmobException): String {
         return when (bmobException.errorCode) {
             109 -> "无效用户信息"
-            202,203 -> "用户已经存在"
+            202, 203 -> "用户已经存在"
             else -> bmobException.message ?: "未知错误"
         }
 

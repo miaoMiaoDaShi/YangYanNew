@@ -1,7 +1,10 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
+import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import io.reactivex.Observable
 
 /**
  * Author : zhongwenpeng
@@ -10,9 +13,13 @@ import com.jess.arms.mvp.IView
  * Description :搜索
  */
 interface SearchContract {
-    interface View : IView
+    interface View : IView{
+        fun getContext(): Context
+        fun startLoadMore()
+        fun endLoadMore()
+    }
 
     interface Model : IModel {
-        fun searchByKeyword(keyword: String)
+        fun searchAtlasByKeyword(pageIndex:Int,keyword: String):Observable<List<ImagesInfo>>
     }
 }

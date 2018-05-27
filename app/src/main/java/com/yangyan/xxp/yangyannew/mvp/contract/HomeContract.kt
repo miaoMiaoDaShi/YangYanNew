@@ -1,6 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
 import android.content.Context
+import android.support.v4.app.FragmentManager
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo

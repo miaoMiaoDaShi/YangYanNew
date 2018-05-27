@@ -1,6 +1,17 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import com.jess.arms.di.scope.FragmentScope
+import com.jess.arms.integration.IRepositoryManager
+import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.SearchContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.mvp.model.service.CommonService
+import com.yangyan.xxp.yangyannew.utils.AnalysisHTMLUtils
+import io.reactivex.Observable
+import io.reactivex.functions.Function
+import okhttp3.ResponseBody
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng
@@ -8,12 +19,16 @@ import com.yangyan.xxp.yangyannew.mvp.contract.SearchContract
  * Time :  2018/5/21
  * Description :
  */
-class SearchModel:SearchContract.Model {
+@FragmentScope
+class SearchModel @Inject
+constructor(repositoryManager: IRepositoryManager)
+    : BaseModel(repositoryManager),SearchContract.Model {
     override fun onDestroy() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun searchByKeyword(keyword: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun searchAtlasByKeyword(pageIndex:Int,keyword: String):Observable<List<ImagesInfo>> {
+        return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                .searchAtlasByKeyWords(pageIndex,keyword)
+                .map { html: ResponseBody -> AnalysisHTMLUtils.translationSearchPageToList(html.string()) }
     }
 }

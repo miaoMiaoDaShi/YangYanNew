@@ -11,6 +11,7 @@ import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.loadImage
+import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
@@ -57,14 +58,20 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     }
 
     private fun initToolbar() {
-        mToolbar.title = intent.getStringExtra("category")
-        mToolbar.subtitle = intent.getStringExtra("title")
-        mToolbar.setSubtitleTextColor(Color.BLACK)
+        setSupportActionBar(mToolbar)
+
         mToolbar.navigationIcon = resources.getDrawable(R.drawable.ic_back)
         mToolbar.setNavigationOnClickListener {
             killMyself()
         }
-        setSupportActionBar(mToolbar)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mToolbar.title = intent.getStringExtra("category")
+        mToolbar.subtitle = intent.getStringExtra("title")
+        mToolbar.setSubtitleTextColor(Color.BLACK)
     }
 
     private fun initRecyclerView() {
@@ -93,12 +100,15 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     }
 
     override fun showLoading() {
+        mProbar.visible(true)
     }
 
     override fun launchActivity(intent: Intent) {
     }
 
     override fun hideLoading() {
+        mProbar.visible(false)
+
     }
 
     override fun killMyself() {

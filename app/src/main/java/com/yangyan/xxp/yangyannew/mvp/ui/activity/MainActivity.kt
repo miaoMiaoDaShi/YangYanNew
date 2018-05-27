@@ -20,9 +20,11 @@ import com.yangyan.xxp.yangyannew.R
 
 
 import com.jess.arms.utils.Preconditions.checkNotNull
+import com.yangyan.xxp.yangyannew.app.FragmentBackHelper
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.CategoryFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -164,5 +166,21 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
 
     override fun killMyself() {
         finish()
+    }
+
+    private var mExitTime = 0L
+    override fun onBackPressed() {
+        if (FragmentBackHelper.HandleBack(supportFragmentManager)) {
+            return
+        }
+
+        if (System.currentTimeMillis() - 2000 < mExitTime) {
+            super.onBackPressed()
+        } else {
+            Toasty.info(applicationContext, "再按一次退出").show()
+            mExitTime = System.currentTimeMillis()
+        }
+
+
     }
 }

@@ -61,6 +61,55 @@ object AnalysisHTMLUtils {
 
         return images
     }
+    /**
+     * 搜索
+     */
+    fun translationSearchPageToList(content: String): List<ImagesInfo> {
+        val images = ArrayList<ImagesInfo>()
+        try {
+            val document = Jsoup.parse(content)
+            val elements = document.select("div.posts-layout").select("article")
+            for (element in elements) {
+                val categoryAll = element.attr("class")
+                val categorys = StringBuilder()
+                val id = element.attr("id").substring(5)
+                for (i in 0 until categoryAll.split("category-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size) {
+                    if (i == 0) {
+                        continue
+                    }
+                    try {
+                        val categoryAllSplit = categoryAll.split("category-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[i]
+                        val spaceIndex = categoryAllSplit.indexOf(" ")
+                        val category = categoryAllSplit.substring(0, if (spaceIndex == -1) categoryAllSplit.length else spaceIndex)
+                        categorys.append(CategoryUtils.getCategoryByCode(category))
+                                .append(",")
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+                }
+                val title = element.select("header.entry-header").select("h2").select("a").text()
+                val link = element.select("header.entry-header").select("h2").select("a").attr("href")
+                val imgUrl = element.select("img").attr("src")
+
+                val image = ImagesInfo(
+                        id,
+                        title,
+                        "",
+                        imgUrl,
+                        categorys.toString().substring(0, categorys.length - 1),
+                        0,0
+                )
+                images.add(image)
+            }
+
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return images
+    }
 
     fun translationTagPageToList(content: String): List<ImagesInfo> {
         val images = ArrayList<ImagesInfo>()

@@ -1,0 +1,54 @@
+package com.yangyan.xxp.yangyannew.mvp.ui.adapter
+
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+import com.jess.arms.base.BaseHolder
+import com.jess.arms.base.DefaultAdapter
+import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.loadImage
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import org.jetbrains.anko.find
+
+/**
+ * Author : zhongwenpeng
+ * Email : 1340751953@qq.com
+ * Time :  2018/5/22
+ * Description :  搜索页面的
+ */
+class SearchAdapter
+constructor(val mDatas: MutableList<ImagesInfo>)
+    : BaseQuickAdapter<ImagesInfo,BaseViewHolder>(R.layout.recycler_home_image,mDatas) {
+    override fun convert(helper: BaseViewHolder, item: ImagesInfo) {
+helper.setText(R.id.mTvCategory,item.category)
+        .setText(R.id.mTvTitle,item.title)
+        .getView<ImageView>(R.id.mIvImage)
+        .loadImage(item.HDImageUrl,R.drawable.bg_loading)
+
+    }
+
+    /**
+     * 关键字
+     */
+    private var mKeyWords = ""
+
+
+    /**
+     * 传入关键字
+     */
+    fun setKeyWords(keyWords:String){
+        this.mKeyWords = keyWords
+    }
+//    companion object {
+//        class SearchHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
+//            override fun setData(data: ImagesInfo, position: Int) {
+//                itemView.find<TextView>(R.id.mTvCategory).text = data.category
+//                itemView.find<TextView>(R.id.mTvTitle).text = data.title
+//                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.HDImageUrl,R.drawable.bg_loading)
+//            }
+//
+//        }
+//    }
+}

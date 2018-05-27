@@ -3,15 +3,20 @@ package com.yangyan.xxp.yangyannew.mvp.ui.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.paginate.Paginate
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.onClick
+import com.yangyan.xxp.yangyannew.callback.onActivityBackCallback
 import com.yangyan.xxp.yangyannew.di.component.DaggerHomeComponent
 import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
@@ -20,6 +25,7 @@ import com.yangyan.xxp.yangyannew.mvp.presenter.HomePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.ImageCollectionActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
@@ -29,12 +35,24 @@ import javax.inject.Inject
  * Time :  2018/5/21
  * Description :主页面
  */
-class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
+class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
+        SwipeRefreshLayout.OnRefreshListener, onActivityBackCallback {
+
 
     @Inject
     lateinit var mLayoutManager: LinearLayoutManager
     @Inject
     lateinit var mAdapter: HomeAdapter
+    @Inject
+    lateinit var mSearchFragment: SearchFragment
+
+    private var mSearchFragmentIsAdded = false
+
+    private var mSearchFragmentIsShow = false
+
+    private val mFragmentManager by lazy {
+        fragmentManager
+    }
     /**
      * 正在加载更多(一定要与刷新加载区分开)
      */
@@ -48,6 +66,7 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
     override fun endLoadMore() {
         mIsLoadMoreing = false
     }
+
 
     override fun getContext(): Context = super.getContext()!!
 
@@ -89,6 +108,46 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
         mSwipeRefreshLayout.setOnRefreshListener(this)
         //onRefresh()
         initPaginate()
+
+        bindListener()
+    }
+
+    private fun bindListener() {
+        mShadowView.onClick {
+            //去搜索页面
+            showSearchFragment()
+        }
+    }
+
+    /**
+     * 显示收藏页面
+     */
+    private fun showSearchFragment() {
+        mSearchFragmentIsShow = true
+        mFragmentManager?.let {
+            it.beginTransaction().run {
+                setCustomAnimations(R.anim.fragment_slide_up, 0)
+                if (!mSearchFragmentIsAdded) {
+                    add(android.R.id.content, mSearchFragment)
+                    mSearchFragmentIsAdded = true
+                }
+                show(mSearchFragment).commit()
+            }
+
+
+        }
+    }
+
+    /**
+     * 隐藏搜索页面
+     */
+    fun hideSearchFragment() {
+        mSearchFragmentIsShow = false
+        mFragmentManager?.let {
+            val fragmentTransaction = it.beginTransaction()
+            fragmentTransaction.setCustomAnimations(0, R.anim.fragment_slide_down)
+            fragmentTransaction.hide(mSearchFragment).commit()
+        }
     }
 
     private fun initPaginate() {
@@ -133,6 +192,12 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View, SwipeRefr
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onBackPressed(): Boolean {
+        return mSearchFragmentIsShow.apply {
+            if (this) hideSearchFragment()
+        }
     }
 
     companion object {

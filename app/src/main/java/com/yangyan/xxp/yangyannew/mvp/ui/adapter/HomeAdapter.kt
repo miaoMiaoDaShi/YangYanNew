@@ -5,13 +5,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
-import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import org.jetbrains.anko.find
-import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng
@@ -31,7 +28,7 @@ constructor(val mDatas: MutableList<ImagesInfo>) : DefaultAdapter<ImagesInfo>(mD
             override fun setData(data: ImagesInfo, position: Int) {
                 itemView.find<TextView>(R.id.mTvCategory).text = data.category
                 itemView.find<TextView>(R.id.mTvTitle).text = data.title
-                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.HDImageUrl)
+                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.HDImageUrl,R.drawable.bg_loading)
             }
 
         }

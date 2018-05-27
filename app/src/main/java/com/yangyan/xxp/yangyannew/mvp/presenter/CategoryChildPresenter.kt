@@ -40,14 +40,17 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
     lateinit var mAdapter: HomeAdapter
     @Inject
     lateinit var mData: MutableList<ImagesInfo>
+    /**
+     * 页数是从 1开始的
+     */
+    private var mPageIndex = 1
 
-    private var mPageIndex = 0
-    fun getCategoryData(categoryCode:String ,pullToRefresh: Boolean) {
+    fun getCategoryData(categoryCode: String, pullToRefresh: Boolean) {
         Timber.i(categoryCode)
-        if (pullToRefresh) mPageIndex = 0
+        if (pullToRefresh) mPageIndex = 1
 
 
-        mModel.getCategoryChildData(categoryCode,mPageIndex)
+        mModel.getCategoryChildData(categoryCode, mPageIndex)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     if (pullToRefresh)
