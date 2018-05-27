@@ -3,6 +3,7 @@ package com.yangyan.xxp.yangyannew.mvp.ui.dialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.view.ViewGroup
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
@@ -32,6 +33,10 @@ class AboutDialog : BaseDialogFragment() {
         }
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogDimEnabledFalse)
+        return super.onCreateDialog(savedInstanceState)
+    }
     override fun onResume() {
         super.onResume()
         val dialogWindow = dialog.window

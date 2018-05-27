@@ -24,6 +24,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.MinePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AboutDialog
+import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AddCollectDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -49,6 +50,11 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
         AboutDialog.newInstance()
     }
 
+    private val mAddCollectDialog by lazy {
+        AddCollectDialog.newInstance().apply {
+        }
+    }
+
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerMineComponent.builder()
                 .appComponent(appComponent)
@@ -70,6 +76,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
     private fun bindListener() {
 
         mIvToMore.onClick(this)
+        mFabToAddCollect.onClick(this)
     }
 
     private fun initRecyclerView() {
@@ -93,6 +100,9 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
         when (v?.id) {
             R.id.mIvToMore -> {
                 showDialog(mAboutDialo)
+            }
+            R.id.mFabToAddCollect->{
+                showDialog(mAddCollectDialog)
             }
             else -> {
             }

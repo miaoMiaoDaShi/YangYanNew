@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <com.loopeer.shadow.ShadowView
         android:id="@+id/mShadowView"
@@ -16,12 +16,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/mIvToMore"
-                android:layout_alignParentRight="true"
-                android:padding="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="16dp"
                 android:src="@drawable/ic_about" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -47,9 +48,9 @@
     </com.loopeer.shadow.ShadowView>
 
     <RelativeLayout
-        android:layout_marginTop="185dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="185dp">
 
         <TextView
             android:id="@+id/mTvCollectIsEmpty"
@@ -61,12 +62,24 @@
             android:text="你收藏的图片或图集将会展示在这里"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            tools:visibility="invisible"/>
+            tools:visibility="invisible" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRvMineCollect"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/mFabToAddCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@android:color/white"
+            app:useCompatPadding="true" />
     </RelativeLayout>
 </RelativeLayout>
