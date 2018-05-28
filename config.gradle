@@ -98,6 +98,7 @@ ext {
             "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.2.5",
             "lifecyclemodel"           : "me.jessyan:lifecyclemodel:1.0.1",
             "anko"                     : "org.jetbrains.anko:anko-commons:0.10.5",
+            "matisse"                  : "com.zhihu.android:matisse:0.4.3",
             //test
             "junit"                    : "junit:junit:4.12",
             "androidJUnitRunner"       : "android.support.test.runner.AndroidJUnitRunner",

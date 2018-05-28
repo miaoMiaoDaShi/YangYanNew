@@ -1,8 +1,11 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -15,6 +18,7 @@ import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.getRealFilePath
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.di.component.DaggerMineComponent
@@ -22,10 +26,12 @@ import com.yangyan.xxp.yangyannew.di.module.MineModule
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.MinePresenter
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.AddFavoriteActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AboutDialog
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AddCollectDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.jetbrains.anko.startActivity
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -101,8 +107,8 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
             R.id.mIvToMore -> {
                 showDialog(mAboutDialo)
             }
-            R.id.mFabToAddCollect->{
-                showDialog(mAddCollectDialog)
+            R.id.mFabToAddCollect -> {
+                activity?.startActivity<AddFavoriteActivity>()
             }
             else -> {
             }
@@ -123,6 +129,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
     }
 
     override fun setData(data: Any?) {
+
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -145,6 +152,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
 
     override fun showMessage(message: String) {
     }
+
 
     companion object {
         fun newInstance() = MineFragment()

@@ -1,8 +1,11 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.dialog
 
+import android.net.Uri
 import android.view.ViewGroup
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.loadImage
+import kotlinx.android.synthetic.main.dialog_add_collect.*
 
 /**
  * Author : zhongwenpeng
@@ -20,6 +23,11 @@ class AddCollectDialog :BaseDialogFragment(){
         lp.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialogWindow.attributes = lp
     }
+
+    fun setData(imageUri:Uri,title:String){
+      //  mIvCover.loadImage(imageUri)
+    }
+
 
     companion object {
         fun newInstance() = AddCollectDialog()

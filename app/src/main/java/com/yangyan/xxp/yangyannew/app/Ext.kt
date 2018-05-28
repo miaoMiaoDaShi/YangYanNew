@@ -1,7 +1,10 @@
 package com.yangyan.xxp.yangyannew.app
 
+import android.content.ContentResolver
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.provider.MediaStore
 import android.support.constraint.Placeholder
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -79,5 +82,30 @@ fun ImageView.loadImage(url:String,placeholder:Int){
                     .placeholder(placeholder)
                     .imageView(this)
                     .build())
+}
+
+/**
+ * 通过uri  获取文件的路径
+ */
+fun Uri.getRealFilePath(context: Context): String? {
+    val scheme = this.getScheme()
+    var data: String? = null
+    if (scheme == null)
+        data = this.getPath()
+    else if (ContentResolver.SCHEME_FILE == scheme) {
+        data = this.getPath()
+    } else if (ContentResolver.SCHEME_CONTENT == scheme) {
+        val cursor = context.contentResolver.query(this, arrayOf(MediaStore.Images.ImageColumns.DATA), null, null, null)
+        if (null != cursor) {
+            if (cursor.moveToFirst()) {
+                val index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+                if (index > -1) {
+                    data = cursor.getString(index)
+                }
+            }
+            cursor.close()
+        }
+    }
+    return data
 }
 

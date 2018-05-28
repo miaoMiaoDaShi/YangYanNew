@@ -52,8 +52,8 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
     private var mUserInfoString by Preference("userInfo", "")
 
 
-    fun getUserInfo(){
-        val userInfo = mGson.fromJson(mUserInfoString,UserInfo::class.java)
+    fun getUserInfo() {
+        val userInfo = mGson.fromJson(mUserInfoString, UserInfo::class.java)
         mModel.loadMineData(userInfo)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
@@ -69,6 +69,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
                     }
                 })
     }
+
     /**
      * 获取收藏信息
      */

@@ -8,6 +8,7 @@ import cn.bmob.v3.Bmob
 import com.jaeger.library.StatusBarUtil
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.*
+import com.zhihu.matisse.ui.MatisseActivity
 import org.jetbrains.anko.find
 import timber.log.Timber
 
@@ -48,16 +49,19 @@ class ActivityLifecycleImpl : Application.ActivityLifecycleCallbacks {
                     StatusBarUtil.setTranslucent(it, 55)
                 }
                 is SplashActivity -> StatusBarUtil.setTranslucent(it)
-                is GalleryActivity,is ImageCollectionActivity -> {
+                is GalleryActivity, is ImageCollectionActivity -> {
                     StatusBarUtil.setTranslucent(it, 55)
                     StatusBarUtil.setLightMode(it)
-            }
-            else -> {
-            StatusBarUtil.setLightMode(it)
-        }
-        }
-    }
+                }
+                is MatisseActivity -> {
 
-}
+                }
+                else -> {
+                    StatusBarUtil.setLightMode(it)
+                }
+            }
+        }
+
+    }
 
 }
