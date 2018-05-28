@@ -3,6 +3,7 @@ package com.yangyan.xxp.yangyannew.mvp.contract
 import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import io.reactivex.Observable
 
@@ -16,6 +17,7 @@ interface MineContract {
     interface View : IView{
         fun getContext(): Context
         fun loadUserInfoSuccess(userInfo: UserInfo)
+        fun favoriteDataStatus(b:Boolean)
     }
 
     interface Model : IModel {
@@ -23,15 +25,6 @@ interface MineContract {
          * 加载个人信息
          */
         fun loadMineData(userInfo:UserInfo): Observable<UserInfo>
-
-        /**
-         * 加载收藏标签(简化   主要从数据库里获取)
-         */
-        fun loadCollectDataTag()
-
-        /**
-         * 加载收藏信息(依据分类)  简化  主要从数据库里获取
-         */
-        fun loadCollectDataDetailByTag(categoryIndex: Int)
+        fun getFavorite():Observable<List<FavoriteInfo>>
     }
 }

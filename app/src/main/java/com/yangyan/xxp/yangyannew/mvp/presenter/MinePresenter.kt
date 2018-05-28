@@ -17,6 +17,7 @@ import javax.inject.Inject
 import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,7 +46,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
     @Inject
     lateinit var mAdapter: MineCollectAdapter
     @Inject
-    lateinit var mDatas: MutableList<CollectInfo>
+    lateinit var mDatas: MutableList<FavoriteInfo>
     @Inject
     lateinit var mGson: Gson
 
@@ -73,11 +74,23 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
     /**
      * 获取收藏信息
      */
-    fun getCollectList() {
-        for (i in 1..5) {
-            mDatas.add(CollectInfo("", "", "", ""))
-        }
-        mAdapter.notifyDataSetChanged()
+    fun getFavoriteList() {
+        mModel.getFavorite()
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
+                .subscribe(object : ErrorHandleSubscriber<List<FavoriteInfo>>(mErrorHandler) {
+                    override fun onNext(t: List<FavoriteInfo>) {
+                        mRootView.favoriteDataStatus(t.isEmpty())
+                        mDatas.clear()
+                        mDatas.addAll(t)
+                        mAdapter.notifyDataSetChanged()
+                    }
+                })
     }
 
     override fun onDestroy() {

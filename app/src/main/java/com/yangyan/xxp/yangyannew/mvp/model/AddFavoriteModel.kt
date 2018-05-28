@@ -49,6 +49,8 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun addFavorite(favoriteInfo: FavoriteInfo): Observable<String> {
         return Observable.create(object : ObservableOnSubscribe<String> {
             override fun subscribe(emitter: ObservableEmitter<String>) {
+                val userInfo = BmobUser.getCurrentUser(UserInfo::class.java)
+                favoriteInfo.user = userInfo
                 favoriteInfo.save(object : SaveListener<String>() {
                     override fun done(p0: String?, p1: BmobException?) {
                         p0?.let {

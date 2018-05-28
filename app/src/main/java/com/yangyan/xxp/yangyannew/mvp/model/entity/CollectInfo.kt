@@ -7,8 +7,6 @@ package com.yangyan.xxp.yangyannew.mvp.model.entity
  * Description :
  */
 data class CollectInfo(
-        val category: String,
-        val imageUrl: String,
-        val time: String,
-        val count: String
+        val id: String,
+        val favorite: FavoriteInfo
 )

@@ -1,11 +1,8 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.fragment
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -18,9 +15,9 @@ import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
-import com.yangyan.xxp.yangyannew.app.getRealFilePath
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
+import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerMineComponent
 import com.yangyan.xxp.yangyannew.di.module.MineModule
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
@@ -42,6 +39,9 @@ import javax.inject.Inject
  * Description :
  */
 class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnClickListener {
+    override fun favoriteDataStatus(b: Boolean) {
+        mTvCollectIsEmpty.visible(b)
+    }
 
 
     @Inject
@@ -72,11 +72,16 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
     override fun initData(savedInstanceState: Bundle?) {
         bindListener()
         initRecyclerView()
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         mPresenter?.apply {
-            getCollectList()
+            getFavoriteList()
             getUserInfo()
         }
-
     }
 
     private fun bindListener() {

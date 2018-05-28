@@ -9,6 +9,7 @@ import dagger.Provides
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.MineModel
 import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
 
 /**
@@ -38,10 +39,10 @@ class MineModule
 
     @FragmentScope
     @Provides
-    internal fun provideDatas() = mutableListOf<CollectInfo>()
+    internal fun provideDatas() = mutableListOf<FavoriteInfo>()
 
     @FragmentScope
     @Provides
-    internal fun provideAdapter(datas: MutableList<CollectInfo>) = MineCollectAdapter(datas)
+    internal fun provideAdapter(datas: MutableList<FavoriteInfo>) = MineCollectAdapter(datas)
 }
 

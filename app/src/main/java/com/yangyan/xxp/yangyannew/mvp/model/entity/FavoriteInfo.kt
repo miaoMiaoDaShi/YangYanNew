@@ -9,6 +9,7 @@ import cn.bmob.v3.BmobObject
  * Description : 收藏夹信息
  */
 class FavoriteInfo : BmobObject() {
+    var user : UserInfo? = null
     var coverUrl: String = ""
     var title: String = ""
 }

@@ -8,8 +8,10 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import org.jetbrains.anko.find
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 /**
@@ -19,26 +21,27 @@ import javax.inject.Inject
  * Description :我的页面 收藏
  */
 class MineCollectAdapter
-constructor(val mDatas: MutableList<CollectInfo>) : DefaultAdapter<CollectInfo>(mDatas) {
+constructor(val mDatas: MutableList<FavoriteInfo>) : DefaultAdapter<FavoriteInfo>(mDatas) {
     override fun getLayoutId(viewType: Int): Int = R.layout.recycler_collect
 
-    override fun getHolder(v: View, viewType: Int): BaseHolder<CollectInfo> =
+    override fun getHolder(v: View, viewType: Int): BaseHolder<FavoriteInfo> =
             CollectHolder(v)
 
     companion object {
-        class CollectHolder(itemView: View) : BaseHolder<CollectInfo>(itemView) {
-            override fun setData(data: CollectInfo, position: Int) {
-                itemView.find<TextView>(R.id.mTvCollectTitle).text = "测试"
-                itemView.find<TextView>(R.id.mTvCollectDes).text = "2018-5-23  26个记录"
-//                ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
-//                        .imageLoader().loadImage(itemView.context,
-//                                ImageConfigImpl
-//                                        .builder()
-//                                        .url(data.HDImageUrl)
-//                                        .imageView(itemView.find(R.id.mIvImage))
-//                                        .isCenterCrop(false)
-//                                        .build()
-//                        )
+        class CollectHolder(itemView: View) : BaseHolder<FavoriteInfo>(itemView) {
+            override fun setData(data: FavoriteInfo, position: Int) {
+                itemView.find<TextView>(R.id.mTvCollectTitle).text = data.title
+                itemView.find<TextView>(R.id.mTvCollectDes).text = "创建时间: "+data.createdAt
+                ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
+                        .imageLoader().loadImage(itemView.context,
+                                ImageConfigImpl
+                                        .builder()
+                                        .url(data.coverUrl)
+                                        .imageView(itemView.find(R.id.mIvCollectCover))
+                                        .placeholder(R.drawable.bg_loading)
+                                        .isCenterCrop(true)
+                                        .build()
+                        )
             }
 
         }
