@@ -1,5 +1,9 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.adapter
 
+import android.graphics.Color
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,12 +24,17 @@ import org.jetbrains.anko.find
  */
 class SearchAdapter
 constructor(val mDatas: MutableList<ImagesInfo>)
-    : BaseQuickAdapter<ImagesInfo,BaseViewHolder>(R.layout.recycler_home_image,mDatas) {
+    : BaseQuickAdapter<ImagesInfo, BaseViewHolder>(R.layout.recycler_home_image, mDatas) {
     override fun convert(helper: BaseViewHolder, item: ImagesInfo) {
-helper.setText(R.id.mTvCategory,item.category)
-        .setText(R.id.mTvTitle,item.title)
-        .getView<ImageView>(R.id.mIvImage)
-        .loadImage(item.HDImageUrl,R.drawable.bg_loading)
+        val spannableString = SpannableString(item.title)
+        val colorSpan = ForegroundColorSpan(Color.parseColor("#44f3e7"))
+        val indexStart = item.title.indexOf(mKeyWords)
+        val endStart = indexStart + mKeyWords.length
+        spannableString.setSpan(colorSpan, indexStart, endStart, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        helper.setText(R.id.mTvCategory, item.category)
+                .setText(R.id.mTvTitle, spannableString)
+                .getView<ImageView>(R.id.mIvImage)
+                .loadImage(item.HDImageUrl, R.drawable.bg_loading)
 
     }
 
@@ -38,7 +47,7 @@ helper.setText(R.id.mTvCategory,item.category)
     /**
      * 传入关键字
      */
-    fun setKeyWords(keyWords:String){
+    fun setKeyWords(keyWords: String) {
         this.mKeyWords = keyWords
     }
 //    companion object {

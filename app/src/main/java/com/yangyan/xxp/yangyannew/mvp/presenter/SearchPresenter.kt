@@ -58,7 +58,9 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
         Observable.just(keyWords)
                 .filter { keyWords.isNotEmpty() }
                 .switchMap {
-                    mModel.searchAtlasByKeyword(mPageIndex, it)
+                    mModel.searchAtlasByKeyword(mPageIndex, it).apply {
+                        mAdapter.setKeyWords(it)
+                    }
                 }
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {

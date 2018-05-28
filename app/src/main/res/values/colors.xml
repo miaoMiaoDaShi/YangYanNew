@@ -5,6 +5,7 @@
     <color name="colorAccent">#000000</color>
     <color name="colorTabInActive">#706d6e</color>
     <color name="colorTabActive">#FF4081</color>
+    <color name="colorBlue">#44f3e7</color>
     <color name="colorGray">#f6f4f4</color>
     <color name="text_color_primary">#ddffffff</color>
 
