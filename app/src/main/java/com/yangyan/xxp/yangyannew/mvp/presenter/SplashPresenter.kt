@@ -89,7 +89,7 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
     private fun toLoadSplahInfo() {
         val splashImageInfo = mGson.fromJson(mSplashImageInfo, SplashImageInfo::class.java)
         //系统当前时间
-        val time = SimpleDateFormat("YYYY-MM-dd").format(Date(System.currentTimeMillis()))
+        val time = SimpleDateFormat("yyyy-MM-dd").format(Date(System.currentTimeMillis()))
         //是否需要更新
         var shouldUpdata = true
         splashImageInfo?.let {
