@@ -95,27 +95,30 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
         splashImageInfo?.let {
             shouldUpdata = it.results[0].publishedAt.split("T")[0] != time
         }
-        if (shouldUpdata) {
-            mModel.loadSplashImage()
-                    .subscribeOn(Schedulers.io())
-                    .doOnSubscribe {
-                        mRootView.showLoading()
-                    }
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doFinally { mRootView.hideLoading() }
-                    .subscribe(object : ErrorHandleSubscriber<SplashImageInfo>(mErrorHandler) {
-                        override fun onNext(t: SplashImageInfo) {
-                            mSplashImageInfo = mGson.toJson(t)
-                            //下载图片
-                            val intent = Intent(mApplication, DownloadService::class.java)
-                            intent.putExtra("downloadUrl", t.results[0].url)
-                            intent.putExtra("name", Constant.SPLASH_LOCAL_NAME)
-                            mApplication.startService(intent)
 
-                        }
-                    })
-        }
+        Observable.just(shouldUpdata)
+                .filter { shouldUpdata }
+                .flatMap {
+                    mModel.loadSplashImage()
+                }
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
+                .subscribe(object : ErrorHandleSubscriber<SplashImageInfo>(mErrorHandler) {
+                    override fun onNext(t: SplashImageInfo) {
+                        mSplashImageInfo = mGson.toJson(t)
+                        //下载图片
+                        val intent = Intent(mApplication, DownloadService::class.java)
+                        intent.putExtra("downloadUrl", t.results[0].url)
+                        intent.putExtra("name", Constant.SPLASH_LOCAL_NAME)
+                        mApplication.startService(intent)
+
+                    }
+                })
     }
 
     /**
