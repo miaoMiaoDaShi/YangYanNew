@@ -115,7 +115,8 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
                 ImageConfigImpl.builder()
                         .url(userInfo.userPortrait)
                         .imageView(mIvPortrait)
-                        .errorPic(R.drawable.bg_default_splash)
+                        .placeholder(R.drawable.ic_user_default_portrait)
+                        .errorPic(R.drawable.ic_user_default_portrait)
                         .build())
 
         mTvUserName.text = userInfo.nickname

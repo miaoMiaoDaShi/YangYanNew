@@ -27,6 +27,7 @@
         android:textSize="25sp"
         android:text="@string/app_name"
         android:textStyle="bold"
+        android:gravity="center"
         android:textColor="@android:color/black"/>
     <TextView
         android:id="@+id/mTvVerName"
