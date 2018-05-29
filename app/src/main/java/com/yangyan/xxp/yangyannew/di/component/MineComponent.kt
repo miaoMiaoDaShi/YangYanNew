@@ -7,6 +7,7 @@ import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.di.module.MainModule
 
 import com.jess.arms.di.scope.FragmentScope
+import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.di.module.MineModule
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
@@ -19,7 +20,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
  * Description :
  */
 @FragmentScope
-@Component(modules = arrayOf(MineModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = arrayOf(MineModule::class), dependencies = arrayOf(AppComponent::class,FavoriteComponent::class))
 interface MineComponent {
     fun inject(fragment: MineFragment)
 }

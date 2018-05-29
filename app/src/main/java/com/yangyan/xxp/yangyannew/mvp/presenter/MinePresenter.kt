@@ -4,7 +4,6 @@ import android.app.Application
 import com.google.gson.Gson
 
 import com.jess.arms.integration.AppManager
-import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.http.imageloader.ImageLoader
@@ -14,12 +13,10 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler
 
 import javax.inject.Inject
 
-import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
+import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
@@ -34,21 +31,7 @@ import timber.log.Timber
 @FragmentScope
 class MinePresenter @Inject
 constructor(model: MineContract.Model, rootView: MineContract.View)
-    : BasePresenter<MineContract.Model, MineContract.View>(model, rootView) {
-    @Inject
-    lateinit var mErrorHandler: RxErrorHandler
-    @Inject
-    lateinit var mApplication: Application
-    @Inject
-    lateinit var mImageLoader: ImageLoader
-    @Inject
-    lateinit var mAppManager: AppManager
-    @Inject
-    lateinit var mAdapter: MineCollectAdapter
-    @Inject
-    lateinit var mDatas: MutableList<FavoriteInfo>
-    @Inject
-    lateinit var mGson: Gson
+    : FavoritePresenter<MineContract.Model, MineContract.View>(model, rootView) {
 
     private var mUserInfoString by Preference("userInfo", "")
 
@@ -71,27 +54,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
                 })
     }
 
-    /**
-     * 获取收藏信息
-     */
-    fun getFavoriteList() {
-        mModel.getFavorite()
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe {
-                    mRootView.showLoading()
-                }
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally { mRootView.hideLoading() }
-                .subscribe(object : ErrorHandleSubscriber<List<FavoriteInfo>>(mErrorHandler) {
-                    override fun onNext(t: List<FavoriteInfo>) {
-                        mRootView.favoriteDataStatus(t.isEmpty())
-                        mDatas.clear()
-                        mDatas.addAll(t)
-                        mAdapter.notifyDataSetChanged()
-                    }
-                })
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()

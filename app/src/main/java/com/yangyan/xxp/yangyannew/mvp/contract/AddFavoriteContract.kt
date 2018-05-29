@@ -12,14 +12,14 @@ import io.reactivex.Observable
  * Description : 添加收藏夹
  */
 interface AddFavoriteContract {
-    interface View : IView {
-        fun onUploadImageSuccess(url:String)
-        fun onUploadImageFailed()
+    interface View : FavoriteContract.View{
+        override fun favoriteDataStatus(b: Boolean) {
+            //空实现
+        }
+
     }
 
-    interface Model : IModel {
-        fun uploadCover(imagePath:String):Observable<String>
+    interface Model : FavoriteContract.Model {
 
-        fun addFavorite(favoriteInfo: FavoriteInfo): Observable<String>
     }
 }

@@ -14,17 +14,24 @@ import io.reactivex.Observable
  * Description :个人页面
  */
 interface MineContract {
-    interface View : IView{
+    interface View : FavoriteContract.View{
         fun getContext(): Context
         fun loadUserInfoSuccess(userInfo: UserInfo)
-        fun favoriteDataStatus(b:Boolean)
+        override fun onUploadCoverFailed() {
+            //空实现
+        }
+
+        override fun onUploadCoverSuccess(url: String) {
+            //空实现
+        }
+
     }
 
-    interface Model : IModel {
+    interface Model : FavoriteContract.Model {
         /**
          * 加载个人信息
          */
         fun loadMineData(userInfo:UserInfo): Observable<UserInfo>
-        fun getFavorite():Observable<List<FavoriteInfo>>
+
     }
 }

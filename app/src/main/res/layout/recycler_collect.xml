@@ -19,35 +19,43 @@
 
         <TextView
             android:id="@+id/mTvCollectTitle"
-            android:paddingTop="16dp"
-            android:paddingStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
             android:textColor="@android:color/white"
             android:textSize="15sp"
-            tools:text="我的收藏集"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlSymmetry"
+            tools:text="我的收藏集" />
 
         <TextView
             android:id="@+id/mTvCollectDes"
-            android:paddingStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/mTvCollectTitle"
+            android:paddingStart="16dp"
             android:textColor="@android:color/white"
             android:textSize="13sp"
             tools:text="2018-5-22 共: 18" />
 
+        <ImageView
+            android:id="@+id/mIvCheckStatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_checked"
+            android:visibility="invisible"
+            android:background="#50000000"/>
+
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:padding="16dp"
             android:src="@drawable/ic_add"
-            app:useCompatPadding="true"
             android:visibility="gone"
+            app:backgroundTint="@android:color/white"
             app:fabCustomSize="40dp"
-            app:backgroundTint="@android:color/white" />
+            app:useCompatPadding="true" />
     </RelativeLayout>
 </RelativeLayout>

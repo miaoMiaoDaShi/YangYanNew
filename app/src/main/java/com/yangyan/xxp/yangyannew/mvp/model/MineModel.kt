@@ -26,7 +26,7 @@ import javax.inject.Inject
 class MineModel
 @Inject
 constructor(repositoryManager: IRepositoryManager)
-    : BaseModel(repositoryManager), MineContract.Model {
+    : FavoriteModel(repositoryManager), MineContract.Model {
     override fun loadMineData(userInfo: UserInfo):Observable<UserInfo> {
         return Observable.create(object : ObservableOnSubscribe<UserInfo> {
             override fun subscribe(emitter: ObservableEmitter<UserInfo>) {
@@ -48,28 +48,7 @@ constructor(repositoryManager: IRepositoryManager)
         })
 
     }
-    override fun getFavorite():Observable<List<FavoriteInfo>> {
-        return Observable.create(object : ObservableOnSubscribe<List<FavoriteInfo>> {
-            override fun subscribe(emitter: ObservableEmitter<List<FavoriteInfo>>) {
-                val bmobQuery = BmobQuery<FavoriteInfo>()
-                val userInfo = BmobUser.getCurrentUser(UserInfo::class.java)
-                bmobQuery.addWhereEqualTo("user",userInfo)
-                bmobQuery.findObjects(object :FindListener<FavoriteInfo>(){
-                    override fun done(p0: MutableList<FavoriteInfo>?, p1: BmobException?) {
-                        p0?.let {
-                            emitter.onNext(it)
-                            emitter.onComplete()
-                            return
-                        }
-                        p1?.let {
-                            emitter.onError(it)
-                        }
-                    }
-                })
-            }
-        })
 
-    }
 
 
 

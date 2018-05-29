@@ -18,13 +18,14 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.app.visible
+import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteComponent
 import com.yangyan.xxp.yangyannew.di.component.DaggerMineComponent
 import com.yangyan.xxp.yangyannew.di.module.MineModule
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.MinePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.AddFavoriteActivity
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
+import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AboutDialog
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AddCollectDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -47,7 +48,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
     @Inject
     lateinit var mLinearLayoutManager: LinearLayoutManager
     @Inject
-    lateinit var mAdapter: MineCollectAdapter
+    lateinit var mAdapter: MineFavoriteAdapter
     @Inject
     lateinit var mImageLoader: ImageLoader
 
@@ -65,6 +66,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
         DaggerMineComponent.builder()
                 .appComponent(appComponent)
                 .mineModule(MineModule(this))
+                .favoriteComponent(DaggerFavoriteComponent.create())
                 .build()
                 .inject(this)
     }

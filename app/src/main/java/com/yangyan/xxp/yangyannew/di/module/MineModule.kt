@@ -8,9 +8,8 @@ import dagger.Provides
 
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.MineModel
-import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
+import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 
 /**
  * Author : zhongwenpeng
@@ -37,12 +36,6 @@ class MineModule
     @Provides
     internal fun provideLayoutManager() = LinearLayoutManager(view.getContext())
 
-    @FragmentScope
-    @Provides
-    internal fun provideDatas() = mutableListOf<FavoriteInfo>()
 
-    @FragmentScope
-    @Provides
-    internal fun provideAdapter(datas: MutableList<FavoriteInfo>) = MineCollectAdapter(datas)
 }
 

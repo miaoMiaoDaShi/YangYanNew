@@ -26,46 +26,8 @@ import javax.inject.Inject
  */
 @ActivityScope
 class AddFavoriteModel @Inject
-constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager)
+constructor(repositoryManager: IRepositoryManager) : FavoriteModel(repositoryManager)
         , AddFavoriteContract.Model {
-    override fun uploadCover(imagePath: String): Observable<String> {
-        return Observable.create(object : ObservableOnSubscribe<String> {
-            override fun subscribe(emitter: ObservableEmitter<String>) {
-                val bmobFile = BmobFile(File(imagePath))
-                bmobFile.uploadblock(object : UploadFileListener() {
-                    override fun done(p0: BmobException?) {
-                        p0?.let {
-                            emitter.onError(it)
-                            return
-                        }
-                        emitter.onNext(bmobFile.fileUrl)
-                        emitter.onComplete()
-                    }
-                })
-            }
-        })
-    }
 
-    override fun addFavorite(favoriteInfo: FavoriteInfo): Observable<String> {
-        return Observable.create(object : ObservableOnSubscribe<String> {
-            override fun subscribe(emitter: ObservableEmitter<String>) {
-                val userInfo = BmobUser.getCurrentUser(UserInfo::class.java)
-                favoriteInfo.user = userInfo
-                favoriteInfo.save(object : SaveListener<String>() {
-                    override fun done(p0: String?, p1: BmobException?) {
-                        p0?.let {
-                            emitter.onNext(it)
-                            emitter.onComplete()
-                            return
-                        }
-                        p1?.let {
-                            emitter.onError(it)
-                        }
 
-                    }
-
-                })
-            }
-        })
-    }
 }

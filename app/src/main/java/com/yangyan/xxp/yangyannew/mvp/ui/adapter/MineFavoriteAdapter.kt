@@ -1,18 +1,16 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
-import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
+import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import org.jetbrains.anko.find
-import java.text.SimpleDateFormat
-import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng
@@ -20,7 +18,7 @@ import javax.inject.Inject
  * Time :  2018/5/22
  * Description :我的页面 收藏
  */
-class MineCollectAdapter
+class MineFavoriteAdapter
 constructor(val mDatas: MutableList<FavoriteInfo>) : DefaultAdapter<FavoriteInfo>(mDatas) {
     override fun getLayoutId(viewType: Int): Int = R.layout.recycler_collect
 
@@ -31,7 +29,8 @@ constructor(val mDatas: MutableList<FavoriteInfo>) : DefaultAdapter<FavoriteInfo
         class CollectHolder(itemView: View) : BaseHolder<FavoriteInfo>(itemView) {
             override fun setData(data: FavoriteInfo, position: Int) {
                 itemView.find<TextView>(R.id.mTvCollectTitle).text = data.title
-                itemView.find<TextView>(R.id.mTvCollectDes).text = "创建时间: "+data.createdAt
+                itemView.find<TextView>(R.id.mTvCollectDes).text = "创建时间: " + data.createdAt
+                itemView.find<ImageView>(R.id.mIvCheckStatus).visible(data.isChecked)
                 ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
                         .imageLoader().loadImage(itemView.context,
                                 ImageConfigImpl

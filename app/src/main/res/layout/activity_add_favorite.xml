@@ -40,7 +40,7 @@
             android:layout_marginRight="25dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_add_cover" />
+            android:src="@drawable/ic_upload_img" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -11,12 +11,15 @@ import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.loadImage
+import com.yangyan.xxp.yangyannew.app.onClick
+import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
+import com.yangyan.xxp.yangyannew.mvp.ui.fragment.FavoriteBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_image_collection.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
@@ -35,6 +38,10 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     lateinit var mAdapter: ImageCollectionAdapter
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
+
+    private val mFavoriteBottomSheetFragment by lazy {
+        FavoriteBottomSheetFragment.newInstance()
+    }
 
     override fun getContext(): Context = applicationContext
 
@@ -55,6 +62,10 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
         initToolbar()
         mIvCollectCover.loadImage(intent.getStringExtra("cover"))
         mPresenter?.getIamgeCollection(intent.getStringExtra("id"))
+
+        mFabLikeOrDis.onClick {
+            showDialog(mFavoriteBottomSheetFragment)
+        }
     }
 
     private fun initToolbar() {

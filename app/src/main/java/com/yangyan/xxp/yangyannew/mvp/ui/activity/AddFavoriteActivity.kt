@@ -13,6 +13,7 @@ import com.yangyan.xxp.yangyannew.app.GlideImageEngine
 import com.yangyan.xxp.yangyannew.app.getRealFilePath
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerAddFavoriteComponent
+import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteComponent
 import com.yangyan.xxp.yangyannew.di.module.AddFavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.contract.AddFavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.presenter.AddFavoritePresenter
@@ -31,13 +32,13 @@ import timber.log.Timber
  */
 class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
         AddFavoriteContract.View {
-    override fun onUploadImageSuccess(url:String) {
+    override fun onUploadCoverSuccess(url: String) {
         mImageFilePath = url
         Toasty.success(applicationContext, "上传封面文件成功").show()
-
     }
 
-    override fun onUploadImageFailed() {
+    override fun onUploadCoverFailed() {
+        mIvCover.setImageResource(R.drawable.ic_upload_img)
     }
 
     private var mImageFilePath = ""
@@ -73,6 +74,7 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
         DaggerAddFavoriteComponent.builder()
                 .appComponent(appComponent)
                 .addFavoriteModule(AddFavoriteModule(this))
+                .favoriteComponent(DaggerFavoriteComponent.create())
                 .build()
                 .inject(this)
     }

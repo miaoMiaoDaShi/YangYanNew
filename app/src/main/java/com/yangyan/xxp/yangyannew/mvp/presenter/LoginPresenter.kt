@@ -5,7 +5,6 @@ import com.google.gson.Gson
 
 import com.jess.arms.integration.AppManager
 import com.jess.arms.di.scope.ActivityScope
-import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.http.imageloader.ImageLoader
 import com.yangyan.xxp.yangyannew.app.Preference
@@ -15,11 +14,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler
 
 import javax.inject.Inject
 
-import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
-import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.CollectInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineCollectAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber

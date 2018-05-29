@@ -12,4 +12,5 @@ class FavoriteInfo : BmobObject() {
     var user : UserInfo? = null
     var coverUrl: String = ""
     var title: String = ""
+    var isChecked:Boolean = false//选中状态???数据库中无意义
 }

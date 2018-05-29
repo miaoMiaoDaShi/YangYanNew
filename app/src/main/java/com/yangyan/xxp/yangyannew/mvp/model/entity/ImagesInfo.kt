@@ -14,4 +14,7 @@ data class ImagesInfo(
         val category: String,//分类
         val width: Int, //宽度
         var height: Int//高度
-)
+) {
+    var favorite: FavoriteInfo? = null//关联收藏夹
+    var user: UserInfo? = null//关联用户
+}
