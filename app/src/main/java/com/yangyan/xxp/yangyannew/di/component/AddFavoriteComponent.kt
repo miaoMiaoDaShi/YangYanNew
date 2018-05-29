@@ -2,7 +2,7 @@ package com.yangyan.xxp.yangyannew.di.component
 
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.di.scope.ActivityScope
-import com.yangyan.xxp.yangyannew.di.FavoriteScope
+import com.yangyan.xxp.yangyannew.di.scope.FavoriteScope
 import com.yangyan.xxp.yangyannew.di.module.AddFavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.AddFavoriteActivity

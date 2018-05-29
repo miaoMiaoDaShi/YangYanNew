@@ -17,6 +17,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
     }
     buildTypes {
         debug {
@@ -56,11 +61,14 @@ dependencies {
     implementation (rootProject.ext.dependencies["photoview"]){
         exclude group: 'com.android.support'
     }
+
+    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     implementation rootProject.ext.dependencies["paginate"]
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]
     implementation('me.jessyan:arms:2.4.1') {
-        //exclude module: 'okhttp3'
+       // exclude module: 'photoView'
          exclude group: 'com.google.code.gson'
         //exclude group: 'com.squareup.retrofit2'
         exclude group: 'com.squareup.okio'

@@ -15,6 +15,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 /**
  * Author : zhongwenpeng
@@ -47,9 +48,11 @@ constructor(private val view: ImageCollectionContract.View) {
 
     @ActivityScope
     @Provides
+    @Named("ImageCollectionImagesDatas")
     internal fun provideDatas() = mutableListOf<ImagesInfo>()
 
     @ActivityScope
     @Provides
-    internal fun provideAdapter(datas: MutableList<ImagesInfo>) = ImageCollectionAdapter(datas)
+    @Named("ImageCollectionImagesAdapter")
+    internal fun provideAdapter( @Named("ImageCollectionImagesDatas") datas: MutableList<ImagesInfo>) = ImageCollectionAdapter(datas)
 }

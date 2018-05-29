@@ -3,6 +3,8 @@ package com.yangyan.xxp.yangyannew.di.component
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.di.scope.ActivityScope
 import com.yangyan.xxp.yangyannew.di.module.FavoriteImageListModule
+import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
+import com.yangyan.xxp.yangyannew.di.scope.FavoriteScope
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteImageListContract
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.FavoriteImageListActivity
 import dagger.Component
@@ -14,7 +16,8 @@ import dagger.Component
  * Description : 收藏夹 点进去的页面
  */
 @ActivityScope
-@Component(modules = arrayOf(FavoriteImageListModule::class),dependencies = arrayOf(AppComponent::class))
+@FavoriteScope
+@Component(modules = arrayOf(FavoriteImageListModule::class,FavoriteModule::class),dependencies = arrayOf(AppComponent::class))
 interface FavoriteImageListComponent {
     fun inject(activity:FavoriteImageListActivity)
 }

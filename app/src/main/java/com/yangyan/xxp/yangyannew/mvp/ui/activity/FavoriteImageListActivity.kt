@@ -5,8 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
+import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteImageListComponent
+import com.yangyan.xxp.yangyannew.di.module.FavoriteImageListModule
+import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteImageListContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteImageListPresenter
+import kotlinx.android.synthetic.main.activity_favorite_image_list.*
 
 /**
  * Author : zhongwenpeng
@@ -14,53 +20,70 @@ import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteImageListPresenter
  * Time :  2018/5/29
  * Description : 图集的封面列表  和分类那个差不多 只不过 这个是个activity
  */
-class FavoriteImageListActivity:BaseActivity<FavoriteImageListPresenter>()
-,FavoriteImageListContract.View{
-    override fun setupActivityComponent(appComponent: AppComponent) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
+        , FavoriteImageListContract.View {
+
+//    /**
+//     * objectId
+//     */
+//    private val mObjectId by lazy {
+//        intent.getStringExtra("objectId")
+//    }
+//
+//    /**
+//     * 标题
+//     */
+//    private val mTitle by lazy {
+//        intent.getStringExtra("title")
+//    }
+//
+//    /**
+//     * des  时间
+//     */
+//    private val mSubTitle by lazy {
+//        intent.getStringExtra("subtitle")
+//    }
+
+    private val mFavorite by lazy {
+        intent.getSerializableExtra("data") as FavoriteInfo
     }
 
-    override fun initView(savedInstanceState: Bundle?): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setupActivityComponent(appComponent: AppComponent) {
+        DaggerFavoriteImageListComponent.builder()
+                .appComponent(appComponent)
+                .favoriteImageListModule(FavoriteImageListModule(this))
+                .favoriteModule(FavoriteModule())
+                .build()
+                .inject(this)
     }
+
+
+    override fun initView(savedInstanceState: Bundle?): Int = R.layout.activity_favorite_image_list
 
     override fun initData(savedInstanceState: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mToolbar.title = mFavorite?.title
+        mToolbar.subtitle = mFavorite?.createdAt
+        mPresenter?.getImageCollectByFavorite(mFavorite)
     }
 
-    override fun getContext(): Context {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getContext(): Context = applicationContext
 
     override fun favoriteDataStatus(b: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onUploadCoverSuccess(url: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onUploadCoverFailed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun launchActivity(intent: Intent) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun hideLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun killMyself() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -1,10 +1,14 @@
 package com.yangyan.xxp.yangyannew.di.module
 
-import com.yangyan.xxp.yangyannew.di.FavoriteScope
+import com.jess.arms.di.scope.FragmentScope
+import com.yangyan.xxp.yangyannew.di.scope.FavoriteScope
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 /**
  * Author : zhongwenpeng
@@ -16,9 +20,20 @@ import dagger.Provides
 class FavoriteModule {
     @FavoriteScope
     @Provides
-    fun provideDatas() = mutableListOf<FavoriteInfo>()
+    fun provideFavoriteDatas() = mutableListOf<FavoriteInfo>()
 
     @FavoriteScope
     @Provides
-    fun provideAdapter(datas: MutableList<FavoriteInfo>) = MineFavoriteAdapter(datas)
+    fun provideFavoriteAdapter(datas: MutableList<FavoriteInfo>) = MineFavoriteAdapter(datas)
+
+    @FavoriteScope
+    @Provides
+    @Named("FavoriteImagesDatas")
+    internal fun provideImagesDatas() = mutableListOf<ImagesInfo>()
+
+    @FavoriteScope
+    @Provides
+    @Named("FavoriteImagesAdapter")
+    internal fun provideImagesAdapter(@Named("FavoriteImagesDatas") datas: MutableList<ImagesInfo>) = HomeAdapter(datas)
+
 }

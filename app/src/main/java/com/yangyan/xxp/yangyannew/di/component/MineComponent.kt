@@ -4,14 +4,10 @@ import dagger.Component
 
 import com.jess.arms.di.component.AppComponent
 
-import com.yangyan.xxp.yangyannew.di.module.MainModule
-
 import com.jess.arms.di.scope.FragmentScope
-import com.yangyan.xxp.yangyannew.di.FavoriteScope
+import com.yangyan.xxp.yangyannew.di.scope.FavoriteScope
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
-import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.di.module.MineModule
-import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
 
 /**

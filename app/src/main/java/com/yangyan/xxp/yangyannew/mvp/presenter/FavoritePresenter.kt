@@ -16,6 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Author : zhongwenpeng
@@ -42,8 +43,10 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
     lateinit var mDatas: MutableList<FavoriteInfo>
 
     @Inject
+    @field:Named("FavoriteImagesAdapter")
     lateinit var mHomeAdapter: HomeAdapter
     @Inject
+    @field:Named("FavoriteImagesDatas")
     lateinit var mImageDatas: MutableList<ImagesInfo>
 
     /**

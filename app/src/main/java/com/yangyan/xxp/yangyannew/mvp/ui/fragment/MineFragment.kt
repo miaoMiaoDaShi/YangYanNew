@@ -14,6 +14,7 @@ import com.jess.arms.di.component.AppComponent
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
+import com.tencent.bugly.crashreport.CrashReport
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
@@ -22,9 +23,11 @@ import com.yangyan.xxp.yangyannew.di.component.DaggerMineComponent
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.MineModule
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.MinePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.AddFavoriteActivity
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.FavoriteImageListActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AboutDialog
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AddCollectDialog
@@ -107,6 +110,14 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
                 }
             }
         })
+        mAdapter.setOnItemClickListener { view, viewType, data, position ->
+            kotlin.run {
+                data as FavoriteInfo
+                activity?.startActivity<FavoriteImageListActivity>(
+                        "data" to data
+                )
+            }
+        }
     }
 
     override fun onClick(v: View?) {

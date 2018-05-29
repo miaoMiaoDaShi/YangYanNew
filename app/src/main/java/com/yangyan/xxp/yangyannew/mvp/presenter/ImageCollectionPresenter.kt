@@ -18,6 +18,7 @@ import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Author : zhongwenpeng
@@ -31,8 +32,10 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
         FavoritePresenter<ImageCollectionContract.Model, ImageCollectionContract.View>(model, rootView) {
 
     @Inject
+    @field:Named("ImageCollectionImagesAdapter")
     lateinit var mImageCollectionAdapter: ImageCollectionAdapter
     @Inject
+    @field:Named("ImageCollectionImagesDatas")
     lateinit var mData: MutableList<ImagesInfo>
 
 

@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_image_collection.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Author : zhongwenpeng
@@ -46,6 +47,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     private val REQUSET_CODE_TO_GALLERY = 0x10
     @Inject
+    @field:Named("ImageCollectionImagesAdapter")
     lateinit var mAdapter: ImageCollectionAdapter
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
