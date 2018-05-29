@@ -53,6 +53,11 @@
             android:name=".mvp.ui.activity.AddFavoriteActivity"
             android:screenOrientation="portrait" />
 
+        <!--收藏夹的图片列表-->
+        <activity
+            android:name=".mvp.ui.activity.FavoriteImageListActivity"
+            android:screenOrientation="portrait" />
+
 
         <service android:name=".mvp.ui.service.DownloadService" />
 

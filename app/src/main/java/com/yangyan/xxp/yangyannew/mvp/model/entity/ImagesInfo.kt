@@ -1,5 +1,8 @@
 package com.yangyan.xxp.yangyannew.mvp.model.entity
 
+import cn.bmob.v3.BmobObject
+import cn.bmob.v3.datatype.BmobRelation
+
 /**
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
@@ -14,7 +17,7 @@ data class ImagesInfo(
         val category: String,//分类
         val width: Int, //宽度
         var height: Int//高度
-) {
-    var favorite: FavoriteInfo? = null//关联收藏夹
+):BmobObject (){
+    var favorites: BmobRelation? = null//关联收藏夹
     var user: UserInfo? = null//关联用户
 }

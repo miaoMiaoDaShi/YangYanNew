@@ -18,8 +18,8 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.app.visible
-import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteComponent
 import com.yangyan.xxp.yangyannew.di.component.DaggerMineComponent
+import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.MineModule
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
@@ -66,7 +66,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
         DaggerMineComponent.builder()
                 .appComponent(appComponent)
                 .mineModule(MineModule(this))
-                .favoriteComponent(DaggerFavoriteComponent.create())
+                .favoriteModule(FavoriteModule())
                 .build()
                 .inject(this)
     }

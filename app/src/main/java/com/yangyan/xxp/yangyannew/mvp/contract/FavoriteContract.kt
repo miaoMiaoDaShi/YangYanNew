@@ -3,6 +3,7 @@ package com.yangyan.xxp.yangyannew.mvp.contract
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import io.reactivex.Observable
 
 /**
@@ -13,15 +14,16 @@ import io.reactivex.Observable
  */
 interface FavoriteContract {
     interface View : IView {
+
         /**
          * 收藏是否为空
          */
-        fun favoriteDataStatus(b:Boolean)
+        fun favoriteDataStatus(b: Boolean)
 
         /**
          * 上传封面文件成功
          */
-        fun onUploadCoverSuccess(url:String)
+        fun onUploadCoverSuccess(url: String)
 
         /**
          * 上传封面文件失败
@@ -38,11 +40,23 @@ interface FavoriteContract {
         /**
          * 上传封面
          */
-        fun uploadCover(imagePath:String):Observable<String>
+        fun uploadCover(imagePath: String): Observable<String>
 
         /**
          * 添加收藏夹
          */
         fun addFavorite(favoriteInfo: FavoriteInfo): Observable<String>
+
+        /**
+         * 添加图集到收藏夹
+         */
+        fun addImageCollectToFavorite(favorites: List<FavoriteInfo>, imageCollect: ImagesInfo): Observable<String>
+
+
+        /**
+         * 根据收藏夹 获取收藏图解
+         */
+        fun getImageCollectByFavorite(favorite:FavoriteInfo): Observable<List<ImagesInfo>>
+
     }
 }

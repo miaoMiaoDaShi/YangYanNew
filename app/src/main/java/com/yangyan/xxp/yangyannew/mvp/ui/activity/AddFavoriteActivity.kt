@@ -13,7 +13,6 @@ import com.yangyan.xxp.yangyannew.app.GlideImageEngine
 import com.yangyan.xxp.yangyannew.app.getRealFilePath
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerAddFavoriteComponent
-import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteComponent
 import com.yangyan.xxp.yangyannew.di.module.AddFavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.contract.AddFavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.presenter.AddFavoritePresenter
@@ -74,7 +73,6 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
         DaggerAddFavoriteComponent.builder()
                 .appComponent(appComponent)
                 .addFavoriteModule(AddFavoriteModule(this))
-                .favoriteComponent(DaggerFavoriteComponent.create())
                 .build()
                 .inject(this)
     }

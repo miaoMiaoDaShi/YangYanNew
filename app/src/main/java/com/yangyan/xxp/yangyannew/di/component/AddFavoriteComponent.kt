@@ -2,6 +2,7 @@ package com.yangyan.xxp.yangyannew.di.component
 
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.di.scope.ActivityScope
+import com.yangyan.xxp.yangyannew.di.FavoriteScope
 import com.yangyan.xxp.yangyannew.di.module.AddFavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.AddFavoriteActivity
@@ -14,7 +15,8 @@ import dagger.Component
  * Description : 添加收藏夹
  */
 @ActivityScope
-@Component(modules = arrayOf(AddFavoriteModule::class),dependencies = arrayOf(AppComponent::class,FavoriteComponent::class))
+@FavoriteScope
+@Component(modules = arrayOf(AddFavoriteModule::class,FavoriteModule::class),dependencies = arrayOf(AppComponent::class))
 interface AddFavoriteComponent {
     fun inject(activity:AddFavoriteActivity)
 }

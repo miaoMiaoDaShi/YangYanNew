@@ -5,9 +5,10 @@ import com.google.gson.Gson
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
-import com.yangyan.xxp.yangyannew.mvp.contract.AddFavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import es.dmoral.toasty.Toasty
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,8 +23,8 @@ import javax.inject.Inject
  * Time :  2018/5/29
  * Description :  收藏相关   强求继承
  */
-abstract class FavoritePresenter<Model:FavoriteContract.Model,View:FavoriteContract.View>
-(model:Model,view:View)
+abstract class FavoritePresenter<Model : FavoriteContract.Model, View : FavoriteContract.View>
+(model: Model, view: View)
     : BasePresenter<Model, View>(model, view) {
     @Inject
     lateinit var mErrorHandler: RxErrorHandler
@@ -39,6 +40,11 @@ abstract class FavoritePresenter<Model:FavoriteContract.Model,View:FavoriteContr
     lateinit var mAdapter: MineFavoriteAdapter
     @Inject
     lateinit var mDatas: MutableList<FavoriteInfo>
+
+    @Inject
+    lateinit var mHomeAdapter: HomeAdapter
+    @Inject
+    lateinit var mImageDatas: MutableList<ImagesInfo>
 
     /**
      * 上传封面文件
@@ -112,4 +118,45 @@ abstract class FavoritePresenter<Model:FavoriteContract.Model,View:FavoriteContr
                     }
                 })
     }
+
+    /**
+     * 添加到收藏夹
+     */
+    fun addImageCollectToFavorite(favorites: List<FavoriteInfo>, imageCollect: ImagesInfo) {
+        mModel.addImageCollectToFavorite(favorites, imageCollect)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
+                .subscribe(object : ErrorHandleSubscriber<String>(mErrorHandler) {
+                    override fun onNext(t: String) {
+                        Toasty.success(mApplication, "收藏成功").show()
+                    }
+
+
+                })
+    }
+
+    fun getImageCollectByFavorite(favorite:FavoriteInfo) {
+        mModel.getImageCollectByFavorite(favorite)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
+                .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
+                    override fun onNext(t: List<ImagesInfo>) {
+                        mRootView.favoriteDataStatus(t.isEmpty())
+                        mImageDatas.clear()
+                        mImageDatas.addAll(t)
+                        mHomeAdapter.notifyDataSetChanged()
+                    }
+                })
+    }
+
 }

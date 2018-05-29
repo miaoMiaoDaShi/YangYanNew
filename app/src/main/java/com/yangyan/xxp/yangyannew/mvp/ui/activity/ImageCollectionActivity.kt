@@ -15,8 +15,11 @@ import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
+import com.yangyan.xxp.yangyannew.di.component.ImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.FavoriteBottomSheetFragment
@@ -33,24 +36,49 @@ import javax.inject.Inject
  */
 class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageCollectionContract.View {
 
+    /**
+     * 收藏夹为空?
+     */
+    override fun favoriteDataStatus(b: Boolean) {
+
+
+    }
+
     private val REQUSET_CODE_TO_GALLERY = 0x10
     @Inject
     lateinit var mAdapter: ImageCollectionAdapter
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
+    @Inject
+    lateinit var mFavoriteData:List<FavoriteInfo>
+
+    private lateinit var mImageCollectionComponent: ImageCollectionComponent
 
     private val mFavoriteBottomSheetFragment by lazy {
-        FavoriteBottomSheetFragment.newInstance()
+        FavoriteBottomSheetFragment.newInstance().apply {
+            setDoneBlock {
+                mPresenter?.addImageCollectToFavorite(it,
+                        ImagesInfo(
+                                intent.getStringExtra("id"),
+                                intent.getStringExtra("title"),
+                                "",
+                                intent.getStringExtra("cover"),
+                                intent.getStringExtra("category"),
+                                0,0
+                                )
+                        )
+            }
+        }
     }
 
     override fun getContext(): Context = applicationContext
 
     override fun setupActivityComponent(appComponent: AppComponent) {
-        DaggerImageCollectionComponent.builder()
+        mImageCollectionComponent =   DaggerImageCollectionComponent.builder()
                 .appComponent(appComponent)
                 .imageCollectionModule(ImageCollectionModule(this))
                 .build()
-                .inject(this)
+        mImageCollectionComponent .inject(this)
     }
 
     override fun initView(savedInstanceState: Bundle?): Int {
@@ -64,7 +92,10 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
         mPresenter?.getIamgeCollection(intent.getStringExtra("id"))
 
         mFabLikeOrDis.onClick {
+            mPresenter?.getFavoriteList()
             showDialog(mFavoriteBottomSheetFragment)
+            mFavoriteBottomSheetFragment.setImageCollectionComponent(mImageCollectionComponent)
+
         }
     }
 

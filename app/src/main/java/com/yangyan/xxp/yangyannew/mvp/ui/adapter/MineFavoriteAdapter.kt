@@ -11,6 +11,7 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import org.jetbrains.anko.find
+import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng

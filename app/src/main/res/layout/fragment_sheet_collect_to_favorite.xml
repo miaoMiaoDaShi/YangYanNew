@@ -41,6 +41,6 @@
         android:layout_height="50dp"
         android:textSize="18sp"
         android:gravity="center"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="#989898"
         android:text="完成"/>
 </LinearLayout>

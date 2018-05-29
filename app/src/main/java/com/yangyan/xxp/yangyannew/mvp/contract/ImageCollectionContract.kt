@@ -13,10 +13,18 @@ import io.reactivex.Observable
  * Description : 套图页面
  */
 interface ImageCollectionContract {
-    interface View :IView{
+    interface View :FavoriteContract.View{
         fun getContext():Context
+        override fun onUploadCoverFailed() {
+
+            //空实现
+        }
+
+        override fun onUploadCoverSuccess(url: String) {
+            //空实现
+        }
     }
-    interface Model:IModel{
+    interface Model:FavoriteContract.Model{
         fun getIamgeCollection(id:String): Observable<List<ImagesInfo>>
     }
 }

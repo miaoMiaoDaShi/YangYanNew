@@ -3,6 +3,8 @@ package com.yangyan.xxp.yangyannew.mvp.model
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.datatype.BmobFile
+import cn.bmob.v3.datatype.BmobPointer
+import cn.bmob.v3.datatype.BmobRelation
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.SaveListener
@@ -11,6 +13,7 @@ import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
@@ -77,13 +80,13 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     /**
      * 获取收藏夹
      */
-    override fun getFavorite():Observable<List<FavoriteInfo>> {
+    override fun getFavorite(): Observable<List<FavoriteInfo>> {
         return Observable.create(object : ObservableOnSubscribe<List<FavoriteInfo>> {
             override fun subscribe(emitter: ObservableEmitter<List<FavoriteInfo>>) {
                 val bmobQuery = BmobQuery<FavoriteInfo>()
                 val userInfo = BmobUser.getCurrentUser(UserInfo::class.java)
-                bmobQuery.addWhereEqualTo("user",userInfo)
-                bmobQuery.findObjects(object : FindListener<FavoriteInfo>(){
+                bmobQuery.addWhereEqualTo("user", userInfo)
+                bmobQuery.findObjects(object : FindListener<FavoriteInfo>() {
                     override fun done(p0: MutableList<FavoriteInfo>?, p1: BmobException?) {
                         p0?.let {
                             emitter.onNext(it)
@@ -100,4 +103,64 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     }
 
+    /**
+     * 添加收藏
+     */
+    override fun addImageCollectToFavorite(favorites: List<FavoriteInfo>, imageCollect: ImagesInfo): Observable<String> {
+        return Observable.create(object : ObservableOnSubscribe<String> {
+            override fun subscribe(emitter: ObservableEmitter<String>) {
+                val userInfo = BmobUser.getCurrentUser(UserInfo::class.java)
+                imageCollect.user = userInfo
+
+//                favorites.forEach { favorite ->
+//                         .favorite = favorite
+//                }
+                val favoritesRelation = BmobRelation()
+                favorites.forEach {
+                    favoritesRelation.add(it)
+                }
+
+                imageCollect.favorites = favoritesRelation
+                imageCollect.save(object : SaveListener<String>() {
+                    override fun done(p0: String?, p1: BmobException?) {
+                        p0?.let {
+                            emitter.onNext(it)
+                            emitter.onComplete()
+                            return
+                        }
+                        p1?.let {
+                            emitter.onError(it)
+                        }
+
+                    }
+
+                })
+            }
+        })
+    }
+
+    override fun getImageCollectByFavorite(favorite:FavoriteInfo): Observable<List<ImagesInfo>> {
+        return Observable.create(object : ObservableOnSubscribe<List<ImagesInfo>> {
+            override fun subscribe(emitter: ObservableEmitter<List<ImagesInfo>>) {
+                val bmobQuery = BmobQuery<ImagesInfo>()
+                val favoritePoint = BmobPointer()
+                favoritePoint.objectId = favorite.objectId
+                bmobQuery.addWhereRelatedTo("favorites",favoritePoint)
+                val favoritesRelation = BmobRelation()
+
+                bmobQuery.findObjects(object : FindListener<ImagesInfo>() {
+                    override fun done(p0: MutableList<ImagesInfo>?, p1: BmobException?) {
+                        p0?.let {
+                            emitter.onNext(it)
+                            emitter.onComplete()
+                            return
+                        }
+                        p1?.let {
+                            emitter.onError(it)
+                        }
+                    }
+                })
+            }
+        })
+    }
 }

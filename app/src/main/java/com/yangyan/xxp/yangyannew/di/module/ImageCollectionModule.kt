@@ -43,6 +43,10 @@ constructor(private val view: ImageCollectionContract.View) {
 
     @ActivityScope
     @Provides
+    internal fun provideLinearLayoutManager() = LinearLayoutManager(view.getContext())
+
+    @ActivityScope
+    @Provides
     internal fun provideDatas() = mutableListOf<ImagesInfo>()
 
     @ActivityScope

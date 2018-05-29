@@ -28,18 +28,10 @@ import javax.inject.Inject
 @ActivityScope
 class ImageCollectionPresenter @Inject
 constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContract.View) :
-        BasePresenter<ImageCollectionContract.Model, ImageCollectionContract.View>(model, rootView) {
+        FavoritePresenter<ImageCollectionContract.Model, ImageCollectionContract.View>(model, rootView) {
 
     @Inject
-    lateinit var mErrorHandler: RxErrorHandler
-    @Inject
-    lateinit var mApplication: Application
-    @Inject
-    lateinit var mImageLoader: ImageLoader
-    @Inject
-    lateinit var mAppManager: AppManager
-    @Inject
-    lateinit var mAdapter: ImageCollectionAdapter
+    lateinit var mImageCollectionAdapter: ImageCollectionAdapter
     @Inject
     lateinit var mData: MutableList<ImagesInfo>
 
@@ -74,7 +66,7 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
                     override fun onNext(t: List<ImagesInfo>) {
                         t.forEach(::println)
                         mData.addAll(t)
-                        mAdapter.notifyDataSetChanged()
+                        mImageCollectionAdapter.notifyDataSetChanged()
                     }
                 })
     }
