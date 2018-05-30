@@ -1,5 +1,5 @@
  # 新养眼,只为看图.
-
+ 
  # <p></p>
 
 
@@ -10,11 +10,10 @@
  ### 如果你想了解数据抓取,本项目应该可以给你举个不错的例子
  ### 后台采用的是bmob云服务
  ### 启动页的每日图片来自gank.io
-
+ ### apk下载体验地址 
+![](screenshot/download_orcode.png)
  ## 截图
 ![](screenshot/screenshot_splash.jpg) ![](screenshot/screenshot_login.jpg)![](screenshot/screenshot_home.jpg)![](screenshot/screenshot_category.jpg)
-
 ![](screenshot/screenshot_mine.jpg)
-
 
  ## 代码敲得比较乱,注释写的比较少
