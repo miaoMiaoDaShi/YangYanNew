@@ -12,9 +12,9 @@
  ### 启动页的每日图片来自gank.io
 
  ## 截图
-![](screenshot/screenshot_splash.jpg) ![](screenshot/screenshot_login.jpg)![](screenshot/screenshot_home.jpg)![](screenshot/screenshot_category.jpg)
+![](screenshot/Screenshot_splash.jpg) ![](screenshot/Screenshot_login.jpg)![](screenshot/Screenshot_home.jpg)![](screenshot/Screenshot_category.jpg)
 
-![](screenshot/screenshot_mine.jpg)
+![](screenshot/Screenshot_mine.jpg)
 
 
  ## 代码敲得比较乱,注释写的比较少
