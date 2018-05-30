@@ -136,13 +136,20 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
                 .doFinally { mRootView.hideLoading() }
                 .subscribe(object : ErrorHandleSubscriber<String>(mErrorHandler) {
                     override fun onNext(t: String) {
+                        mRootView.showAddImageToFavoriteSuccess()
                         Toasty.success(mApplication, "收藏成功").show()
                     }
 
-
+                    override fun onError(t: Throwable) {
+                        super.onError(t)
+                        mRootView.showAddImageToFavoriteFailed()
+                    }
                 })
     }
 
+    /**
+     * 根据收藏夹的id  获得收藏夹里的套图
+     */
     fun getImageCollectByFavorite(favorite:FavoriteInfo) {
         mModel.getImageCollectByFavorite(favorite)
                 .subscribeOn(Schedulers.io())

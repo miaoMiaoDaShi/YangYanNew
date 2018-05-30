@@ -171,10 +171,7 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
             kotlin.run {
                 data as ImagesInfo
                 activity?.startActivity<ImageCollectionActivity>(
-                        "id" to data.id,
-                        "category" to data.category,
-                        "title" to data.title,
-                        "cover" to data.HDImageUrl
+                        "data" to data
                 )
             }
         }

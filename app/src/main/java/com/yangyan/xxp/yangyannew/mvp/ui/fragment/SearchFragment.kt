@@ -141,10 +141,7 @@ class SearchFragment : BaseFragment<SearchPresenter>(), SwipeRefreshLayout.OnRef
             kotlin.run {
                 val data = adapter.data[position] as ImagesInfo
                 activity?.startActivity<ImageCollectionActivity>(
-                        "id" to data.id,
-                        "category" to data.category,
-                        "title" to data.title,
-                        "cover" to data.HDImageUrl
+                       "data" to data
                 )
             }
         }

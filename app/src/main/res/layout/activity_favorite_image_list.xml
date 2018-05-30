@@ -10,7 +10,8 @@
         android:id="@+id/mToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        app:navigationIcon="@drawable/ic_back">
 
     </android.support.v7.widget.Toolbar>
 

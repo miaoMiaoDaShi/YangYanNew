@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_dislike"
+        android:src="@drawable/ic_like"
         app:backgroundTint="@android:color/white"
         app:layout_anchor="@id/mAppBar"
         app:layout_anchorGravity="bottom|end" />

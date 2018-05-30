@@ -29,6 +29,20 @@ interface FavoriteContract {
          * 上传封面文件失败
          */
         fun onUploadCoverFailed()
+
+        /**
+         * 收藏成功
+         */
+        fun showAddImageToFavoriteSuccess(){
+
+        }
+
+        /**
+         * 收藏失败
+         */
+        fun showAddImageToFavoriteFailed(){
+
+        }
     }
 
     interface Model : IModel {

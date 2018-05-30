@@ -23,6 +23,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.FavoriteBottomSheetFragment
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_image_collection.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
@@ -52,7 +53,11 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
     @Inject
-    lateinit var mFavoriteData:List<FavoriteInfo>
+    lateinit var mFavoriteData: List<FavoriteInfo>
+
+    private val mImageInfo by lazy {
+        intent.getSerializableExtra("data") as ImagesInfo
+    }
 
     private lateinit var mImageCollectionComponent: ImageCollectionComponent
 
@@ -60,27 +65,28 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
         FavoriteBottomSheetFragment.newInstance().apply {
             setDoneBlock {
                 mPresenter?.addImageCollectToFavorite(it,
-                        ImagesInfo(
-                                intent.getStringExtra("id"),
-                                intent.getStringExtra("title"),
-                                "",
-                                intent.getStringExtra("cover"),
-                                intent.getStringExtra("category"),
-                                0,0
-                                )
-                        )
+                        mImageInfo
+                )
             }
         }
+    }
+
+    override fun showAddImageToFavoriteFailed() {
+        com.yangyan.xxp.yangyannew.app.dismissDialog(mFavoriteBottomSheetFragment)
+    }
+
+    override fun showAddImageToFavoriteSuccess() {
+        com.yangyan.xxp.yangyannew.app.dismissDialog(mFavoriteBottomSheetFragment)
     }
 
     override fun getContext(): Context = applicationContext
 
     override fun setupActivityComponent(appComponent: AppComponent) {
-        mImageCollectionComponent =   DaggerImageCollectionComponent.builder()
+        mImageCollectionComponent = DaggerImageCollectionComponent.builder()
                 .appComponent(appComponent)
                 .imageCollectionModule(ImageCollectionModule(this))
                 .build()
-        mImageCollectionComponent .inject(this)
+        mImageCollectionComponent.inject(this)
     }
 
     override fun initView(savedInstanceState: Bundle?): Int {
@@ -90,18 +96,31 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     override fun initData(savedInstanceState: Bundle?) {
         initRecyclerView()
         initToolbar()
-        mIvCollectCover.loadImage(intent.getStringExtra("cover"))
-        mPresenter?.getIamgeCollection(intent.getStringExtra("id"))
+        mIvCollectCover.loadImage(mImageInfo.HDImageUrl)
+        mPresenter?.getIamgeCollection(mImageInfo.id)
 
         mFabLikeOrDis.onClick {
-            mPresenter?.getFavoriteList()
-            showDialog(mFavoriteBottomSheetFragment)
-            mFavoriteBottomSheetFragment.setImageCollectionComponent(mImageCollectionComponent)
+            if (mIsFavorite) {//收藏夹进来的
+                Toasty.info(applicationContext, "想了一下,删除还是不要了吧.哈哈哈").show()
+
+            } else {//普通进入
+                mPresenter?.getFavoriteList()
+                showDialog(mFavoriteBottomSheetFragment)
+                mFavoriteBottomSheetFragment.setImageCollectionComponent(mImageCollectionComponent)
+            }
 
         }
     }
 
+    private val mIsFavorite by lazy {
+        intent.getBooleanExtra("isFavorite", false)
+    }
+
     private fun initToolbar() {
+        //收藏夹进去的话 like变成del
+        if (mIsFavorite) {
+            mFabLikeOrDis.setImageResource(R.drawable.ic_delete)
+        }
         setSupportActionBar(mToolbar)
 
         mToolbar.navigationIcon = resources.getDrawable(R.drawable.ic_back)
@@ -113,8 +132,8 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun onResume() {
         super.onResume()
-        mToolbar.title = intent.getStringExtra("category")
-        mToolbar.subtitle = intent.getStringExtra("title")
+        mToolbar.title = mImageInfo.category
+        mToolbar.subtitle = mImageInfo.title
         mToolbar.setSubtitleTextColor(Color.BLACK)
     }
 
@@ -136,7 +155,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
             kotlin.run {
                 this@ImageCollectionActivity.startActivityForResult<GalleryActivity>(
                         REQUSET_CODE_TO_GALLERY,
-                        "id" to intent.getStringExtra("id"),
+                        "id" to mImageInfo.id,
                         "index" to position
                 )
             }
@@ -164,8 +183,8 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==REQUSET_CODE_TO_GALLERY&&resultCode==Activity.RESULT_OK){
-            mRvImageCollection.smoothScrollToPosition(data?.getIntExtra("index",0)?:0)
+        if (requestCode == REQUSET_CODE_TO_GALLERY && resultCode == Activity.RESULT_OK) {
+            mRvImageCollection.smoothScrollToPosition(data?.getIntExtra("index", 0) ?: 0)
         }
     }
 }

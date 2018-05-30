@@ -139,15 +139,16 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         })
     }
 
+    /**
+     * 根据收藏夹Id  获取图集
+     */
     override fun getImageCollectByFavorite(favorite:FavoriteInfo): Observable<List<ImagesInfo>> {
         return Observable.create(object : ObservableOnSubscribe<List<ImagesInfo>> {
             override fun subscribe(emitter: ObservableEmitter<List<ImagesInfo>>) {
                 val bmobQuery = BmobQuery<ImagesInfo>()
-                val favoritePoint = BmobPointer()
-                favoritePoint.objectId = favorite.objectId
-                bmobQuery.addWhereRelatedTo("favorites",favoritePoint)
-                val favoritesRelation = BmobRelation()
-
+//                val favoritePoint = BmobPointer()
+//                favoritePoint.objectId = favorite.objectId
+                bmobQuery.addWhereEqualTo("favorites",BmobPointer(favorite))
                 bmobQuery.findObjects(object : FindListener<ImagesInfo>() {
                     override fun done(p0: MutableList<ImagesInfo>?, p1: BmobException?) {
                         p0?.let {

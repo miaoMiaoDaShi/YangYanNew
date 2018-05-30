@@ -3,6 +3,8 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
@@ -11,8 +13,13 @@ import com.yangyan.xxp.yangyannew.di.module.FavoriteImageListModule
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteImageListContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteImageListPresenter
+import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.activity_favorite_image_list.*
+import org.jetbrains.anko.startActivity
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Author : zhongwenpeng
@@ -21,7 +28,14 @@ import kotlinx.android.synthetic.main.activity_favorite_image_list.*
  * Description : 图集的封面列表  和分类那个差不多 只不过 这个是个activity
  */
 class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
-        , FavoriteImageListContract.View {
+        , FavoriteImageListContract.View, SwipeRefreshLayout.OnRefreshListener {
+
+
+    @Inject
+    @field:Named("FavoriteImagesAdapter")
+    lateinit var mAdapter: HomeAdapter
+    @Inject
+    lateinit var mLayoutManager: LinearLayoutManager
 
 //    /**
 //     * objectId
@@ -61,9 +75,43 @@ class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
     override fun initView(savedInstanceState: Bundle?): Int = R.layout.activity_favorite_image_list
 
     override fun initData(savedInstanceState: Bundle?) {
+        initToolbar()
+        initRecyclerViwe()
+        mSwipeRefreshLayout.setOnRefreshListener(this)
+
+        mSwipeRefreshLayout.post {
+            mSwipeRefreshLayout.isRefreshing = true
+            onRefresh()
+        }
+
+    }
+
+    private fun initToolbar() {
         mToolbar.title = mFavorite?.title
         mToolbar.subtitle = mFavorite?.createdAt
+        mToolbar.setNavigationOnClickListener {
+            killMyself()
+        }
+    }
+
+    override fun onRefresh() {
         mPresenter?.getImageCollectByFavorite(mFavorite)
+
+    }
+
+    private fun initRecyclerViwe() {
+        mRvImageCover.adapter = mAdapter
+        mRvImageCover.layoutManager = mLayoutManager
+
+        mAdapter.setOnItemClickListener { view, viewType, data, position ->
+            kotlin.run {
+                data as ImagesInfo
+                startActivity<ImageCollectionActivity>(
+                        "data" to data,
+                        "isFavorite" to true//收藏夹进去的????
+                )
+            }
+        }
     }
 
     override fun getContext(): Context = applicationContext
@@ -79,11 +127,14 @@ class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
     }
 
     override fun hideLoading() {
+        mSwipeRefreshLayout.isRefreshing = false
     }
 
     override fun killMyself() {
+        finish()
     }
 
     override fun showMessage(message: String) {
+
     }
 }
