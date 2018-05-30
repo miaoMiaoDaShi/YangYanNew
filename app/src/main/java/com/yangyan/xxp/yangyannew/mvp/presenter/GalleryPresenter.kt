@@ -59,6 +59,21 @@ constructor(model: GalleryContract.Model, rootView: GalleryContract.View)
                 .doFinally {
                     //mRootView.hideLoading()
                 }
+                .map { t ->
+                    val typeA = mutableListOf<ImagesInfo>()
+                    val typeB = mutableListOf<ImagesInfo>()
+                    val typeMixture = mutableListOf<ImagesInfo>()
+                    t.forEach {
+                        if (it.width > it.height) {
+                            typeA.add(it)
+                        } else {
+                            typeB.add(it)
+                        }
+                    }
+                    typeMixture.addAll(typeA)
+                    typeMixture.addAll(typeB)
+                    typeMixture
+                }
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
                     override fun onNext(t: List<ImagesInfo>) {
                         mDatas.addAll(t)
