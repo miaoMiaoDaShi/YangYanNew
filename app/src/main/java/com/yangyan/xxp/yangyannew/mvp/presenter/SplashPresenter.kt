@@ -20,6 +20,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.SplashImageInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.LoginActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.MainActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.service.DownloadService
+import es.dmoral.toasty.Toasty
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -112,6 +113,7 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
                     override fun onNext(t: SplashImageInfo) {
                         mSplashImageInfo = mGson.toJson(t)
                         //下载图片
+                        Toasty.info(mApplication, "今日妹子已经在后台打包下载了")
                         val intent = Intent(mApplication, DownloadService::class.java)
                         intent.putExtra("downloadUrl", t.results[0].url)
                         intent.putExtra("name", Constant.SPLASH_LOCAL_NAME)
@@ -132,10 +134,12 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
                     override fun onNext(t: Long) {
                         val currentCount = 4 - t
                         if (currentCount == 0L) {
-                            if (mUserInfoString.isEmpty()) {
-                                mRootView.getActivity().startActivity<LoginActivity>()
-                            } else {
-                                mRootView.getActivity().startActivity<MainActivity>()
+                            if (mRootView.getActivity().intent.getBooleanExtra("isFirst", true)) {
+                                if (mUserInfoString.isEmpty()) {
+                                    mRootView.getActivity().startActivity<LoginActivity>()
+                                } else {
+                                    mRootView.getActivity().startActivity<MainActivity>()
+                                }
                             }
                             mRootView.killMyself()
 

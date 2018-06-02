@@ -100,18 +100,18 @@ class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
     }
 
     private fun initRecyclerViwe() {
-        mRvImageCover.adapter = mAdapter
         mRvImageCover.layoutManager = mLayoutManager
-
-        mAdapter.setOnItemClickListener { view, viewType, data, position ->
-            kotlin.run {
-                data as ImagesInfo
-                startActivity<ImageCollectionActivity>(
-                        "data" to data,
-                        "isFavorite" to true//收藏夹进去的????
-                )
+        mRvImageCover.adapter = mAdapter.apply {
+            setOnItemClickListener { view, viewType, position ->
+                kotlin.run {
+                    startActivity<ImageCollectionActivity>(
+                            "data" to data[position],
+                            "isFavorite" to true//收藏夹进去的????
+                    )
+                }
             }
         }
+
     }
 
     override fun getContext(): Context = applicationContext

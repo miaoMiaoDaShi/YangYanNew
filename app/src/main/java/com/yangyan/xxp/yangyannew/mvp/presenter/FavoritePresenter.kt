@@ -138,6 +138,7 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
                     override fun onNext(t: String) {
                         mRootView.showAddImageToFavoriteSuccess()
                         Toasty.success(mApplication, "收藏成功").show()
+                        mRootView.killMyself()
                     }
 
                     override fun onError(t: Throwable) {

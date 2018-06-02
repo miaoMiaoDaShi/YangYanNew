@@ -26,6 +26,7 @@ abstract class LazyLoadFragment<P : IPresenter> : BaseFragment<P>() {
         isViewPrepare = true
         lazyLoadDataIfPrepared()
     }
+
     override fun initData(savedInstanceState: Bundle?) {
 
     }
@@ -43,6 +44,12 @@ abstract class LazyLoadFragment<P : IPresenter> : BaseFragment<P>() {
             lazyLoad()
             hasLoadData = true
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hasLoadData = false
+        isViewPrepare = false
     }
 
     protected abstract fun lazyLoad()

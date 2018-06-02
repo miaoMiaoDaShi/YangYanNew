@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jess.arms.di.component.AppComponent
-import com.paginate.Paginate
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.DaggerCategoryChildComponent
 import com.yangyan.xxp.yangyannew.di.module.CategoryChildModule
@@ -35,20 +34,13 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
     lateinit var mLayoutManager: LinearLayoutManager
     @Inject
     lateinit var mAdapter: HomeAdapter
-    /**
-     * 正在加载更多(一定要与刷新加载区分开)
-     */
-    private var mIsLoadMoreing = false
 
-    private var mFristLoad = true
 
     override fun startLoadMore() {
-        mIsLoadMoreing = true
 
     }
 
     override fun endLoadMore() {
-        mIsLoadMoreing = false
     }
 
     override fun showLoading() {
@@ -76,44 +68,34 @@ class CategoryChildFragment : LazyLoadFragment<CategoryChildPresenter>(), Catego
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
         mSwipeRefreshLayout.setOnRefreshListener(this)
-        //onRefresh()
-        initPaginate()
     }
 
-    private fun initPaginate() {
-        Paginate.with(mRvCategoryChild, object : Paginate.Callbacks {
-            override fun onLoadMore() {
-                if (mFristLoad) {
-                    mFristLoad = false
-                    return
-                }
-                mPresenter?.getCategoryData(arguments?.getString("categoryCode") ?: "tag", false)
-            }
-
-            override fun isLoading(): Boolean = mIsLoadMoreing
-
-            override fun hasLoadedAllItems(): Boolean = false
-        })
-                .setLoadingTriggerThreshold(0)
-                .build()
-    }
 
     private fun initRecyclerView() {
         mRvCategoryChild.layoutManager = mLayoutManager
-        mRvCategoryChild.adapter = mAdapter
-        mAdapter.setOnItemClickListener { view, viewType, data, position ->
-            kotlin.run {
-                data as ImagesInfo
-                activity?.startActivity<ImageCollectionActivity>(
-                        "data" to data
-                )
+        mRvCategoryChild.adapter = mAdapter.apply {
+            setOnItemClickListener { view, viewType, position ->
+                kotlin.run {
+                    activity?.startActivity<ImageCollectionActivity>(
+                            "data" to data[position]
+                    )
+                }
             }
-        }
+            setEnableLoadMore(true)
+            setOnLoadMoreListener({
+                mPresenter?.getCategoryData(arguments?.getString("categoryCode") ?: "tag", false)
+                kotlin.run {
 
+                }
+            }, mRvCategoryChild)
+        }
     }
 
     override fun lazyLoad() {
-        onRefresh()
+        mSwipeRefreshLayout.post {
+            mSwipeRefreshLayout.isRefreshing = true
+            onRefresh()
+        }
     }
 
     override fun setupFragmentComponent(appComponent: AppComponent) {

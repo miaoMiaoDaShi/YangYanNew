@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
-import com.paginate.Paginate
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.callback.onActivityBackCallback
@@ -53,18 +52,12 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
     private val mFragmentManager by lazy {
         fragmentManager
     }
-    /**
-     * 正在加载更多(一定要与刷新加载区分开)
-     */
-    private var mIsLoadMoreing = false
 
     override fun startLoadMore() {
-        mIsLoadMoreing = true
 
     }
 
     override fun endLoadMore() {
-        mIsLoadMoreing = false
     }
 
 
@@ -106,9 +99,10 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
     override fun initData(savedInstanceState: Bundle?) {
         initRecyclerView()
         mSwipeRefreshLayout.setOnRefreshListener(this)
-        //onRefresh()
-        initPaginate()
-
+        mSwipeRefreshLayout.post {
+            mSwipeRefreshLayout.isRefreshing = true
+            onRefresh()
+        }
         bindListener()
     }
 
@@ -150,30 +144,21 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
         }
     }
 
-    private fun initPaginate() {
-        Paginate.with(mRvHome, object : Paginate.Callbacks {
-            override fun onLoadMore() {
-                mPresenter?.getHomeData(false)
-            }
-
-            override fun isLoading(): Boolean = mIsLoadMoreing
-
-            override fun hasLoadedAllItems(): Boolean = false
-        })
-                .setLoadingTriggerThreshold(4)
-                .build()
-    }
 
     private fun initRecyclerView() {
         mRvHome.layoutManager = mLayoutManager
-        mRvHome.adapter = mAdapter
-        mAdapter.setOnItemClickListener { view, viewType, data, position ->
-            kotlin.run {
-                data as ImagesInfo
-                activity?.startActivity<ImageCollectionActivity>(
-                        "data" to data
-                )
+        mRvHome.adapter = mAdapter.apply {
+            setOnItemClickListener { view, viewType, position ->
+                kotlin.run {
+                    activity?.startActivity<ImageCollectionActivity>(
+                            "data" to data[position]
+                    )
+                }
             }
+            setEnableLoadMore(true)
+            setOnLoadMoreListener({
+                mPresenter?.getHomeData(false)
+            }, mRvHome)
         }
 
 

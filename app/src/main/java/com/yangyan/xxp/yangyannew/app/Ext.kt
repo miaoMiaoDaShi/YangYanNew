@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.app
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -52,7 +53,7 @@ fun View.visible(isVisible: Boolean): View {
     return this
 }
 
-fun AppCompatActivity.showDialog(dialog: DialogFragment)  {
+fun AppCompatActivity.showDialog(dialog: DialogFragment) {
     dialog.show(supportFragmentManager, "TAG")
 }
 
@@ -67,21 +68,26 @@ fun dismissDialog(dialog: DialogFragment) {
 /**
  *
  */
-fun <T: ImageConfig> ImageView.loadImage(config:T){
+fun <T : ImageConfig> ImageView.loadImage(config: T) {
     ArmsUtils.obtainAppComponentFromContext(this.getContext())
             .imageLoader().loadImage(this.context, config)
 }
 
-fun ImageView.loadImage(url:String){
-    loadImage(url,0)
+fun ImageView.loadImage(url: String) {
+    loadImage(url, 0)
 }
-fun ImageView.loadImage(url:String,placeholder:Int){
+
+fun ImageView.loadImage(url: String, placeholder: Int) {
     ArmsUtils.obtainAppComponentFromContext(this.getContext())
-            .imageLoader().loadImage(this.context,   ImageConfigImpl.builder()
+            .imageLoader().loadImage(this.context, ImageConfigImpl.builder()
                     .url(url)
                     .placeholder(placeholder)
                     .imageView(this)
                     .build())
+}
+
+fun Context.getTopActivity(): Activity {
+    return ArmsUtils.obtainAppComponentFromContext(this).appManager().topActivity
 }
 
 /**

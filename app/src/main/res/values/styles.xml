@@ -9,6 +9,12 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="FavoriteListActivityTheme" parent="AppTheme">
+
+    </style>
+
+
+
     <style name="HintErrorAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorGray</item>
         <item name="textColorError">@android:color/holo_red_dark</item>
@@ -25,8 +31,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark">
 

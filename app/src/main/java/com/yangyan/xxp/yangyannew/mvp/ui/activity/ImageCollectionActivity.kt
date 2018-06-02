@@ -6,13 +6,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.app.onClick
-import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.component.ImageCollectionComponent
@@ -22,7 +20,6 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
-import com.yangyan.xxp.yangyannew.mvp.ui.fragment.FavoriteBottomSheetFragment
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_image_collection.*
 import org.jetbrains.anko.startActivity
@@ -46,47 +43,37 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     }
 
+    /**
+     * 打开画廊页面
+     */
     private val REQUSET_CODE_TO_GALLERY = 0x10
     @Inject
     @field:Named("ImageCollectionImagesAdapter")
     lateinit var mAdapter: ImageCollectionAdapter
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
-    @Inject
-    lateinit var mFavoriteData: List<FavoriteInfo>
 
     private val mImageInfo by lazy {
         intent.getSerializableExtra("data") as ImagesInfo
     }
 
-    private lateinit var mImageCollectionComponent: ImageCollectionComponent
-
-    private val mFavoriteBottomSheetFragment by lazy {
-        FavoriteBottomSheetFragment.newInstance().apply {
-            setDoneBlock {
-                mPresenter?.addImageCollectToFavorite(it,
-                        mImageInfo
-                )
-            }
-        }
-    }
 
     override fun showAddImageToFavoriteFailed() {
-        com.yangyan.xxp.yangyannew.app.dismissDialog(mFavoriteBottomSheetFragment)
+
     }
 
     override fun showAddImageToFavoriteSuccess() {
-        com.yangyan.xxp.yangyannew.app.dismissDialog(mFavoriteBottomSheetFragment)
+
     }
 
     override fun getContext(): Context = applicationContext
 
     override fun setupActivityComponent(appComponent: AppComponent) {
-        mImageCollectionComponent = DaggerImageCollectionComponent.builder()
+        DaggerImageCollectionComponent.builder()
                 .appComponent(appComponent)
                 .imageCollectionModule(ImageCollectionModule(this))
                 .build()
-        mImageCollectionComponent.inject(this)
+                .inject(this)
     }
 
     override fun initView(savedInstanceState: Bundle?): Int {
@@ -104,9 +91,8 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
                 Toasty.info(applicationContext, "想了一下,删除还是不要了吧.哈哈哈").show()
 
             } else {//普通进入
-                mPresenter?.getFavoriteList()
-                showDialog(mFavoriteBottomSheetFragment)
-                mFavoriteBottomSheetFragment.setImageCollectionComponent(mImageCollectionComponent)
+                startActivity<FavoriteListActivity>("imageInfo" to mImageInfo)
+                overridePendingTransition(R.anim.fragment_slide_up,0)
             }
 
         }
@@ -156,8 +142,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
                 this@ImageCollectionActivity.startActivityForResult<GalleryActivity>(
                         REQUSET_CODE_TO_GALLERY,
                         "id" to mImageInfo.id,
-                        "index" to position
-                )
+                        "index" to position)
             }
         }
     }

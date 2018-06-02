@@ -6,6 +6,7 @@ import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
+import com.yangyan.xxp.yangyannew.BuildConfig
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
@@ -19,8 +20,8 @@ import org.jetbrains.anko.find
  */
 
 class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : DefaultAdapter<ImagesInfo>(mDatas) {
-     val ITEM_TYPE_A = 0x10
-     val ITEM_TYPE_B = 0x11
+    val ITEM_TYPE_A = 0x10
+    val ITEM_TYPE_B = 0x11
 
     override fun getLayoutId(viewType: Int): Int = R.layout.recycler_image_collection
 
@@ -43,7 +44,9 @@ class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : 
     companion object {
         class ImageCollectionHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
             override fun setData(data: ImagesInfo, position: Int) {
-                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.displayImageUrl,R.drawable.bg_loading)
+                if (BuildConfig.LOG_SHOW_IMAGE) {
+                    itemView.find<ImageView>(R.id.mIvImage).loadImage(data.displayImageUrl, R.drawable.bg_loading)
+                }
 
             }
 

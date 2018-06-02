@@ -26,6 +26,7 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import retrofit2.HttpException
 import timber.log.Timber
 
 /**
@@ -58,7 +59,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     internal fun onCreate() {
-        // getHomeData(true)//打开 App 时自动加载列表
+
     }
 
     fun getHomeData(pullToRefresh: Boolean) {
@@ -78,8 +79,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 .doFinally {
                     if (pullToRefresh)
                         mRootView.hideLoading()//隐藏下拉刷新的进度条
-                    else
+                    else {
                         mRootView.endLoadMore()//隐藏上拉加载更多的进度条
+                        mAdapter.loadMoreComplete()
+                    }
                 }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
@@ -96,10 +99,17 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
 
                     }
 
+                    override fun onError(t: Throwable) {
+                        if (t is HttpException) {
+                            //404代表 没有很多的额页数了
+                            if (t.code() == 404) {
+                                mAdapter.loadMoreEnd()
+                            }
+                        }
+                    }
 
                 })
     }
-
 
 
     override fun onDestroy() {

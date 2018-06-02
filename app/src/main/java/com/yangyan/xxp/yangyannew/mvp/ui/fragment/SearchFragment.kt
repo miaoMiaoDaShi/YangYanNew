@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
-import com.paginate.Paginate
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.visible
@@ -44,7 +43,6 @@ class SearchFragment : BaseFragment<SearchPresenter>(), SwipeRefreshLayout.OnRef
      */
     private var mIsLoadMoreing = false
 
-    private lateinit var mPaginate: Paginate
 
     override fun startLoadMore() {
         mIsLoadMoreing = true
@@ -158,7 +156,6 @@ class SearchFragment : BaseFragment<SearchPresenter>(), SwipeRefreshLayout.OnRef
     }
 
     companion object {
-        val TAG = javaClass.simpleName
         fun newInstance() = SearchFragment()
     }
 

@@ -3,8 +3,11 @@ package com.yangyan.xxp.yangyannew.mvp.ui.adapter
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
+import com.yangyan.xxp.yangyannew.BuildConfig
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
@@ -17,20 +20,24 @@ import org.jetbrains.anko.find
  * Description :
  */
 class HomeAdapter
-constructor(val mDatas: MutableList<ImagesInfo>) : DefaultAdapter<ImagesInfo>(mDatas) {
-    override fun getLayoutId(viewType: Int): Int = R.layout.recycler_home_image
-
-    override fun getHolder(v: View, viewType: Int): BaseHolder<ImagesInfo> =
-            HomeHolder(v)
-
-    companion object {
-        class HomeHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
-            override fun setData(data: ImagesInfo, position: Int) {
-                itemView.find<TextView>(R.id.mTvCategory).text = data.category
-                itemView.find<TextView>(R.id.mTvTitle).text = data.title
-                itemView.find<ImageView>(R.id.mIvImage).loadImage(data.HDImageUrl,R.drawable.bg_loading)
-            }
-
+constructor(val mDatas: MutableList<ImagesInfo>) : BaseQuickAdapter<ImagesInfo,BaseViewHolder>(R.layout.recycler_home_image,mDatas) {
+    override fun convert(helper: BaseViewHolder, item: ImagesInfo) {
+        helper.setText(R.id.mTvCategory,item.category)
+                .setText(R.id.mTvTitle,item.title)
+        if (BuildConfig.LOG_SHOW_IMAGE) {
+            helper.getView<ImageView>(R.id.mIvImage).loadImage(item.HDImageUrl, R.drawable.bg_loading)
         }
     }
+
+
+//    companion object {
+//        class HomeHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
+//            override fun setData(data: ImagesInfo, position: Int) {
+//                itemView.find<TextView>().text = data.category
+//                itemView.find<TextView>().text = data.title
+//
+//            }
+//
+//        }
+//    }
 }

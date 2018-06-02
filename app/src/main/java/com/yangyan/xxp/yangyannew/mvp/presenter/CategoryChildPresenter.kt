@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -55,16 +56,21 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
                 .doOnSubscribe {
                     if (pullToRefresh)
                         mRootView.showLoading()//显示下拉刷新的进度条
-                    else
+                    else {
                         mRootView.startLoadMore()//显示上拉加载更多的进度条
+
+                    }
+
                 }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally {
                     if (pullToRefresh)
                         mRootView.hideLoading()//隐藏下拉刷新的进度条
-                    else
+                    else{
+                        mAdapter.loadMoreComplete()
                         mRootView.endLoadMore()//隐藏上拉加载更多的进度条
+                    }
                 }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
@@ -81,7 +87,14 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
 
                     }
 
-
+                    override fun onError(t: Throwable) {
+                        if (t is HttpException) {
+                            //404代表 没有很多的额页数了
+                            if (t.code() == 404) {
+                                mAdapter.loadMoreEnd()
+                            }
+                        }
+                    }
                 })
     }
 
