@@ -113,7 +113,7 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
                     override fun onNext(t: SplashImageInfo) {
                         mSplashImageInfo = mGson.toJson(t)
                         //下载图片
-                        Toasty.info(mApplication, "今日妹子已经在后台打包下载了")
+                        Toasty.info(mApplication, "今日妹子已经在后台打包下载了").show()
                         val intent = Intent(mApplication, DownloadService::class.java)
                         intent.putExtra("downloadUrl", t.results[0].url)
                         intent.putExtra("name", Constant.SPLASH_LOCAL_NAME)
