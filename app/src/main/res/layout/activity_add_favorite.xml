@@ -10,68 +10,73 @@
         android:id="@+id/mToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
         app:navigationIcon="@drawable/ic_back"
-        app:title="添加新的收藏夹"
-        android:background="@android:color/white">
+        app:title="添加新的收藏夹">
 
     </android.support.v7.widget.Toolbar>
+
     <ProgressBar
         android:id="@+id/mProbar"
-        android:layout_gravity="bottom"
         style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:indeterminate="true"
         android:visibility="invisible" />
 
-        <TextView
-            android:layout_margin="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="选择图片作为封面"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="选择图片作为封面"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
-        <ImageView
-            android:id="@+id/mIvCover"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_upload_img" />
+    <ImageView
+        android:id="@+id/mIvCover"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/ic_upload_img"
+        android:backgroundTint="@color/colorGray"
+        android:backgroundTintMode="multiply"
+        android:scaleType="centerCrop" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            android:text="取一个好听的名字吧"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="取一个好听的名字吧"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
-        <EditText
-            android:id="@+id/mEtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:ems="12"
-            android:layout_marginRight="25dp"
-            android:layout_marginLeft="25dp"
-            android:hint="请输入标题"
-            android:inputType="text"
-            android:background="@null"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textSize="15sp"
-            android:drawableBottom="@drawable/select_edit_text"/>
+    <EditText
+        android:id="@+id/mEtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/colorGray"
+        android:drawableBottom="@drawable/select_edit_text"
+        android:ems="12"
+        android:hint="请输入标题"
+        android:inputType="text"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/mBtnConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_margin="25dp"
-            android:background="@android:color/black"
-            android:text="确定"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
+    <Button
+        android:id="@+id/mBtnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="25dp"
+        android:background="@android:color/black"
+        android:text="确定"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
 </LinearLayout>
