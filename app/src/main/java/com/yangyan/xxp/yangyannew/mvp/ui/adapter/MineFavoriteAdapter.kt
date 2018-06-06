@@ -27,24 +27,23 @@ constructor(val mDatas: MutableList<FavoriteInfo>) : DefaultAdapter<FavoriteInfo
     override fun getHolder(v: View, viewType: Int): BaseHolder<FavoriteInfo> =
             CollectHolder(v)
 
-    companion object {
-        class CollectHolder(itemView: View) : BaseHolder<FavoriteInfo>(itemView) {
-            override fun setData(data: FavoriteInfo, position: Int) {
-                itemView.find<TextView>(R.id.mTvCollectTitle).text = data.title
-                itemView.find<TextView>(R.id.mTvCollectDes).text = "创建时间: " + data.createdAt
-                itemView.find<ImageView>(R.id.mIvCheckStatus).visible(data.isChecked)
-                ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
-                        .imageLoader().loadImage(itemView.context,
-                                ImageConfigImpl
-                                        .builder()
-                                        .url(data.coverUrl)
-                                        .imageView(itemView.find(R.id.mIvCollectCover))
-                                        .placeholder(R.drawable.bg_loading)
-                                        .isCenterCrop(true)
-                                        .build()
-                        )
-            }
 
+    private class CollectHolder(itemView: View) : BaseHolder<FavoriteInfo>(itemView) {
+        override fun setData(data: FavoriteInfo, position: Int) {
+            itemView.find<TextView>(R.id.mTvCollectTitle).text = data.title
+            itemView.find<TextView>(R.id.mTvCollectDes).text = "创建时间: " + data.createdAt
+            itemView.find<ImageView>(R.id.mIvCheckStatus).visible(data.isChecked)
+            ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
+                    .imageLoader().loadImage(itemView.context,
+                            ImageConfigImpl
+                                    .builder()
+                                    .url(data.coverUrl)
+                                    .imageView(itemView.find(R.id.mIvCollectCover))
+                                    .placeholder(R.drawable.bg_loading)
+                                    .isCenterCrop(true)
+                                    .build()
+                    )
         }
+
     }
 }

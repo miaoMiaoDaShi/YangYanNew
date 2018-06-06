@@ -111,6 +111,11 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
                 .doFinally { mRootView.hideLoading() }
                 .subscribe(object : ErrorHandleSubscriber<SplashImageInfo>(mErrorHandler) {
                     override fun onNext(t: SplashImageInfo) {
+
+                        splashImageInfo?.let {
+                            //时间相同就不进行图像下载
+                            if (it.results[0].publishedAt.split("T")[0] == t.results[0].publishedAt.split("T")[0]) return
+                        }
                         mSplashImageInfo = mGson.toJson(t)
                         //下载图片
                         Toasty.info(mApplication, "今日妹子已经在后台打包下载了").show()

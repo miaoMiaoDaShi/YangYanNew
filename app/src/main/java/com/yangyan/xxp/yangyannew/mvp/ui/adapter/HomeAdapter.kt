@@ -25,7 +25,7 @@ constructor(val mDatas: MutableList<ImagesInfo>) : BaseQuickAdapter<ImagesInfo,B
         helper.setText(R.id.mTvCategory,item.category)
                 .setText(R.id.mTvTitle,item.title)
         if (BuildConfig.LOG_SHOW_IMAGE) {
-            helper.getView<ImageView>(R.id.mIvImage).loadImage(item.HDImageUrl, R.drawable.bg_loading)
+            helper.getView<ImageView>(R.id.mIvImage).loadImage(item.HDImageUrl)
         }
     }
 

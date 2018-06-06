@@ -34,7 +34,7 @@ constructor(val mDatas: MutableList<ImagesInfo>)
         helper.setText(R.id.mTvCategory, item.category)
                 .setText(R.id.mTvTitle, spannableString)
                 .getView<ImageView>(R.id.mIvImage)
-                .loadImage(item.HDImageUrl, R.drawable.bg_loading)
+                .loadImage(item.HDImageUrl)
 
     }
 
