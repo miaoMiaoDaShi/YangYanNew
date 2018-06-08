@@ -56,6 +56,9 @@ dependencies {
     implementation rootProject.ext.dependencies["systembar"]
     implementation rootProject.ext.dependencies["anko"]
     implementation rootProject.ext.dependencies["toast"]
+    implementation (rootProject.ext.dependencies["retrofit-converter-scalars"]){
+        exclude group: 'com.squareup.okio'
+    }
     implementation rootProject.ext.dependencies["brvah"]
     implementation rootProject.ext.dependencies["matisse"]
     implementation rootProject.ext.dependencies["cardview-v7"]

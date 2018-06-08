@@ -29,6 +29,6 @@ constructor(repositoryManager: IRepositoryManager)
     override fun searchAtlasByKeyword(pageIndex:Int,keyword: String):Observable<List<ImagesInfo>> {
         return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
                 .searchAtlasByKeyWords(pageIndex,keyword)
-                .map { html: ResponseBody -> AnalysisHTMLUtils.translationSearchPageToList(html.string()) }
+                .map { html: String -> AnalysisHTMLUtils.translationSearchPageToList(html) }
     }
 }

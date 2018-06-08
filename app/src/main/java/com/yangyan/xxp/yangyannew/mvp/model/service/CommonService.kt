@@ -22,26 +22,26 @@ interface CommonService {
      * 获取最新的套图推荐
      */
     @GET("new/page/{page}")
-    fun getNewAtlasList(@Path("page") page: Int): Observable<ResponseBody>
+    fun getNewAtlasList(@Path("page") page: Int): Observable<String>
 
     /**
      * 搜索套图
      */
     @GET("page/{page}")
-    fun searchAtlasByKeyWords(@Path("page") page: Int,@Query("s") keyWords: String): Observable<ResponseBody>
+    fun searchAtlasByKeyWords(@Path("page") page: Int,@Query("s") keyWords: String): Observable<String>
 
     /**
      * 根据 id  获取详细的套图
      */
     @GET("/{id}")
-    fun getAtlasDetailById(@Path("id") id: String): Observable<ResponseBody>
+    fun getAtlasDetailById(@Path("id") id: String): Observable<String>
 
 
     /**
      * 获取标志的套图推荐
      */
     @GET("tag/page/{page}")
-    fun getTagAtlasList(@Path("page") page: Int): Observable<ResponseBody>
+    fun getTagAtlasList(@Path("page") page: Int): Observable<String>
 
     /**
      * 根据分类
@@ -50,7 +50,7 @@ interface CommonService {
     fun getAtlasListByCategory(
             @Path("category") category: String,
             @Path("page") page: Int
-    ): Observable<ResponseBody>
+    ): Observable<String>
 
     /**
      * 启动页的图片  来自gank

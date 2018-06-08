@@ -8,6 +8,7 @@ import com.jess.arms.di.module.GlobalConfigModule
 import com.jess.arms.http.log.RequestInterceptor
 import com.jess.arms.integration.ConfigModule
 import com.yangyan.xxp.yangyannew.BuildConfig
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 /**
  * Author : zhongwenpeng
@@ -27,6 +28,9 @@ class GlobalConfiguration : ConfigModule {
         }
         builder.baseurl(Constant.API_HOST)
                 .responseErrorListener(ResponseErrorListenerImpl())
+                .retrofitConfiguration { context, builder ->
+                    builder.addConverterFactory(ScalarsConverterFactory.create())
+                }
                 .gsonConfiguration { context, builder ->
                     builder.serializeNulls()
                             .enableComplexMapKeySerialization()
