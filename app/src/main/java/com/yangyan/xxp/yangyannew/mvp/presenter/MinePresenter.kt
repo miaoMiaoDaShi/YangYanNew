@@ -7,6 +7,7 @@ import com.jess.arms.integration.AppManager
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.http.imageloader.ImageLoader
+import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.app.Preference
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
@@ -46,6 +47,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<UserInfo>(mErrorHandler) {
                     override fun onNext(t: UserInfo) {
                         mRootView.loadUserInfoSuccess(t)

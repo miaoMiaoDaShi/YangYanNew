@@ -11,6 +11,7 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.Constant
 import com.yangyan.xxp.yangyannew.app.Preference
+import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.di.component.DaggerSplashComponent
 import com.yangyan.xxp.yangyannew.di.module.SplashModule
@@ -61,7 +62,7 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     override fun alreadyHavePermission() {
         //加载本地图片
         mIvSplash.loadImage(
-                ImageConfigImpl.builder()
+                YangYanImageConfig.Builder()
                         .url(Constant.SPLASH_LOCAL_PATH + Constant.SPLASH_LOCAL_NAME)
                         .imageView(mIvSplash)
                         .cacheStrategy(1)

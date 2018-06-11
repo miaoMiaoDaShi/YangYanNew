@@ -11,6 +11,7 @@ import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.PermissionUtil
+import com.jess.arms.utils.RxLifecycleUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yangyan.xxp.yangyannew.app.Constant
 import com.yangyan.xxp.yangyannew.app.Preference
@@ -109,6 +110,7 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<SplashImageInfo>(mErrorHandler) {
                     override fun onNext(t: SplashImageInfo) {
 
@@ -135,6 +137,7 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
         Observable.intervalRange(1, 4, 0, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<Long>(mErrorHandler) {
                     override fun onNext(t: Long) {
                         val currentCount = 4 - t

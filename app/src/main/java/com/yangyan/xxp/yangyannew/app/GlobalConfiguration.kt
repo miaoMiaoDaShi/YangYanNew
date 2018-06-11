@@ -23,18 +23,23 @@ class GlobalConfiguration : ConfigModule {
     }
 
     override fun applyOptions(context: Context, builder: GlobalConfigModule.Builder) {
-        if (!BuildConfig.LOG_DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
-            builder.printHttpLogLevel(RequestInterceptor.Level.NONE)
+        builder.apply {
+            if (!BuildConfig.LOG_DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
+                printHttpLogLevel(RequestInterceptor.Level.NONE)
+            }
+
+            baseurl(Constant.API_HOST)
+            imageLoaderStrategy(YangYanGlideImageLoaderStrategy())
+            responseErrorListener(ResponseErrorListenerImpl())
+            retrofitConfiguration { context, builder ->
+                builder.addConverterFactory(ScalarsConverterFactory.create())
+            }
+            gsonConfiguration { context, builder ->
+                builder.serializeNulls()
+                        .enableComplexMapKeySerialization()
+            }
         }
-        builder.baseurl(Constant.API_HOST)
-                .responseErrorListener(ResponseErrorListenerImpl())
-                .retrofitConfiguration { context, builder ->
-                    builder.addConverterFactory(ScalarsConverterFactory.create())
-                }
-                .gsonConfiguration { context, builder ->
-                    builder.serializeNulls()
-                            .enableComplexMapKeySerialization()
-                }
+
     }
 
     override fun injectAppLifecycle(context: Context?, lifecycles: MutableList<AppLifecycles>?) {

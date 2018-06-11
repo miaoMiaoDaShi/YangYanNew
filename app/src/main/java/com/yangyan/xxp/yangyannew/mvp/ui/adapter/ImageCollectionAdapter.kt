@@ -8,6 +8,7 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.BuildConfig
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import org.jetbrains.anko.find
@@ -45,7 +46,16 @@ class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : 
         class ImageCollectionHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
             override fun setData(data: ImagesInfo, position: Int) {
                 if (BuildConfig.LOG_SHOW_IMAGE) {
-                    itemView.find<ImageView>(R.id.mIvImage).loadImage(data.displayImageUrl, R.drawable.bg_loading)
+                    itemView.find<ImageView>(R.id.mIvImage).apply {
+                        loadImage(YangYanImageConfig.Builder()
+                                .imageView(this)
+                                .url(data.displayImageUrl)
+                                .resize(data.width, data.height)
+                                .placeholder(R.drawable.bg_loading)
+                                .build())
+                    }
+
+
                 }
 
             }

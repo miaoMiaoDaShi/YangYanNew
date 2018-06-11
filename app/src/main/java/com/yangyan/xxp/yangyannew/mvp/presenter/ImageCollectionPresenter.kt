@@ -1,22 +1,13 @@
 package com.yangyan.xxp.yangyannew.mvp.presenter
 
-import android.app.Application
 import com.jess.arms.di.scope.ActivityScope
-import com.jess.arms.http.imageloader.ImageLoader
-import com.jess.arms.integration.AppManager
-import com.jess.arms.mvp.BasePresenter
-import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
+import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
-import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
-import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -40,7 +31,7 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
 
 
     fun getIamgeCollection(id: String) {
-        mModel.getIamgeCollection(id)
+        mModel.getImageCollection(id)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     mRootView.showLoading()
@@ -65,6 +56,7 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
                 .doFinally {
                     mRootView.hideLoading()
                 }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
                     override fun onNext(t: List<ImagesInfo>) {
                         t.forEach(::println)

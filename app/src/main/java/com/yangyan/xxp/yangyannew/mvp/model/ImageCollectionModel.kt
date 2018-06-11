@@ -28,7 +28,7 @@ import javax.inject.Inject
 @ActivityScope
 class ImageCollectionModel @Inject
 constructor(repositoryManager: IRepositoryManager) : FavoriteModel(repositoryManager), ImageCollectionContract.Model {
-    override fun getIamgeCollection(id: String): Observable<List<ImagesInfo>> {
+    override fun getImageCollection(id: String): Observable<List<ImagesInfo>> {
         return mRepositoryManager.obtainCacheService(CommonCacheService::class.java)
                 .getAtlasDetailById(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
                         .getAtlasDetailById(id),

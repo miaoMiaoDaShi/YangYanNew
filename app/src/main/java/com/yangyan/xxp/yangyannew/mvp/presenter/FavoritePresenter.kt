@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
+import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
@@ -61,6 +62,7 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<String>(mErrorHandler) {
                     override fun onNext(t: String) {
                         mRootView.onUploadCoverSuccess(t)
@@ -90,6 +92,7 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<String>(mErrorHandler) {
                     override fun onNext(t: String) {
                         Toasty.success(mApplication, "新建收藏夹成功").show()
@@ -112,6 +115,7 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<List<FavoriteInfo>>(mErrorHandler) {
                     override fun onNext(t: List<FavoriteInfo>) {
                         mRootView.favoriteDataStatus(t.isEmpty())

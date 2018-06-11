@@ -7,6 +7,7 @@ import com.jess.arms.integration.AppManager
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.http.imageloader.ImageLoader
+import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.app.Preference
 import com.yangyan.xxp.yangyannew.mvp.contract.LoginContract
 
@@ -63,6 +64,7 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<UserInfo>(mErrorHandler) {
                     override fun onNext(t: UserInfo) {
                         //存储用户信息

@@ -25,6 +25,6 @@ interface ImageCollectionContract {
         }
     }
     interface Model:FavoriteContract.Model{
-        fun getIamgeCollection(id:String): Observable<List<ImagesInfo>>
+        fun getImageCollection(id:String): Observable<List<ImagesInfo>>
     }
 }

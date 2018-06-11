@@ -79,7 +79,7 @@ fun ImageView.loadImage(url: String) {
 
 fun ImageView.loadImage(url: String, placeholder: Int) {
     ArmsUtils.obtainAppComponentFromContext(this.getContext())
-            .imageLoader().loadImage(this.context, ImageConfigImpl.builder()
+            .imageLoader().loadImage(this.context, YangYanImageConfig.Builder()
                     .url(url)
                     .placeholder(placeholder)
                     .imageView(this)
