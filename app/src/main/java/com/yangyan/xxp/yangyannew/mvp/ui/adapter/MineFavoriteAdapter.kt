@@ -8,6 +8,7 @@ import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.scope.FavoriteScope
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
@@ -35,8 +36,8 @@ constructor(val mDatas: MutableList<FavoriteInfo>) : DefaultAdapter<FavoriteInfo
             itemView.find<ImageView>(R.id.mIvCheckStatus).visible(data.isChecked)
             ArmsUtils.obtainAppComponentFromContext(itemView.getContext())
                     .imageLoader().loadImage(itemView.context,
-                            ImageConfigImpl
-                                    .builder()
+                            YangYanImageConfig
+                                    .Builder()
                                     .url(data.coverUrl)
                                     .imageView(itemView.find(R.id.mIvCollectCover))
                                     .placeholder(R.drawable.bg_loading)
