@@ -16,6 +16,7 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.tencent.bugly.crashreport.CrashReport
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.showDialog
 import com.yangyan.xxp.yangyannew.app.visible
@@ -136,7 +137,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
 
     override fun loadUserInfoSuccess(userInfo: UserInfo) {
         mImageLoader.loadImage(activity,
-                ImageConfigImpl.builder()
+                YangYanImageConfig.Builder()
                         .url(userInfo.userPortrait)
                         .imageView(mIvPortrait)
                         .placeholder(R.drawable.ic_user_default_portrait)
