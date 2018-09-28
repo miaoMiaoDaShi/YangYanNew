@@ -19,7 +19,7 @@ object AnalysisHTMLUtils {
         val images = ArrayList<ImagesInfo>()
         try {
             val document = Jsoup.parse(content)
-            val elements = document.select("div.posts-layout").select("article")
+            val elements = document.select("div#content").select("article")
             for (element in elements) {
                 val categoryAll = element.attr("class")
                 val categorys = StringBuilder()
@@ -41,7 +41,7 @@ object AnalysisHTMLUtils {
                 }
                 val title = element.select("header.entry-header").select("h2").select("a").text()
                 val link = element.select("header.entry-header").select("h2").select("a").attr("href")
-                val imgUrl = element.select("img").attr("src")
+                val imgUrl = element.select("div.entry-content").select("div.entry-thumbnail").select("img").attr("src")
 
                 val image = ImagesInfo(
                         id,
