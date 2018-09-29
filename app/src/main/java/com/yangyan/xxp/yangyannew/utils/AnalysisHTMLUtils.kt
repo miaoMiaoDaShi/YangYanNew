@@ -73,11 +73,11 @@ object AnalysisHTMLUtils {
         val images = ArrayList<ImagesInfo>()
         try {
             val document = Jsoup.parse(content)
-            val elements = document.select("div.posts-layout").select("article")
+            val elements = document.select("div#content").select("article")
             for (element in elements) {
                 val categoryAll = element.attr("class")
                 val categorys = StringBuilder()
-                val id = element.attr("id").substring(5)
+                val id = element.select("article").attr("id").split("-")[1]
                 for (i in 0 until categoryAll.split("category-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size) {
                     if (i == 0) {
                         continue
@@ -95,7 +95,7 @@ object AnalysisHTMLUtils {
                 }
                 val title = element.select("header.entry-header").select("h2").select("a").text()
                 val link = element.select("header.entry-header").select("h2").select("a").attr("href")
-                val imgUrl = element.select("img").attr("src")
+                val imgUrl = "${element.select("img").attr("data-src").substring(0,element.select("img").attr("data-src").lastIndexOf("-"))}.jpg"
 
                 val image = ImagesInfo(
                         id,
@@ -176,9 +176,8 @@ object AnalysisHTMLUtils {
         val images = ArrayList<ImagesInfo>()
         try {
             val document = Jsoup.parse(content)
-            val elements = document.select("div#page").select("div#content").select("div.container")
-                    .select("div.row").select("div#primary").select("main#main").select("article#post-$id")
-                    .select("div.single-content").select("div.rgg-imagegrid").select("a")
+            val elements = document.select("div#main").select("div#content").select("article#post-$id")
+                    .select("div.flex-space-between").select("div.rgg-imagegrid").select("a")
             for (element in elements) {
                 val imgUrlAll = element.attr("data-src")
                 val spaceIndex = imgUrlAll.lastIndexOf("-")
