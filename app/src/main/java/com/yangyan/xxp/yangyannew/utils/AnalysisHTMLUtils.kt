@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.utils
 
+import android.util.Log
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 
 import org.jsoup.Jsoup
@@ -14,6 +15,7 @@ import java.util.ArrayList
  */
 
 object AnalysisHTMLUtils {
+    val TAG = javaClass.simpleName
     //获取主页的指定内容
     fun translationHomePageToList(content: String): List<ImagesInfo> {
         val images = ArrayList<ImagesInfo>()
@@ -22,8 +24,9 @@ object AnalysisHTMLUtils {
             val elements = document.select("div#content").select("article")
             for (element in elements) {
                 val categoryAll = element.attr("class")
+                // val categoryAll = "blog-view post-258016 post type-post status-publish format-standard has-post-thumbnail hentry category-rihandongya category-zhong"
                 val categorys = StringBuilder()
-                val id = categoryAll.substring(5, categoryAll.indexOf(" "))
+                val id = element.select("article").attr("id").split("-")[1]
                 for (i in 0 until categoryAll.split("category-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size) {
                     if (i == 0) {
                         continue
@@ -39,9 +42,11 @@ object AnalysisHTMLUtils {
                     }
 
                 }
+
                 val title = element.select("header.entry-header").select("h2").select("a").text()
                 val link = element.select("header.entry-header").select("h2").select("a").attr("href")
-                val imgUrl = element.select("div.entry-content").select("div.entry-thumbnail").select("img").attr("src")
+                val imgUrl = "${element.select("img").attr("data-src").substring(0,element.select("img").attr("data-src").lastIndexOf("-"))}.jpg"
+
 
                 val image = ImagesInfo(
                         id,
