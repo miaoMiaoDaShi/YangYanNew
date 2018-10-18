@@ -28,17 +28,19 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "LOG_SHOW_IMAGE", "true"
             minifyEnabled false
+            multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "LOG_SHOW_IMAGE", "true"
             minifyEnabled false
+            multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
     }
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {
@@ -60,6 +62,7 @@ dependencies {
         exclude group: 'com.squareup.okio'
     }
     implementation rootProject.ext.dependencies["brvah"]
+    implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["matisse"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["lottie"]

@@ -18,12 +18,15 @@ interface HomeContract {
         fun getContext(): Context
         fun startLoadMore()
         fun endLoadMore()
+        fun loadSystemMagSuccess(msg: String)
     }
 
     interface Model : IModel {
         //首页的信息 获取的主要是最新的图集
         fun getHomeData(pageIndex: Int): Observable<List<ImagesInfo>>
 
+        //获取系统信息
+        fun getSystemMsg(): Observable<String>
 
     }
 }

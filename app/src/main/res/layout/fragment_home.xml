@@ -62,6 +62,40 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+      <LinearLayout
+          android:id="@+id/mLlSystemMsg"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:background="#f0ffffff"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:visibility="gone"
+          tools:visibility="visible"
+          >
+          <TextView
+              android:id="@+id/mTvSystemMag"
+              android:layout_weight="1"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:gravity="center_vertical"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp"
+              android:textColor="#222222"
+              android:textSize="15sp"
+              android:singleLine="true"
+              android:marqueeRepeatLimit="marquee_forever"
+              android:ellipsize="marquee"
+              tools:text="图集有时候可能会不会显示,一般是网站维护的原因.."
+              />
+
+          <ImageView
+              android:id="@+id/mIvCloseSystemMag"
+              android:padding="15dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_close"/>
+      </LinearLayout>
+
 
 
     </RelativeLayout>

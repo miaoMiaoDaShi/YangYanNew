@@ -18,6 +18,7 @@ import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
+import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.callback.onActivityBackCallback
 import com.yangyan.xxp.yangyannew.di.component.DaggerHomeComponent
 import com.yangyan.xxp.yangyannew.di.module.HomeModule
@@ -64,6 +65,14 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
     }
 
 
+    /**
+     * 获取系统通知信息成功
+     */
+    override fun loadSystemMagSuccess(msg: String) {
+        mLlSystemMsg.visible(true)
+        mTvSystemMag.isSelected = true
+        mTvSystemMag.text = msg
+    }
     override fun getContext(): Context = super.getContext()!!
 
     override fun showLoading() {
@@ -106,6 +115,8 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
             mSwipeRefreshLayout.isRefreshing = true
             onRefresh()
         }
+        mPresenter?.getSystemMsg()
+
         bindListener()
     }
 
@@ -113,6 +124,9 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
         mShadowView.onClick {
             //去搜索页面
             showSearchFragment()
+        }
+        mIvCloseSystemMag.onClick {
+            mLlSystemMsg.visible(false)
         }
     }
 

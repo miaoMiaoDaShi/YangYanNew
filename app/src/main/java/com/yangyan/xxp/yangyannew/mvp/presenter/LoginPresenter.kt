@@ -10,6 +10,7 @@ import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.app.Preference
 import com.yangyan.xxp.yangyannew.mvp.contract.LoginContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.LoginInfo
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 
@@ -43,6 +44,7 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View)
     lateinit var mGson: Gson
 
     private var mUserInfoString by Preference("userInfo", "")
+    private var mLoginInfoString by Preference("loginInfo", "")
 
     fun cleanUserInfo() {
         mUserInfoString = ""
@@ -53,9 +55,15 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View)
             mRootView.showMessage("任何一项不能为空")
             return
         }
+        //保存用户登录信息
+        val loginInfo = LoginInfo(email,pwd)
+        mLoginInfoString = mGson.toJson(loginInfo)
+
+
         val userInfo = UserInfo()
         userInfo.username = email
         userInfo.setPassword(pwd)
+
         mModel.toLogin(userInfo)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {

@@ -1,5 +1,8 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
 import com.google.gson.Gson
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.integration.IRepositoryManager
@@ -7,11 +10,14 @@ import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.app.Preference
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.SystemMsg
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.model.service.CommonService
 import com.yangyan.xxp.yangyannew.mvp.model.service.cache.CommonCacheService
 import com.yangyan.xxp.yangyannew.utils.AnalysisHTMLUtils
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
 import io.rx_cache2.DynamicKey
 import io.rx_cache2.DynamicKeyGroup
 import io.rx_cache2.Reply
@@ -52,6 +58,34 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                     }
                 }
                 .map { html: String -> AnalysisHTMLUtils.translationHomePageToList(html) }
+    }
+
+
+    /**
+     * 获取系统通知消息
+     */
+    override fun getSystemMsg(): Observable<String> {
+        return Observable.create(object : ObservableOnSubscribe<String> {
+            override fun subscribe(emitter: ObservableEmitter<String>) {
+                val bmobQuery = BmobQuery<SystemMsg>()
+                bmobQuery.findObjects(object : FindListener<SystemMsg>() {
+                    override fun done(p0: MutableList<SystemMsg>?, p1: BmobException?) {
+                        p0?.let {
+                            if(!it[0].content.isNullOrEmpty()){
+                                emitter.onNext(it[0].content!!)
+                                emitter.onComplete()
+                                return
+                            }
+
+
+                        }
+                        p1?.let {
+                            emitter.onError(it)
+                        }
+                    }
+                })
+            }
+        })
     }
 
 

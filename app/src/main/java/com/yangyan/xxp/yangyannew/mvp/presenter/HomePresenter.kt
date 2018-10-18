@@ -111,6 +111,25 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 })
     }
 
+    /**
+     * 获取系统信息
+     */
+    fun getSystemMsg() {
+        mModel.getSystemMsg()
+                .subscribeOn(Schedulers.io())
+//                .doOnSubscribe {
+//                    mRootView.showLoading()
+//                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                //.doFinally { mRootView.hideLoading() }
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(object : ErrorHandleSubscriber<String>(mErrorHandler) {
+                    override fun onNext(t: String) {
+                        mRootView.loadSystemMagSuccess(t)
+                    }
+                })
+    }
 
     override fun onDestroy() {
         super.onDestroy()
