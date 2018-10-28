@@ -4,6 +4,7 @@ import android.util.Log
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 
 import org.jsoup.Jsoup
+import timber.log.Timber
 
 import java.util.ArrayList
 
@@ -177,7 +178,7 @@ object AnalysisHTMLUtils {
         try {
             val document = Jsoup.parse(content)
             val elements = document.select("div#main").select("div#content").select("article#post-$id")
-                    .select("div.flex-space-between").select("div.rgg-imagegrid").select("a")
+                    .select("div.entry-content").select("div.rgg-imagegrid").select("a")
             for (element in elements) {
                 val imgUrlAll = element.attr("data-src")
                 val spaceIndex = imgUrlAll.lastIndexOf("-")
