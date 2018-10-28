@@ -1,7 +1,17 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
 import com.jess.arms.http.imageloader.glide.ImageConfigImpl
@@ -20,12 +30,25 @@ import org.jetbrains.anko.find
  * Description : 套图集合页面
  */
 
-class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : DefaultAdapter<ImagesInfo>(mDatas) {
+class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) :
+        BaseQuickAdapter<ImagesInfo, BaseViewHolder>(R.layout.recycler_image_collection, mDatas) {
+
+    override fun convert(helper: BaseViewHolder, item: ImagesInfo) {
+        helper.getView<ImageView>(R.id.mIvImage).apply {
+            if (BuildConfig.LOG_SHOW_IMAGE) {
+                loadImage(YangYanImageConfig.Builder()
+                        .imageView(this)
+                        .url(item.displayImageUrl)
+                        .placeholder(R.drawable.bg_loading)
+                        .build())
+
+            }
+        }
+
+    }
+
     val ITEM_TYPE_A = 0x10
     val ITEM_TYPE_B = 0x11
-
-    override fun getLayoutId(viewType: Int): Int = R.layout.recycler_image_collection
-
 
     override fun getItemViewType(position: Int): Int {
         val width = mDatas[position].width
@@ -36,30 +59,6 @@ class ImageCollectionAdapter constructor(val mDatas: MutableList<ImagesInfo>) : 
             ITEM_TYPE_B
         } else {
             ITEM_TYPE_B
-        }
-    }
-
-    override fun getHolder(v: View, viewType: Int): BaseHolder<ImagesInfo> =
-            ImageCollectionHolder(v)
-
-    companion object {
-        class ImageCollectionHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
-            override fun setData(data: ImagesInfo, position: Int) {
-                if (BuildConfig.LOG_SHOW_IMAGE) {
-                    itemView.find<ImageView>(R.id.mIvImage).apply {
-                        loadImage(YangYanImageConfig.Builder()
-                                .imageView(this)
-                                .url(data.displayImageUrl)
-                                .resize(data.width, data.height)
-                                .placeholder(R.drawable.bg_loading)
-                                .build())
-                    }
-
-
-                }
-
-            }
-
         }
     }
 }

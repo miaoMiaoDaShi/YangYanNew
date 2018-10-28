@@ -70,7 +70,8 @@ fun dismissDialog(dialog: DialogFragment) {
  */
 fun <T : ImageConfig> ImageView.loadImage(config: T) {
     ArmsUtils.obtainAppComponentFromContext(this.getContext())
-            .imageLoader().loadImage(this.context, config)
+            .imageLoader()
+            .loadImage(this.context, config)
 }
 
 fun ImageView.loadImage(url: String) {

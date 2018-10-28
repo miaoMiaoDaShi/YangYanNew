@@ -1,11 +1,16 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
+import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.ListPreloader
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
@@ -15,6 +20,8 @@ import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.component.ImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
+import com.yangyan.xxp.yangyannew.glide.PerloadModelProvider
+import com.yangyan.xxp.yangyannew.glide.PreloadSizeProvider
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
@@ -83,6 +90,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     override fun initData(savedInstanceState: Bundle?) {
         initRecyclerView()
         initToolbar()
+        initSlideHint()
         mIvCollectCover.loadImage(mImageInfo.HDImageUrl)
         mPresenter?.getIamgeCollection(mImageInfo.id)
 
@@ -92,11 +100,36 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
             } else {//普通进入
                 startActivity<FavoriteListActivity>("imageInfo" to mImageInfo)
-                overridePendingTransition(R.anim.fragment_slide_up,0)
+                overridePendingTransition(R.anim.fragment_slide_up, 0)
             }
 
         }
     }
+
+    /**
+     * 滑动的提示
+     */
+    private var mAnimationCount = 4
+
+    private fun initSlideHint() {
+        slideAnim(mAnimationCount, false)
+
+    }
+
+    fun slideAnim(count: Int, slideDirection: Boolean) {
+        val temp = !slideDirection
+        mIvSwipeUp.animate()
+                .translationYBy(if (temp) -500f else 500f)
+                .setDuration(1000)
+                .withEndAction {
+                    if (count == 0) {
+                        mIvSwipeUp.animate().alpha(0f)
+                        return@withEndAction
+                    }
+                    slideAnim(count - 1, temp)
+                }
+    }
+
 
     private val mIsFavorite by lazy {
         intent.getBooleanExtra("isFavorite", false)
@@ -118,9 +151,8 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun onResume() {
         super.onResume()
-        mToolbar.title = mImageInfo.category
-        mToolbar.subtitle = mImageInfo.title
-        mToolbar.setSubtitleTextColor(Color.BLACK)
+        supportActionBar!!.title = mImageInfo.category
+        supportActionBar!!.subtitle = mImageInfo.title
     }
 
     private fun initRecyclerView() {
@@ -137,13 +169,11 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
         }
         mRvImageCollection.layoutManager = mLayoutManager
         mRvImageCollection.adapter = mAdapter
-        mAdapter.setOnItemClickListener { view, viewType, data, position ->
-            kotlin.run {
-                this@ImageCollectionActivity.startActivityForResult<GalleryActivity>(
-                        REQUSET_CODE_TO_GALLERY,
-                        "id" to mImageInfo.id,
-                        "index" to position)
-            }
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            this@ImageCollectionActivity.startActivityForResult<GalleryActivity>(
+                    REQUSET_CODE_TO_GALLERY,
+                    "id" to mImageInfo.id,
+                    "index" to position)
         }
     }
 

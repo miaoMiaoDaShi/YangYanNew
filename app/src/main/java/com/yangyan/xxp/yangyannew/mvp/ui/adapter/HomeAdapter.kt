@@ -39,14 +39,4 @@ constructor(val mDatas: MutableList<ImagesInfo>) : BaseQuickAdapter<ImagesInfo,B
     }
 
 
-//    companion object {
-//        class HomeHolder(itemView: View) : BaseHolder<ImagesInfo>(itemView) {
-//            override fun setData(data: ImagesInfo, position: Int) {
-//                itemView.find<TextView>().text = data.category
-//                itemView.find<TextView>().text = data.title
-//
-//            }
-//
-//        }
-//    }
 }
