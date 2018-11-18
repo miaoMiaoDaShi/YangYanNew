@@ -13,7 +13,6 @@ class CategoryUtils {
          * value name
          */
         val categoryNameMap = mapOf(
-                "tag" to "标致美人",
                 "xinggan" to "性感美女",
                 "shaonv" to "少女萝莉",
                 "mrxt" to "美乳香臀",

@@ -1,10 +1,9 @@
-package com.yangyan.xxp.yangyannew.utils
+package com.yangyan.xxp.yangyannew.mvp.model.parser
 
-import android.util.Log
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.utils.CategoryUtils
 
 import org.jsoup.Jsoup
-import timber.log.Timber
 
 import java.util.ArrayList
 
@@ -15,13 +14,14 @@ import java.util.ArrayList
  * Description : 网页数据的解析从HTMLString 到ImageInfo的集合对象,解析器:jsoup
  */
 
-object AnalysisHTMLUtils {
+class ParseXxxiaoMm :IParse {
+    val HOST = "http://m.xxxiao.com"
+    val KEY = "m.xxxiao.com"
     val TAG = javaClass.simpleName
-    //获取主页的指定内容
-    fun translationHomePageToList(content: String): List<ImagesInfo> {
+    override fun parseHome(htmlContent: String, args: Array<String>?): List<ImagesInfo> {
         val images = ArrayList<ImagesInfo>()
         try {
-            val document = Jsoup.parse(content)
+            val document = Jsoup.parse(htmlContent)
             val elements = document.select("div#content").select("article")
             for (element in elements) {
                 val categoryAll = element.attr("class")
@@ -46,16 +46,16 @@ object AnalysisHTMLUtils {
 
                 val title = element.select("header.entry-header").select("h2").select("a").text()
                 val link = element.select("header.entry-header").select("h2").select("a").attr("href")
-                val imgUrl = "${element.select("img").attr("data-src").substring(0,element.select("img").attr("data-src").lastIndexOf("-"))}.jpg"
+                val imgUrl = "${element.select("img").attr("data-src").substring(0, element.select("img").attr("data-src").lastIndexOf("-"))}.jpg"
 
 
                 val image = ImagesInfo(
                         id,
                         title,
                         "",
-                        imgUrl,
+                        HOST + imgUrl.split(KEY)[1],
                         categorys.toString().substring(0, categorys.length - 1),
-                        0,0
+                        0, 0
                 )
                 images.add(image)
             }
@@ -66,14 +66,17 @@ object AnalysisHTMLUtils {
         }
 
         return images
+
     }
-    /**
-     * 搜索
-     */
-    fun translationSearchPageToList(content: String): List<ImagesInfo> {
+
+    override fun parseCategory(htmlContent: String, args: Array<String>?): List<ImagesInfo> {
+      return parseHome(htmlContent,null)
+    }
+
+    override fun parseSearch(htmlContent: String, args: Array<String>?): List<ImagesInfo> {
         val images = ArrayList<ImagesInfo>()
         try {
-            val document = Jsoup.parse(content)
+            val document = Jsoup.parse(htmlContent)
             val elements = document.select("div#content").select("article")
             for (element in elements) {
                 val categoryAll = element.attr("class")
@@ -96,15 +99,15 @@ object AnalysisHTMLUtils {
                 }
                 val title = element.select("header.entry-header").select("h2").select("a").text()
                 val link = element.select("header.entry-header").select("h2").select("a").attr("href")
-                val imgUrl = "${element.select("img").attr("data-src").substring(0,element.select("img").attr("data-src").lastIndexOf("-"))}.jpg"
+                val imgUrl = "${element.select("img").attr("data-src").substring(0, element.select("img").attr("data-src").lastIndexOf("-"))}.jpg"
 
                 val image = ImagesInfo(
                         id,
                         title,
                         "",
-                        imgUrl,
+                        HOST + imgUrl.split(KEY)[1],
                         categorys.toString().substring(0, categorys.length - 1),
-                        0,0
+                        0, 0
                 )
                 images.add(image)
             }
@@ -117,67 +120,11 @@ object AnalysisHTMLUtils {
         return images
     }
 
-    fun translationTagPageToList(content: String): List<ImagesInfo> {
+    override fun parseImageDetailCollection(htmlContent: String, args: Array<String>?): List<ImagesInfo> {
         val images = ArrayList<ImagesInfo>()
         try {
-            val document = Jsoup.parse(content)
-            val elements = document.select("div.lsow-grid-container").select("article")
-            for (element in elements) {
-                println(element)
-                val categoryAll = element.attr("class")
-                val categorys = StringBuilder()
-                val id = categoryAll.substring(5, categoryAll.indexOf(" "))
-                for (i in 0 until categoryAll.split("category-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size) {
-                    if (i == 0) {
-                        continue
-                    }
-                    try {
-                        val categoryAllSplit = categoryAll.split("category-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[i]
-                        val spaceIndex = categoryAllSplit.indexOf(" ")
-                        val category = categoryAllSplit.substring(0, if (spaceIndex == -1) categoryAllSplit.length else spaceIndex)
-                        categorys.append(CategoryUtils.getCategoryByCode(category))
-                                .append(",")
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-
-                }
-                val title = element.select("div.lsow-entry-info").select("h3").select("a").attr("title")
-                val link = element.select("header.entry-header").select("h2").select("a").attr("href")
-                val imgUrl = element.select("img").attr("src")
-
-                val image = ImagesInfo(
-                        id,
-                        title,
-                        "",
-                        imgUrl,
-                        categorys.toString().substring(0, categorys.length - 1),
-                        0,
-                        0
-                )
-                images.add(image)
-            }
-
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        return images
-    }
-
-    /**
-     * 套图装换
-     *
-     * @param content
-     * @param id
-     * @return
-     */
-    fun translationParticularsToList(content: String, id: String): List<ImagesInfo> {
-        val images = ArrayList<ImagesInfo>()
-        try {
-            val document = Jsoup.parse(content)
-            val elements = document.select("div#main").select("div#content").select("article#post-$id")
+            val document = Jsoup.parse(htmlContent)
+            val elements = document.select("div#main").select("div#content").select("article#post-${args?.get(0)}")
                     .select("div.entry-content").select("div.rgg-imagegrid").select("a")
             for (element in elements) {
                 val imgUrlAll = element.attr("data-src")
@@ -191,8 +138,8 @@ object AnalysisHTMLUtils {
                 val image = ImagesInfo(
                         "",
                         "",
-                        imgDisplay,
-                        imgUrl,
+                        HOST + imgDisplay.split(KEY)[1],
+                        HOST + imgUrl.split(KEY)[1],
                         "",
                         width,
                         height
@@ -206,4 +153,9 @@ object AnalysisHTMLUtils {
 
         return images
     }
+
+
+
 }
+
+

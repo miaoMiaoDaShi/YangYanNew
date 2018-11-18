@@ -3,23 +3,20 @@ package com.yangyan.xxp.yangyannew.mvp.model
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
-import com.google.gson.Gson
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
-import com.yangyan.xxp.yangyannew.app.Preference
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.SystemMsg
-import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
+import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseFactory
 import com.yangyan.xxp.yangyannew.mvp.model.service.CommonService
 import com.yangyan.xxp.yangyannew.mvp.model.service.cache.CommonCacheService
-import com.yangyan.xxp.yangyannew.utils.AnalysisHTMLUtils
+import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseXxxiaoMm
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import io.rx_cache2.DynamicKey
-import io.rx_cache2.DynamicKeyGroup
 import io.rx_cache2.Reply
 import io.rx_cache2.Source
 import timber.log.Timber
@@ -57,7 +54,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                         }
                     }
                 }
-                .map { html: String -> AnalysisHTMLUtils.translationHomePageToList(html) }
+                .map { html: String -> ParseFactory.getParse().parseHome(html,null) }
     }
 
 
