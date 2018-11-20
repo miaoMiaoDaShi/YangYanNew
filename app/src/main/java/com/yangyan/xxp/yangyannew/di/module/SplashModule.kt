@@ -1,13 +1,8 @@
 package com.yangyan.xxp.yangyannew.di.module
 
 import com.jess.arms.di.scope.ActivityScope
-import com.jess.arms.di.scope.FragmentScope
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
-import com.yangyan.xxp.yangyannew.mvp.contract.SignUpContract
 import com.yangyan.xxp.yangyannew.mvp.contract.SplashContract
-import com.yangyan.xxp.yangyannew.mvp.model.MineModel
-import com.yangyan.xxp.yangyannew.mvp.model.SignUpModel
 import com.yangyan.xxp.yangyannew.mvp.model.SplashModel
 import dagger.Module
 import dagger.Provides
@@ -34,6 +29,6 @@ class SplashModule(val view: SplashContract.View) {
 
     @ActivityScope
     @Provides
-    internal fun provideRxPermission() = RxPermissions(view.getActivity())
+    internal fun provideRxPermission() = RxPermissions(view.getFragmentActivity())
 
 }

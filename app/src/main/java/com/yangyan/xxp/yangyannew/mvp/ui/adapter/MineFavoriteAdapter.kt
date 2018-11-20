@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.YangYanImageConfig

@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.BuildConfig
 import com.yangyan.xxp.yangyannew.R

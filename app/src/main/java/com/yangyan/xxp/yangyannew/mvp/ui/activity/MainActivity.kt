@@ -99,9 +99,9 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNav
             if (mCurrentFragment == null) {
                 transaction.add(R.id.mFlContent, to).commit()
             } else if (!to.isAdded) {
-                transaction.hide(mCurrentFragment).add(R.id.mFlContent, to).commit()
+                transaction.hide(mCurrentFragment!!).add(R.id.mFlContent, to).commit()
             } else {
-                transaction.hide(mCurrentFragment).show(to).commit()
+                transaction.hide(mCurrentFragment!!).show(to).commit()
             }
             mCurrentFragment = to
         }

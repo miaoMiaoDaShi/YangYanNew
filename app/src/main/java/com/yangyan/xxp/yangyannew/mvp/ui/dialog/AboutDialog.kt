@@ -41,7 +41,7 @@ class AboutDialog : BaseDialogFragment() {
         super.onResume()
         val dialogWindow = dialog.window
         val lp = dialogWindow!!.attributes
-        lp.width =ArmsUtils.dip2px(context,280f)
+        lp.width =ArmsUtils.dip2px(context!!,280f)
         lp.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialogWindow.attributes = lp
     }

@@ -19,7 +19,7 @@ class AddCollectDialog :BaseDialogFragment(){
         super.onResume()
         val dialogWindow = dialog.window
         val lp = dialogWindow!!.attributes
-        lp.width = ArmsUtils.dip2px(context,282f)
+        lp.width = ArmsUtils.dip2px(context!!,282f)
         lp.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialogWindow.attributes = lp
     }

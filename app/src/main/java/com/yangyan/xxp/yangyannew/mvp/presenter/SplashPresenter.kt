@@ -3,19 +3,16 @@ package com.yangyan.xxp.yangyannew.mvp.presenter
 import android.Manifest
 import android.app.Application
 import android.content.Intent
-import android.icu.util.Calendar
 import com.google.gson.Gson
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
-import com.jess.arms.utils.ArmsUtils
 import com.jess.arms.utils.PermissionUtil
 import com.jess.arms.utils.RxLifecycleUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yangyan.xxp.yangyannew.app.Constant
 import com.yangyan.xxp.yangyannew.app.Preference
-import com.yangyan.xxp.yangyannew.mvp.contract.LoginContract
 import com.yangyan.xxp.yangyannew.mvp.contract.SplashContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.SplashImageInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.LoginActivity
@@ -23,7 +20,6 @@ import com.yangyan.xxp.yangyannew.mvp.ui.activity.MainActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.service.DownloadService
 import es.dmoral.toasty.Toasty
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
@@ -142,11 +138,11 @@ constructor(model: SplashContract.Model, rootView: SplashContract.View)
                     override fun onNext(t: Long) {
                         val currentCount = 4 - t
                         if (currentCount == 0L) {
-                            if (mRootView.getActivity().intent.getBooleanExtra("isFirst", true)) {
+                            if (mRootView.getFragmentActivity().intent.getBooleanExtra("isFirst", true)) {
                                 if (mUserInfoString.isEmpty()) {
-                                    mRootView.getActivity().startActivity<LoginActivity>()
+                                    mRootView.getFragmentActivity().startActivity<LoginActivity>()
                                 } else {
-                                    mRootView.getActivity().startActivity<MainActivity>()
+                                    mRootView.getFragmentActivity().startActivity<MainActivity>()
                                 }
                             }
                             mRootView.killMyself()

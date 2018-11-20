@@ -21,7 +21,10 @@ android {
             // 设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
-
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
     buildTypes {
         debug {
@@ -47,8 +50,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -75,14 +77,14 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]
-    implementation('me.jessyan:arms:2.4.1') {
+    implementation('me.jessyan:arms:2.5.0') {
        // exclude module: 'photoView'
          exclude group: 'com.google.code.gson'
         //exclude group: 'com.squareup.retrofit2'
         exclude group: 'com.squareup.okio'
         //exclude group: 'com.google.code.gson'
     }
-
+    implementation 'com.tencent.qcloud:cosxml-lite:5.4.17'
     implementation ('org.jsoup:jsoup:1.11.3'){
        // exclude module: 'okio'
     }

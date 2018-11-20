@@ -3,11 +3,11 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.http.imageloader.ImageLoader
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.Constant
 import com.yangyan.xxp.yangyannew.app.Preference
@@ -40,7 +40,7 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     override fun launchActivity(intent: Intent) {
     }
 
-    override fun getActivity(): Activity {
+    override fun getFragmentActivity(): FragmentActivity {
         return this
     }
 

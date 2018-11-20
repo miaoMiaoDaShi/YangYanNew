@@ -81,12 +81,12 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
             layoutManager = mLayoutManager
             adapter = mAdapter.apply {
                 addItemDecoration(object : RecyclerView.ItemDecoration() {
-                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+                    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                         super.getItemOffsets(outRect, view, parent, state)
                         outRect.top = ArmsUtils.dip2px(applicationContext, 10f)
                         outRect.left = ArmsUtils.dip2px(applicationContext, 10f)
                         outRect.right = ArmsUtils.dip2px(applicationContext, 10f)
-                        if (parent.getChildLayoutPosition(view) == parent.layoutManager.childCount) {
+                        if (parent.getChildLayoutPosition(view) == parent.layoutManager!!.childCount) {
                             outRect.bottom = ArmsUtils.dip2px(applicationContext, 10f)
                         }
                     }

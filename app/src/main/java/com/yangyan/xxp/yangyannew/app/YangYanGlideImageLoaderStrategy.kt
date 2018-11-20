@@ -63,9 +63,7 @@ class YangYanGlideImageLoaderStrategy : BaseImageLoaderStrategy<YangYanImageConf
             glideRequest.transform(RoundedCorners(config.imageRadius))
         }
 
-        if (config.blurValue!=0) {
-            glideRequest.transform(BlurTransformation(config.blurValue))
-        }
+
 
         if (config.resizeX!=0&&config.resizeY!=0){
             glideRequest.override(config.resizeX,config.resizeY)

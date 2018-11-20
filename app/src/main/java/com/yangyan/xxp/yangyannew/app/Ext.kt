@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
-import android.support.constraint.Placeholder
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -17,7 +16,6 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
 import com.jess.arms.http.imageloader.ImageConfig
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
 import org.jetbrains.anko.find
@@ -88,7 +86,7 @@ fun ImageView.loadImage(url: String, placeholder: Int) {
 }
 
 fun Context.getTopActivity(): Activity {
-    return ArmsUtils.obtainAppComponentFromContext(this).appManager().topActivity
+    return ArmsUtils.obtainAppComponentFromContext(this).appManager().topActivity!!
 }
 
 /**

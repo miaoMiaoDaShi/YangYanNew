@@ -12,9 +12,7 @@ import android.view.ViewGroup
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.http.imageloader.ImageLoader
-import com.jess.arms.http.imageloader.glide.ImageConfigImpl
 import com.jess.arms.utils.ArmsUtils
-import com.tencent.bugly.crashreport.CrashReport
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.onClick
@@ -94,19 +92,20 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
 
         mIvToMore.onClick(this)
         mFabToAddCollect.onClick(this)
+        mIvPortrait.onClick(this)
     }
 
     private fun initRecyclerView() {
         mRvMineCollect.layoutManager = mLinearLayoutManager
         mRvMineCollect.adapter = mAdapter
         mRvMineCollect.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
                 outRect.top = ArmsUtils.dip2px(context, 10f)
                 outRect.left = ArmsUtils.dip2px(context, 10f)
                 outRect.right = ArmsUtils.dip2px(context, 10f)
-                Timber.i("当前/共: ${parent.getChildLayoutPosition(view)}/${parent.layoutManager.childCount}")
-                if (parent.getChildLayoutPosition(view) == parent.layoutManager.childCount) {
+                Timber.i("当前/共: ${parent.getChildLayoutPosition(view)}/${parent.layoutManager!!.childCount}")
+                if (parent.getChildLayoutPosition(view) == parent.layoutManager!!.childCount) {
                     outRect.bottom = ArmsUtils.dip2px(context, 10f)
                 }
             }
@@ -126,8 +125,11 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
             R.id.mIvToMore -> {
                 showDialog(mAboutDialo)
             }
-            R.id.mFabToAddCollect -> {
+            R.id.mFabToAddCollect -> {//收藏按钮
                 activity?.startActivity<AddFavoriteActivity>()
+            }
+            R.id.mIvPortrait -> {//头像
+
             }
             else -> {
             }

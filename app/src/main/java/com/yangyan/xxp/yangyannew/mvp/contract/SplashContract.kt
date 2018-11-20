@@ -1,6 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
 import android.app.Activity
+import android.support.v4.app.FragmentActivity
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.SplashImageInfo
@@ -15,7 +16,7 @@ import io.reactivex.Observable
  */
 interface SplashContract {
     interface View :IView{
-        fun getActivity():Activity
+        fun getFragmentActivity():FragmentActivity
         fun alreadyHavePermission()
         fun countDown(count:Long)
     }
