@@ -13,6 +13,6 @@
  ### apk下载体验地址 
 ![](screenshot/download_orcode.png)
  ## 截图
-![](screenshot/Screenshot_splash.jpg) ![](screenshot/Screenshot_login.jpg)![](screenshot/Screenshot_home.jpg)![](screenshot/Screenshot_category.jpg)![](screenshot/Screenshot_mine.jpg)
+![](screenshot/Screenshot_splash.jpg) ![](screenshot/Screenshot_login.jpg)![](screenshot/Screenshot_home.jpg)![](screenshot/Screenshot_category.jpg)![](screenshot/Screenshot_mine.jpg)![](screenshot/Screenshot_search.png)
 
  ## 代码敲得比较乱,注释写的比较少
