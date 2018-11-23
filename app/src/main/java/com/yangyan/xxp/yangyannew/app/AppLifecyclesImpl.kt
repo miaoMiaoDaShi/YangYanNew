@@ -24,7 +24,13 @@ import com.jess.arms.utils.ArmsUtils
 
 import butterknife.ButterKnife
 import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.cos.xml.CosXmlServiceConfig
+import com.tencent.cos.xml.CosXmlSimpleService
+import com.tencent.qcloud.core.auth.ShortTimeCredentialProvider
 import com.yangyan.xxp.yangyannew.BuildConfig
+import com.yangyan.xxp.yangyannew.di.component.DaggerYangYanComponent
+import com.yangyan.xxp.yangyannew.di.component.YangYanComponent
+import com.yangyan.xxp.yangyannew.di.module.YangYanModule
 import timber.log.Timber
 
 /**
@@ -45,6 +51,9 @@ class AppLifecyclesImpl : AppLifecycles {
 
     override fun onCreate(application: Application) {
         Preference.init(application)
+
+
+
         CrashReport.initCrashReport(application, "812e582b4e", false);
         if (BuildConfig.LOG_DEBUG) {//Timber初始化
             //Timber 是一个日志框架容器,外部使用统一的Api,内部可以动态的切换成任何日志框架(打印策略)进行日志打印
@@ -73,6 +82,8 @@ class AppLifecyclesImpl : AppLifecycles {
         //Message msg = new Message();
         //msg.what = 0;
         //AppManager.post(msg); like EventBus
+
+
     }
 
     override fun onTerminate(application: Application) {

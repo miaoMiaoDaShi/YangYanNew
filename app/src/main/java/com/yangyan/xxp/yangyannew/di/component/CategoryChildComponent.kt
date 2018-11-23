@@ -13,7 +13,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.fragment.CategoryFragment
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 
 @FragmentScope
-@Component(modules = arrayOf(CategoryChildModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [CategoryChildModule::class], dependencies = [AppComponent::class])
 interface CategoryChildComponent {
     fun inject(fragment: CategoryChildFragment)
 }

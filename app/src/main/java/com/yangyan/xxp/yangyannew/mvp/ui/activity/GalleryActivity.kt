@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.getYangYanComponent
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerGalleryComponent
 import com.yangyan.xxp.yangyannew.di.module.GalleryModule
@@ -57,7 +58,7 @@ class GalleryActivity : BaseActivity<GalleryPresenter>(), ViewPager.OnPageChange
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerGalleryComponent.builder()
-                .appComponent(appComponent)
+                .yangYanComponent(application.getYangYanComponent())
                 .galleryModule(GalleryModule(this))
                 .build()
                 .inject(this)

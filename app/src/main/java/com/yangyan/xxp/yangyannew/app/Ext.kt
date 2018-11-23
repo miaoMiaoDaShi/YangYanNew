@@ -1,6 +1,7 @@
 package com.yangyan.xxp.yangyannew.app
 
 import android.app.Activity
+import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -18,6 +19,7 @@ import com.bumptech.glide.request.target.Target
 import com.jess.arms.http.imageloader.ImageConfig
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.di.component.YangYanComponent
 import org.jetbrains.anko.find
 import java.io.File
 
@@ -112,5 +114,8 @@ fun Uri.getRealFilePath(context: Context): String? {
         }
     }
     return data
+}
+fun Context.getYangYanComponent(): YangYanComponent {
+    return( this as YangYan ).yangYangComponent()
 }
 

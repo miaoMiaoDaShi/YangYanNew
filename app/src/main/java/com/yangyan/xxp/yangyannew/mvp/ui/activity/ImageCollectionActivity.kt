@@ -14,6 +14,7 @@ import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.getYangYanComponent
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.visible
@@ -77,7 +78,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerImageCollectionComponent.builder()
-                .appComponent(appComponent)
+                .yangYanComponent(application.getYangYanComponent())
                 .imageCollectionModule(ImageCollectionModule(this))
                 .build()
                 .inject(this)

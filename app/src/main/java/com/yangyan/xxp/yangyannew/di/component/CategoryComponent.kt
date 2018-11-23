@@ -16,7 +16,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 import javax.inject.Singleton
 
 @FragmentScope
-@Component(modules = arrayOf(CategoryModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [CategoryModule::class], dependencies = [AppComponent::class])
 interface CategoryComponent {
     fun inject(fragment: CategoryFragment)
 }

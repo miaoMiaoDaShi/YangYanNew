@@ -14,7 +14,7 @@ import dagger.Component
  * Description :启动页面的
  */
 @ActivityScope
-@Component(modules = arrayOf(SplashModule::class),dependencies = arrayOf(AppComponent::class))
+@Component(modules = [SplashModule::class],dependencies = [AppComponent::class])
 interface SplashComponent {
     fun inject(activity:SplashActivity)
 }

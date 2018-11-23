@@ -18,7 +18,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.fragment.MineFragment
  */
 @FragmentScope
 @FavoriteScope
-@Component(modules = arrayOf(MineModule::class,FavoriteModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [MineModule::class, FavoriteModule::class], dependencies = [YangYanComponent::class])
 interface MineComponent {
     fun inject(fragment: MineFragment)
 }

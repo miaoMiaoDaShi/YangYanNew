@@ -13,7 +13,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.activity.ImageCollectionActivity
 
 @ActivityScope
 @FavoriteScope
-@Component(modules = arrayOf(ImageCollectionModule::class,FavoriteModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [ImageCollectionModule::class, FavoriteModule::class], dependencies = [YangYanComponent::class])
 interface ImageCollectionComponent {
     fun inject(activity: ImageCollectionActivity)
     fun inject(activity: FavoriteListActivity)

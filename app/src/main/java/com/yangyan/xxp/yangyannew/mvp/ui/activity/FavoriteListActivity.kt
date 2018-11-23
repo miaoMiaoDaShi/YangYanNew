@@ -13,6 +13,7 @@ import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.getYangYanComponent
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
@@ -48,7 +49,7 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerImageCollectionComponent.builder()
-                .appComponent(appComponent)
+                .yangYanComponent(application.getYangYanComponent())
                 .imageCollectionModule(ImageCollectionModule(this))
                 .build().inject(this)
     }

@@ -17,7 +17,7 @@ import dagger.Component
  */
 @ActivityScope
 @FavoriteScope
-@Component(modules = arrayOf(FavoriteImageListModule::class,FavoriteModule::class),dependencies = arrayOf(AppComponent::class))
+@Component(modules = [FavoriteImageListModule::class, FavoriteModule::class],dependencies = [YangYanComponent::class])
 interface FavoriteImageListComponent {
     fun inject(activity:FavoriteImageListActivity)
 }

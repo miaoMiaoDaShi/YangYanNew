@@ -14,10 +14,7 @@ import com.jess.arms.di.component.AppComponent
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
-import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
-import com.yangyan.xxp.yangyannew.app.onClick
-import com.yangyan.xxp.yangyannew.app.showDialog
-import com.yangyan.xxp.yangyannew.app.visible
+import com.yangyan.xxp.yangyannew.app.*
 import com.yangyan.xxp.yangyannew.di.component.DaggerMineComponent
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.MineModule
@@ -66,7 +63,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerMineComponent.builder()
-                .appComponent(appComponent)
+                .yangYanComponent(activity?.application?.getYangYanComponent())
                 .mineModule(MineModule(this))
                 .favoriteModule(FavoriteModule())
                 .build()

@@ -6,6 +6,7 @@ import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.utils.RxLifecycleUtils
+import com.tencent.cos.xml.CosXmlSimpleService
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
@@ -49,6 +50,7 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
     @Inject
     @field:Named("FavoriteImagesDatas")
     lateinit var mImageDatas: MutableList<ImagesInfo>
+
 
     /**
      * 上传封面文件

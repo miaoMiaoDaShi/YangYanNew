@@ -84,7 +84,9 @@ dependencies {
         exclude group: 'com.squareup.okio'
         //exclude group: 'com.google.code.gson'
     }
-    implementation 'com.tencent.qcloud:cosxml-lite:5.4.17'
+    implementation ('com.tencent.qcloud:cosxml-lite:5.4.17'){
+        exclude module: 'okio'
+    }
     implementation ('org.jsoup:jsoup:1.11.3'){
        // exclude module: 'okio'
     }

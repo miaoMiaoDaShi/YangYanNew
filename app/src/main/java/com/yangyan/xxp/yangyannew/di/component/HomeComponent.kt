@@ -11,7 +11,7 @@ import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.mvp.ui.fragment.HomeFragment
 
 @FragmentScope
-@Component(modules = arrayOf(HomeModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [HomeModule::class], dependencies = [AppComponent::class])
 interface HomeComponent {
     fun inject(fragment: HomeFragment)
 }

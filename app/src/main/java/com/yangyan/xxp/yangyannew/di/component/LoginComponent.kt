@@ -12,7 +12,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.activity.LoginActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.MainActivity
 
 @ActivityScope
-@Component(modules = arrayOf(LoginModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [LoginModule::class], dependencies = [AppComponent::class])
 interface LoginComponent {
     fun inject(activity: LoginActivity)
 }

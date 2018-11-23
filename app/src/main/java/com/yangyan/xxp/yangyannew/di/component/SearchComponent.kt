@@ -14,7 +14,7 @@ import dagger.Component
  * Description : 搜索页面
  */
 @FragmentScope
-@Component(modules = arrayOf(SearchModule::class),dependencies = arrayOf(AppComponent::class))
+@Component(modules = [SearchModule::class],dependencies = [AppComponent::class])
 interface SearchComponent {
     fun inject(fragment:SearchFragment)
 }

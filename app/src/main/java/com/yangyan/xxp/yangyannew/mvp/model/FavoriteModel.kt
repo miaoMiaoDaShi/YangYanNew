@@ -11,6 +11,14 @@ import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UploadFileListener
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
+import com.tencent.cos.xml.CosXmlSimpleService
+import com.tencent.cos.xml.exception.CosXmlClientException
+import com.tencent.cos.xml.exception.CosXmlServiceException
+import com.tencent.cos.xml.listener.CosXmlResultListener
+import com.tencent.cos.xml.model.CosXmlRequest
+import com.tencent.cos.xml.model.CosXmlResult
+import com.tencent.cos.xml.transfer.TransferConfig
+import com.tencent.cos.xml.transfer.TransferManager
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
@@ -18,6 +26,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -29,7 +38,8 @@ import javax.inject.Inject
  */
 abstract class FavoriteModel
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), FavoriteContract.Model {
-
+    @Inject
+    lateinit var mCosXmlSimpleService: CosXmlSimpleService
     /**
      * 添加收藏夹
      */
@@ -62,17 +72,35 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun uploadCover(imagePath: String): Observable<String> {
         return Observable.create(object : ObservableOnSubscribe<String> {
             override fun subscribe(emitter: ObservableEmitter<String>) {
-                val bmobFile = BmobFile(File(imagePath))
-                bmobFile.uploadblock(object : UploadFileListener() {
-                    override fun done(p0: BmobException?) {
-                        p0?.let {
-                            emitter.onError(it)
-                            return
-                        }
-                        emitter.onNext(bmobFile.fileUrl)
-                        emitter.onComplete()
-                    }
-                })
+                TransferManager(mCosXmlSimpleService,TransferConfig.Builder().build())
+                        .upload("yang-yan-new-1252246683",
+                                "${System.currentTimeMillis()}-${File(imagePath).name}",
+                                imagePath,null)
+                        .setCosXmlResultListener(object :CosXmlResultListener{
+                            override fun onSuccess(request: CosXmlRequest?, result: CosXmlResult) {
+                                Timber.i(result.printResult())
+                                emitter.onNext("https://${result.accessUrl}")
+                                emitter.onComplete()
+
+                            }
+
+                            override fun onFail(request: CosXmlRequest?, exception: CosXmlClientException?, serviceException: CosXmlServiceException?) {
+                                emitter.onError(Throwable(exception?.message))
+                            }
+
+                        })
+
+//                val bmobFile = BmobFile(File(imagePath))
+//                bmobFile.uploadblock(object : UploadFileListener() {
+//                    override fun done(p0: BmobException?) {
+//                        p0?.let {
+//                            emitter.onError(it)
+//                            return
+//                        }
+//                        emitter.onNext(bmobFile.fileUrl)
+//                        emitter.onComplete()
+//                    }
+//                })
             }
         })
     }

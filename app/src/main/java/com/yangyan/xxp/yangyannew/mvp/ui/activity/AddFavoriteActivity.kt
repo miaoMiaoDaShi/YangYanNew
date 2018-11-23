@@ -11,6 +11,7 @@ import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.GlideImageEngine
 import com.yangyan.xxp.yangyannew.app.getRealFilePath
+import com.yangyan.xxp.yangyannew.app.getYangYanComponent
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerAddFavoriteComponent
 import com.yangyan.xxp.yangyannew.di.module.AddFavoriteModule
@@ -71,7 +72,7 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerAddFavoriteComponent.builder()
-                .appComponent(appComponent)
+                .yangYanComponent(application.getYangYanComponent())
                 .addFavoriteModule(AddFavoriteModule(this))
                 .build()
                 .inject(this)

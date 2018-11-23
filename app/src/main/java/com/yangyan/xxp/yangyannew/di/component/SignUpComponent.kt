@@ -13,7 +13,7 @@ import dagger.Component
  * Description :注册
  */
 @ActivityScope
-@Component(modules = arrayOf(SignUpModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [SignUpModule::class], dependencies = [AppComponent::class])
 interface SignUpComponent {
     fun inject(activity: SignUpActivity)
 }

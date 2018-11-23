@@ -12,7 +12,7 @@ import com.yangyan.xxp.yangyannew.mvp.ui.activity.GalleryActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.MainActivity
 
 @ActivityScope
-@Component(modules = arrayOf(GalleryModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [GalleryModule::class], dependencies = [YangYanComponent::class])
 interface GalleryComponent {
     fun inject(activity: GalleryActivity)
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.getYangYanComponent
 import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteImageListComponent
 import com.yangyan.xxp.yangyannew.di.module.FavoriteImageListModule
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
@@ -64,7 +65,7 @@ class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerFavoriteImageListComponent.builder()
-                .appComponent(appComponent)
+                .yangYanComponent(application.getYangYanComponent())
                 .favoriteImageListModule(FavoriteImageListModule(this))
                 .favoriteModule(FavoriteModule())
                 .build()
