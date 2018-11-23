@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
+import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
@@ -54,7 +55,7 @@ interface FavoriteContract {
         /**
          * 上传封面
          */
-        fun uploadCover(imagePath: String): Observable<String>
+        fun uploadCover(imagePath: String,context: Context): Observable<String>
 
         /**
          * 添加收藏夹

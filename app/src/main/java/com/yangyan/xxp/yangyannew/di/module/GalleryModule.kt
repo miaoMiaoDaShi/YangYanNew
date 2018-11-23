@@ -36,7 +36,6 @@ class GalleryModule(val view: GalleryContract.View) {
     }
 
 
-
     @ActivityScope
     @Provides
     internal fun provideImageCollectionModel(model: ImageCollectionModel): ImageCollectionContract.Model {

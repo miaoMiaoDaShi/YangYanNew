@@ -117,7 +117,7 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
                 //mIvImage.load(Matisse.obtainResult(data)[0])
                 val imageFilePath = "${mSelectedImageUri.getRealFilePath(applicationContext)}"
                 Timber.i(imageFilePath)
-                mPresenter?.addFavoriteCover(imageFilePath)
+                mPresenter?.addFavoriteCover(imageFilePath,applicationContext)
             }
 
         }

@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.model
 
+import android.content.Context
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.datatype.BmobFile
@@ -27,6 +28,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import timber.log.Timber
+import top.zibin.luban.Luban
 import java.io.File
 import javax.inject.Inject
 
@@ -69,13 +71,14 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     /**
      * 上传封面
      */
-    override fun uploadCover(imagePath: String): Observable<String> {
+    override fun uploadCover(imagePath: String,context: Context): Observable<String> {
         return Observable.create(object : ObservableOnSubscribe<String> {
             override fun subscribe(emitter: ObservableEmitter<String>) {
+                val compressImageFile = Luban.with(context).load(imagePath).get()[0]
                 TransferManager(mCosXmlSimpleService,TransferConfig.Builder().build())
                         .upload("yang-yan-new-1252246683",
-                                "${System.currentTimeMillis()}-${File(imagePath).name}",
-                                imagePath,null)
+                                "${System.currentTimeMillis()}-${compressImageFile .name}",
+                                compressImageFile.absolutePath,null)
                         .setCosXmlResultListener(object :CosXmlResultListener{
                             override fun onSuccess(request: CosXmlRequest?, result: CosXmlResult) {
                                 Timber.i(result.printResult())
@@ -89,18 +92,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                             }
 
                         })
-
-//                val bmobFile = BmobFile(File(imagePath))
-//                bmobFile.uploadblock(object : UploadFileListener() {
-//                    override fun done(p0: BmobException?) {
-//                        p0?.let {
-//                            emitter.onError(it)
-//                            return
-//                        }
-//                        emitter.onNext(bmobFile.fileUrl)
-//                        emitter.onComplete()
-//                    }
-//                })
             }
         })
     }

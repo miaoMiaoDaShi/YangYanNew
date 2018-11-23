@@ -1,6 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.presenter
 
 import android.app.Application
+import android.content.Context
 import com.google.gson.Gson
 import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.integration.AppManager
@@ -55,8 +56,8 @@ abstract class FavoritePresenter<Model : FavoriteContract.Model, View : Favorite
     /**
      * 上传封面文件
      */
-    fun addFavoriteCover(imagePath: String) {
-        mModel.uploadCover(imagePath)
+    fun addFavoriteCover(imagePath: String,context: Context) {
+        mModel.uploadCover(imagePath,context)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     mRootView.showLoading()

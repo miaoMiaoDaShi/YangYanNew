@@ -67,6 +67,7 @@ dependencies {
     implementation rootProject.ext.dependencies["glide-recyclerview-integration"]
     implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["matisse"]
+    implementation rootProject.ext.dependencies["luban"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["lottie"]
     implementation (rootProject.ext.dependencies["photoview"]){
