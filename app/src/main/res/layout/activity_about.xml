@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/mToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="关于">
+   <android.support.design.widget.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <android.support.v7.widget.Toolbar
+           android:id="@+id/mToolbar"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="@android:color/white"
+           app:navigationIcon="@drawable/ic_back"
+           app:title="关于">
 
-    </android.support.v7.widget.Toolbar>
+       </android.support.v7.widget.Toolbar>
+   </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="26px"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@android:color/white">
 
         <LinearLayout
@@ -28,22 +34,21 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150px"
+                android:layout_height="75dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="26px"
-                android:paddingRight="26px">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:layout_width="120px"
-                    android:layout_height="120px"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_auto_baseheight="width" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/ic_launcher" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="26px"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -65,23 +70,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150px"
+                android:layout_height="75dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="26px"
-                android:paddingRight="26px">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:layout_width="120px"
-                    android:layout_height="120px"
-                    android:padding="30px"
-                    android:src="@drawable/ic_version"
-                    app:layout_auto_baseheight="width" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_version" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="26px"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -93,10 +97,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/mTvVersion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10px"
-                        android:text="1.0.1"
+                        android:layout_marginTop="5dp"
+                        tools:text="1.0.1"
                         android:textColor="@color/color98989"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -108,7 +113,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="26px"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@android:color/white">
 
         <LinearLayout
@@ -117,13 +122,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="30px"
-                android:layout_marginLeft="26px"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="作者"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
 
@@ -132,20 +137,19 @@
                 android:layout_height="150px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="26px"
-                android:paddingRight="26px">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:layout_width="120px"
-                    android:layout_height="120px"
-                    android:padding="30px"
-                    android:src="@drawable/ic_author"
-                    app:layout_auto_baseheight="width" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_author" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="26px"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -159,7 +163,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10px"
+                        android:layout_marginTop="5dp"
                         android:text="1340751953@qq.com"
                         android:textColor="@color/color98989"
                         android:textSize="14sp" />
@@ -167,21 +171,20 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150px"
+                android:layout_height="75dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="26px"
-                android:paddingRight="26px">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                    android:layout_width="120px"
-                    android:layout_height="120px"
-                    android:padding="30px"
-                    android:src="@drawable/ic_location"
-                    app:layout_auto_baseheight="width" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_location" />
 
                 <TextView
-                    android:layout_marginLeft="26px"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="中国·四川·成都"
@@ -189,6 +192,25 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
+<Space
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="1"/>
+    <Button
+        android:id="@+id/mBtnLoginOut"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:background="@drawable/bg_btn_dialog_hint"
+        android:text="退出登录"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
 </LinearLayout>

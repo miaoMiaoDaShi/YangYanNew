@@ -6,16 +6,20 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/mToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="选择收藏夹"
-        app:navigationIcon="@drawable/ic_back"
-        app:subtitle="你可以同时将图集添加到多个收藏夹"
-        android:background="@android:color/white">
+ <android.support.design.widget.AppBarLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+     <android.support.v7.widget.Toolbar
+         android:id="@+id/mToolbar"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+         app:title="选择收藏夹"
+         app:navigationIcon="@drawable/ic_back"
+         app:subtitle="你可以同时将图集添加到多个收藏夹"
+         android:background="@android:color/white">
 
-    </android.support.v7.widget.Toolbar>
+     </android.support.v7.widget.Toolbar>
+ </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRvFavorite"
         android:layout_weight="1"
@@ -23,17 +27,16 @@
         android:layout_height="0px">
 
     </android.support.v7.widget.RecyclerView>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#60989898"/>
+
     <TextView
         android:id="@+id/mTvDone"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="18sp"
         android:gravity="center"
         android:enabled="false"
-        android:textColor="@drawable/select_text_color"
+        android:background="@drawable/select_button"
+        android:textColor="@android:color/white"
         android:text="完成"/>
 </LinearLayout>

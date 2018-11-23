@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.loopeer.shadow.ShadowView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        app:shadowMarginBottom="15dp"
-        app:shadowRadius="2dp">
+        android:background="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +40,7 @@
                     android:textStyle="bold" />
             </com.loopeer.shadow.ShadowView>
         </LinearLayout>
-    </com.loopeer.shadow.ShadowView>
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

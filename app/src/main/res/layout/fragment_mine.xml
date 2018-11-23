@@ -5,13 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.loopeer.shadow.ShadowView
+    <android.support.design.widget.AppBarLayout
         android:id="@+id/mShadowView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:cornerRadius="0dp"
-        app:shadowMarginBottom="15dp"
-        app:shadowRadius="2dp">
+        android:layout_height="200dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,12 +44,12 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-    </com.loopeer.shadow.ShadowView>
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="185dp">
+        android:layout_marginTop="200dp">
 
         <TextView
             android:id="@+id/mTvCollectIsEmpty"

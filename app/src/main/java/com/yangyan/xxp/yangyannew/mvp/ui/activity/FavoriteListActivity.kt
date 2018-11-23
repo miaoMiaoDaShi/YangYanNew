@@ -102,12 +102,10 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
                                 mCheckedFavorite.add(data)
                             }
                         } else {
-                            if (mCheckedFavorite.contains(data)) {
-                                mCheckedFavorite.remove(data)
-                            }
+                            mCheckedFavorite.remove(data)
                         }
                         mAdapter.notifyItemChanged(position)
-                        mTvDone.isEnabled = mFavoriteDatas.isNotEmpty()
+                        mTvDone.isEnabled = mCheckedFavorite.isNotEmpty()
                     }
                 }
             }
@@ -137,10 +135,9 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
     }
 
 
-
     override fun finish() {
         super.finish()
-        overridePendingTransition(0,R.anim.fragment_slide_down)
+        overridePendingTransition(0, R.anim.fragment_slide_down)
     }
 
 }

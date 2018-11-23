@@ -22,11 +22,10 @@ import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.MinePresenter
+import com.yangyan.xxp.yangyannew.mvp.ui.activity.AboutActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.AddFavoriteActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.FavoriteImageListActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
-import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AboutDialog
-import com.yangyan.xxp.yangyannew.mvp.ui.dialog.AddCollectDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.jetbrains.anko.startActivity
 import timber.log.Timber
@@ -52,14 +51,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
     lateinit var mImageLoader: ImageLoader
 
 
-    private val mAboutDialo by lazy {
-        AboutDialog.newInstance()
-    }
 
-    private val mAddCollectDialog by lazy {
-        AddCollectDialog.newInstance().apply {
-        }
-    }
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerMineComponent.builder()
@@ -119,8 +111,8 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.mIvToMore -> {
-                showDialog(mAboutDialo)
+            R.id.mIvToMore -> {//去关于页面
+                activity?.startActivity<AboutActivity>()
             }
             R.id.mFabToAddCollect -> {//收藏按钮
                 activity?.startActivity<AddFavoriteActivity>()
