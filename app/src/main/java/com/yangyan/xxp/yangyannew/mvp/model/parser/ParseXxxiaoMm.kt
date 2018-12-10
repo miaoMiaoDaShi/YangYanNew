@@ -4,6 +4,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.utils.CategoryUtils
 
 import org.jsoup.Jsoup
+import timber.log.Timber
 
 import java.util.ArrayList
 
@@ -14,7 +15,7 @@ import java.util.ArrayList
  * Description : 网页数据的解析从HTMLString 到ImageInfo的集合对象,解析器:jsoup
  */
 
-class ParseXxxiaoMm :IParse {
+class ParseXxxiaoMm : IParse {
     val HOST = "http://m.xxxiao.com"
     val KEY = "m.xxxiao.com"
     val TAG = javaClass.simpleName
@@ -70,7 +71,7 @@ class ParseXxxiaoMm :IParse {
     }
 
     override fun parseCategory(htmlContent: String, args: Array<String>?): List<ImagesInfo> {
-      return parseHome(htmlContent,null)
+        return parseHome(htmlContent, null)
     }
 
     override fun parseSearch(htmlContent: String, args: Array<String>?): List<ImagesInfo> {
@@ -124,17 +125,16 @@ class ParseXxxiaoMm :IParse {
         val images = ArrayList<ImagesInfo>()
         try {
             val document = Jsoup.parse(htmlContent)
+            Timber.i("html: " + document)
             val elements = document.select("div#main").select("div#content").select("article#post-${args?.get(0)}")
-                    .select("div.entry-content").select("div.rgg-imagegrid").select("a")
+                    .select("div.entry-content").select("figure").select("a")
             for (element in elements) {
-                val imgUrlAll = element.attr("data-src")
-                val spaceIndex = imgUrlAll.lastIndexOf("-")
 
-                val imgUrl = imgUrlAll.substring(0, spaceIndex) + ".jpg"
-                val imgDisplay = element.attr("data-src")
-                //http://m.xxxiao.com/wp-content/uploads/sites/3/2018/05/438ccb1f61b3d73a-200x300.jpg
-                val width = element.attr("data-width").toInt()
-                val height = element.attr("data-height").toInt()
+                val imgUrl = element.attr("href")
+                val imgDisplay = element.select("img").attr("src")
+                val size = imgDisplay.substring(imgDisplay.length - 11, imgDisplay.length - 4)
+                val width = size.split("x")[0].toInt()
+                val height = size.split("x")[1].toInt()
                 val image = ImagesInfo(
                         "",
                         "",
@@ -153,7 +153,6 @@ class ParseXxxiaoMm :IParse {
 
         return images
     }
-
 
 
 }
