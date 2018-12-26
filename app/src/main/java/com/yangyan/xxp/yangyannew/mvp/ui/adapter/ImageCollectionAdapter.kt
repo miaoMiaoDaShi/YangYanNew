@@ -20,6 +20,7 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import jp.wasabeef.glide.transformations.CropTransformation
 import org.jetbrains.anko.find
 
 /**

@@ -22,13 +22,21 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.YangYanComponent
 import org.jetbrains.anko.find
 import java.io.File
-
+import android.content.res.Resources
 /**
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
  * Time :  2018/5/23
  * Description :
  */
+
+
+
+
+val Float.px: Float get() = (this * Resources.getSystem().displayMetrics.density)
+
+val Int.px: Int get() = ((this * Resources.getSystem().displayMetrics.density).toInt())
+
 /**
  * 点击事件扩展方法
  */

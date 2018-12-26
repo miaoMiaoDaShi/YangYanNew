@@ -12,8 +12,10 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.jess.arms.base.BaseHolder
 import com.jess.arms.base.DefaultAdapter
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import jp.wasabeef.glide.transformations.CropTransformation
 import org.jetbrains.anko.find
 
 /**
@@ -34,7 +36,16 @@ constructor(val mDatas: MutableList<ImagesInfo>)
         helper.setText(R.id.mTvCategory, item.category)
                 .setText(R.id.mTvTitle, spannableString)
                 .getView<ImageView>(R.id.mIvImage)
-                .loadImage(item.HDImageUrl)
+                .apply {
+                    post {
+                        loadImage(YangYanImageConfig.Builder()
+                                .bitmapTransformation(CropTransformation(this.width,this.height, CropTransformation.CropType.TOP))
+                                .imageView(this)
+                                .url(item.HDImageUrl)
+                                .placeholder(R.drawable.bg_loading)
+                                .build())
+                    }
+                }
 
     }
 

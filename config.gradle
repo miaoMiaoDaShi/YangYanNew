@@ -5,8 +5,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 2,
-            versionName      : "1.0.1"
+            versionCode      : 4,
+            versionName      : "1.0.3"
     ]
 
     version = [
@@ -42,6 +42,7 @@ ext {
             "glide-recyclerview-integration": "com.github.bumptech.glide:recyclerview-integration:${version["glideSdkVersion"]}",
             "glide-compiler"                : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
             "glide-loader-okhttp3"          : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
+            "glide-transformations"         : "jp.wasabeef:glide-transformations:4.0.1",
             "picasso"                       : "com.squareup.picasso:picasso:2.5.2",
 
             //view

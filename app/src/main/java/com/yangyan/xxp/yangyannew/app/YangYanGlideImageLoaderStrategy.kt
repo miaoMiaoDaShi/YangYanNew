@@ -59,6 +59,9 @@ class YangYanGlideImageLoaderStrategy : BaseImageLoaderStrategy<YangYanImageConf
             glideRequest.circleCrop()
         }
 
+        if (config.transformation != null) {
+            glideRequest.transform(config.transformation!!)
+        }
         if (config.imageRadius!=0) {
             glideRequest.transform(RoundedCorners(config.imageRadius))
         }

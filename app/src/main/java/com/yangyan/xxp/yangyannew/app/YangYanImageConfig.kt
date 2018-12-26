@@ -1,6 +1,8 @@
 package com.yangyan.xxp.yangyannew.app
 
+import android.graphics.Bitmap
 import android.widget.ImageView
+import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.jess.arms.http.imageloader.ImageConfig
 
@@ -25,6 +27,7 @@ class YangYanImageConfig private constructor(builder: Builder) : ImageConfig() {
 
     var resizeX = 0
     var resizeY = 0
+    var transformation: Transformation<Bitmap>? = null
 
     class Builder {
         var url: String? = null
@@ -44,7 +47,7 @@ class YangYanImageConfig private constructor(builder: Builder) : ImageConfig() {
         var isClearDiskCache: Boolean = false//清理本地缓存
         var resizeX = 0
         var resizeY = 0
-
+        var transformation: Transformation<Bitmap>? = null
 
         fun url(url: String): Builder {
             this.url = url
@@ -116,6 +119,11 @@ class YangYanImageConfig private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
+        fun bitmapTransformation(transformation: Transformation<Bitmap>): Builder {
+            this.transformation = transformation
+            return this
+        }
+
         fun resize(resizeX: Int, resizeY: Int): Builder {
             this.resizeX = resizeX
             this.resizeY = resizeY
@@ -146,5 +154,6 @@ class YangYanImageConfig private constructor(builder: Builder) : ImageConfig() {
         this.isClearDiskCache = builder.isClearDiskCache
         this.resizeX = builder.resizeX
         this.resizeY = builder.resizeY
+        this.transformation = builder.transformation
     }
 }

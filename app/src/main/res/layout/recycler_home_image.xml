@@ -25,7 +25,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp" />
 
-    <com.yangyan.xxp.yangyannew.widget.TopCropImageView
+    <ImageView
         android:id="@+id/mIvImage"
         android:layout_width="match_parent"
         android:layout_height="250dp"
