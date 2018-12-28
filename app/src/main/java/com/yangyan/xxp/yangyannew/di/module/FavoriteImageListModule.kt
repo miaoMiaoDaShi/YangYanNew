@@ -2,14 +2,10 @@ package com.yangyan.xxp.yangyannew.di.module
 
 import android.support.v7.widget.LinearLayoutManager
 import com.jess.arms.di.scope.ActivityScope
-import com.jess.arms.di.scope.FragmentScope
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteImageListContract
-import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.model.FavoriteImageListModel
-import com.yangyan.xxp.yangyannew.mvp.model.HomeModel
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
-import com.yangyan.xxp.yangyannew.mvp.ui.fragment.SearchFragment
 import dagger.Module
 import dagger.Provides
 

@@ -1,9 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -23,8 +21,6 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import kotlinx.android.synthetic.main.activity_favorite_list.*
-import timber.log.Timber
-import java.io.Serializable
 import javax.inject.Inject
 
 /**

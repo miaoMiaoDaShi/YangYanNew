@@ -14,7 +14,6 @@ import com.yangyan.xxp.yangyannew.di.module.FavoriteImageListModule
 import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteImageListContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteImageListPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.activity_favorite_image_list.*

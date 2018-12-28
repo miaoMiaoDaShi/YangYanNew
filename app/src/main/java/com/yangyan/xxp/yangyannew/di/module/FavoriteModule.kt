@@ -1,6 +1,5 @@
 package com.yangyan.xxp.yangyannew.di.module
 
-import com.jess.arms.di.scope.FragmentScope
 import com.yangyan.xxp.yangyannew.di.scope.FavoriteScope
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo

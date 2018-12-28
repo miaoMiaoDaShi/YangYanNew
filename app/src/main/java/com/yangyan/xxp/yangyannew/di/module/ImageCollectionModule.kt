@@ -3,15 +3,9 @@ package com.yangyan.xxp.yangyannew.di.module
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.jess.arms.di.scope.ActivityScope
-import com.jess.arms.di.scope.FragmentScope
-import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
-import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
-import com.yangyan.xxp.yangyannew.mvp.model.HomeModel
 import com.yangyan.xxp.yangyannew.mvp.model.ImageCollectionModel
-import com.yangyan.xxp.yangyannew.mvp.model.MainModel
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import dagger.Module
 import dagger.Provides
@@ -49,10 +43,10 @@ constructor(private val view: ImageCollectionContract.View) {
     @ActivityScope
     @Provides
     @Named("ImageCollectionImagesDatas")
-    internal fun provideDatas() = mutableListOf<ImagesInfo>()
+    internal fun provideDatas() = mutableListOf<String>()
 
     @ActivityScope
     @Provides
     @Named("ImageCollectionImagesAdapter")
-    internal fun provideAdapter( @Named("ImageCollectionImagesDatas") datas: MutableList<ImagesInfo>) = ImageCollectionAdapter(datas)
+    internal fun provideAdapter( @Named("ImageCollectionImagesDatas") datas: MutableList<String>) = ImageCollectionAdapter(datas)
 }

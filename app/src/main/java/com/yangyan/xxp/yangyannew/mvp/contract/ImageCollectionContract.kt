@@ -1,8 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
 import android.content.Context
-import com.jess.arms.mvp.IModel
-import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import io.reactivex.Observable
 
@@ -25,6 +23,6 @@ interface ImageCollectionContract {
         }
     }
     interface Model:FavoriteContract.Model{
-        fun getImageCollection(id:String): Observable<List<ImagesInfo>>
+        fun getImageCollection(id:Int): Observable<List<String>>
     }
 }

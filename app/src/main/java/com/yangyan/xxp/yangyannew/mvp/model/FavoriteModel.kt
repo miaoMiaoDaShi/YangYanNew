@@ -3,13 +3,11 @@ package com.yangyan.xxp.yangyannew.mvp.model
 import android.content.Context
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.BmobUser
-import cn.bmob.v3.datatype.BmobFile
 import cn.bmob.v3.datatype.BmobPointer
 import cn.bmob.v3.datatype.BmobRelation
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.SaveListener
-import cn.bmob.v3.listener.UploadFileListener
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.tencent.cos.xml.CosXmlSimpleService
@@ -29,7 +27,6 @@ import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import timber.log.Timber
 import top.zibin.luban.Luban
-import java.io.File
 import javax.inject.Inject
 
 /**

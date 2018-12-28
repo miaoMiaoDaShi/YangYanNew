@@ -4,7 +4,6 @@ import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import com.yangyan.xxp.yangyannew.app.loadImage
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import uk.co.senab.photoview.PhotoView
 
 /**
@@ -13,7 +12,7 @@ import uk.co.senab.photoview.PhotoView
  * Time :  2018/5/25
  * Description : 画廊页面
  */
-class GalleryPageAdapter(val mDatas: MutableList<ImagesInfo>) : PagerAdapter() {
+class GalleryPageAdapter(val mDatas: MutableList<String>) : PagerAdapter() {
 
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -25,7 +24,7 @@ class GalleryPageAdapter(val mDatas: MutableList<ImagesInfo>) : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val photoView = PhotoView(container.context)
-        photoView.loadImage(mDatas[position].HDImageUrl)
+        photoView.loadImage(mDatas[position])
         container.addView(photoView)
         return photoView
     }

@@ -20,6 +20,6 @@ interface SearchContract {
     }
 
     interface Model : IModel {
-        fun searchAtlasByKeyword(pageIndex:Int,keyword: String):Observable<List<ImagesInfo>>
+        fun searchImagesByKeyword(pageIndex:Int, keyword: String):Observable<List<ImagesInfo>>
     }
 }

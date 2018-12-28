@@ -1,5 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.model.service.cache
 
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesDetailInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import io.reactivex.Observable
 import io.rx_cache2.DynamicKey
 import io.rx_cache2.DynamicKeyGroup
@@ -21,31 +23,24 @@ interface CommonCacheService {
         const val CACHE_LONG = 30L
     }
 
-    /**
-     * 最新的套圖
-     */
-    @LifeCache(duration = CACHE_LONG,timeUnit = TimeUnit.MINUTES)
-    fun getNewAtlasList(newAtlasList:Observable<String>,key: DynamicKey):Observable<Reply<String>>
 
+    /**
+     * 根据key获取图片
+     */
+    @LifeCache(duration = CACHE_LONG, timeUnit = TimeUnit.MINUTES)
+    fun getImagesByKey(newAtlasList: Observable<List<ImagesInfo>>, key: DynamicKey): Observable<Reply<List<ImagesInfo>>>
 
     /**
      * 根據id  獲取圖集
      */
-    @LifeCache(duration = CACHE_LONG,timeUnit = TimeUnit.MINUTES)
-    fun getAtlasDetailById(atlasDetailById:Observable<String>,key: DynamicKey):Observable<Reply<String>>
-
-    /**
-     * 获取标志的套图推荐
-     */
-    @LifeCache(duration = CACHE_LONG,timeUnit = TimeUnit.MINUTES)
-    fun getTagAtlasList(tagAtlasList:Observable<String>,key: DynamicKey):Observable<Reply<String>>
+    @LifeCache(duration = CACHE_LONG, timeUnit = TimeUnit.MINUTES)
+    fun getImagesDetailById(atlasDetailById: Observable<ImagesDetailInfo>, key: DynamicKey): Observable<Reply<ImagesDetailInfo>>
 
     /**
      * 根据分类
      */
-    @LifeCache(duration = CACHE_LONG,timeUnit = TimeUnit.MINUTES)
-    fun getAtlasListByCategory(atlasListByCategory:Observable<String>,keyGroup: DynamicKeyGroup):Observable<Reply<String>>
-
+    @LifeCache(duration = CACHE_LONG, timeUnit = TimeUnit.MINUTES)
+    fun getImagesByCategory(atlasListByCategory: Observable<List<ImagesInfo>>, keyGroup: DynamicKeyGroup): Observable<Reply<List<ImagesInfo>>>
 
 
 }

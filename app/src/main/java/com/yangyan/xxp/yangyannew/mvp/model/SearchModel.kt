@@ -5,10 +5,9 @@ import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.SearchContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
-import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseFactory
 import com.yangyan.xxp.yangyannew.mvp.model.service.CommonService
-import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseXxxiaoMm
 import io.reactivex.Observable
+import io.rx_cache2.Reply
 import javax.inject.Inject
 
 /**
@@ -24,9 +23,8 @@ constructor(repositoryManager: IRepositoryManager)
     override fun onDestroy() {
     }
 
-    override fun searchAtlasByKeyword(pageIndex:Int,keyword: String):Observable<List<ImagesInfo>> {
+    override fun searchImagesByKeyword(pageIndex:Int, keyword: String):Observable<List<ImagesInfo>> {
         return mRepositoryManager.obtainRetrofitService(CommonService::class.java)
-                .searchAtlasByKeyWords(pageIndex,keyword)
-                .map { html: String -> ParseFactory.getParse().parseSearch(html,null) }
+                .searchImagesByKeyWords(pageIndex,keyword)
     }
 }

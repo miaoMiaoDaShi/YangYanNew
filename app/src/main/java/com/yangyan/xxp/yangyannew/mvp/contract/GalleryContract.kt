@@ -3,7 +3,6 @@ package com.yangyan.xxp.yangyannew.mvp.contract
 import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 
 /**
  * Author : zhongwenpeng
@@ -14,7 +13,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 interface GalleryContract {
     interface View : IView {
         fun getContext():Context
-        fun loadImageCollectionSuccess(date: List<ImagesInfo>)
+        fun loadImageCollectionSuccess(date: List<String>)
     }
 
     interface Model : IModel

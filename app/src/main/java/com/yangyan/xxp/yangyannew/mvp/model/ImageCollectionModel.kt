@@ -3,11 +3,10 @@ package com.yangyan.xxp.yangyannew.mvp.model
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.integration.IRepositoryManager
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesDetailInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
-import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseFactory
 import com.yangyan.xxp.yangyannew.mvp.model.service.CommonService
 import com.yangyan.xxp.yangyannew.mvp.model.service.cache.CommonCacheService
-import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseXxxiaoMm
 import io.reactivex.Observable
 import io.rx_cache2.DynamicKey
 import io.rx_cache2.Reply
@@ -22,13 +21,14 @@ import javax.inject.Inject
 @ActivityScope
 class ImageCollectionModel @Inject
 constructor(repositoryManager: IRepositoryManager) : FavoriteModel(repositoryManager), ImageCollectionContract.Model {
-    override fun getImageCollection(id: String): Observable<List<ImagesInfo>> {
+
+    override fun getImageCollection(id: Int): Observable<List<String>> {
         return mRepositoryManager.obtainCacheService(CommonCacheService::class.java)
-                .getAtlasDetailById(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
-                        .getAtlasDetailById(id),
+                .getImagesDetailById(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                        .getImagesDetailById(id),
                         DynamicKey(id))
-                .map { html: Reply<String> ->
-                    ParseFactory.getParse().parseImageDetailCollection(html.data, arrayOf(id))
+                .map { imagesContent: Reply<ImagesDetailInfo> ->
+                    imagesContent.data.content.split(",")
                 }
     }
 

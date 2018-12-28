@@ -3,7 +3,6 @@ package com.yangyan.xxp.yangyannew.mvp.presenter
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -27,38 +26,23 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
     lateinit var mImageCollectionAdapter: ImageCollectionAdapter
     @Inject
     @field:Named("ImageCollectionImagesDatas")
-    lateinit var mData: MutableList<ImagesInfo>
+    lateinit var mData: MutableList<String>
 
 
-    fun getIamgeCollection(id: String) {
+    fun getImageCollection(id: Int) {
         mModel.getImageCollection(id)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     mRootView.showLoading()
                 }
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .map { t ->
-                    val typeA = mutableListOf<ImagesInfo>()
-                    val typeB = mutableListOf<ImagesInfo>()
-                    val typeMixture = mutableListOf<ImagesInfo>()
-                    t.forEach {
-                        if (it.width > it.height) {
-                            typeA.add(it)
-                        } else {
-                            typeB.add(it)
-                        }
-                    }
-                    typeMixture.addAll(typeA)
-                    typeMixture.addAll(typeB)
-                    typeMixture
-                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally {
                     mRootView.hideLoading()
                 }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
-                    override fun onNext(t: List<ImagesInfo>) {
+                .subscribe(object : ErrorHandleSubscriber<List<String>>(mErrorHandler) {
+                    override fun onNext(t: List<String>) {
                         t.forEach(::println)
                         mData.addAll(t)
                         mImageCollectionAdapter.notifyDataSetChanged()

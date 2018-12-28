@@ -3,7 +3,6 @@ package com.yangyan.xxp.yangyannew.mvp.presenter
 import android.app.Application
 
 import com.jess.arms.integration.AppManager
-import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.http.imageloader.ImageLoader
@@ -13,16 +12,15 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler
 
 import javax.inject.Inject
 
-import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.contract.SearchContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.SearchAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import retrofit2.HttpException
-import java.util.concurrent.TimeUnit
 
 /**
  * Author : zhongwenpeng
@@ -50,20 +48,23 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
      */
     private var mPageIndex = 1
 
+    private  var mSearchDisposable:Disposable? = null
     fun searchAtlasByKeyword(pullToRefresh: Boolean, keyWords: String) {
+        mSearchDisposable?.dispose()
         if (pullToRefresh) mPageIndex = 1
 
         mAdapter.setKeyWords(keyWords)
 
         Observable.just(keyWords)
                 .filter { keyWords.isNotEmpty() }
-                .switchMap {
-                    mModel.searchAtlasByKeyword(mPageIndex, it).apply {
+                .concatMap {
+                    mModel.searchImagesByKeyword(mPageIndex, it).apply {
                         mAdapter.setKeyWords(it)
                     }
                 }
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
+                    mSearchDisposable = it
                     if (pullToRefresh)
                         mRootView.showLoading()//显示下拉刷新的进度条
                     else

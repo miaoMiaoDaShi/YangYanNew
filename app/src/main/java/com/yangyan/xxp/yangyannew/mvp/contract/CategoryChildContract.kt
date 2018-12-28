@@ -3,9 +3,7 @@ package com.yangyan.xxp.yangyannew.mvp.contract
 import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
-import com.yangyan.xxp.yangyannew.mvp.model.entity.CategoryInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
-import com.yangyan.xxp.yangyannew.mvp.model.parser.IParse
 import io.reactivex.Observable
 
 /**

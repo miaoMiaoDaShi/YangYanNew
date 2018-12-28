@@ -4,9 +4,6 @@ import com.jess.arms.di.scope.FragmentScope
 import com.jess.arms.integration.IRepositoryManager
 import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.CategoryInfo
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
-import io.reactivex.Observable
 import javax.inject.Inject
 
 /**

@@ -9,10 +9,8 @@ import com.jess.arms.mvp.BaseModel
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.SystemMsg
-import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseFactory
 import com.yangyan.xxp.yangyannew.mvp.model.service.CommonService
 import com.yangyan.xxp.yangyannew.mvp.model.service.cache.CommonCacheService
-import com.yangyan.xxp.yangyannew.mvp.model.parser.ParseXxxiaoMm
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
@@ -34,10 +32,10 @@ class HomeModel
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), HomeContract.Model {
     override fun getHomeData(pageIndex: Int): Observable<List<ImagesInfo>> {
         return mRepositoryManager.obtainCacheService(CommonCacheService::class.java)
-                .getNewAtlasList(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
-                        .getNewAtlasList(pageIndex),
+                .getImagesByKey(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                        .getImagesByKey("rand",pageIndex),
                         DynamicKey(pageIndex))
-                .map { reply: Reply<String> ->
+                .map { reply: Reply<List<ImagesInfo>> ->
                     reply.data.apply {
                         when (reply.source) {
                             Source.CLOUD -> {
@@ -54,7 +52,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                         }
                     }
                 }
-                .map { html: String -> ParseFactory.getParse().parseHome(html,null) }
     }
 
 

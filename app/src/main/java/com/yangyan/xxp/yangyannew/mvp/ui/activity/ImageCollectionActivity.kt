@@ -1,16 +1,10 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
-import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.ListPreloader
-import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
@@ -19,12 +13,8 @@ import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
-import com.yangyan.xxp.yangyannew.di.component.ImageCollectionComponent
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
-import com.yangyan.xxp.yangyannew.glide.PerloadModelProvider
-import com.yangyan.xxp.yangyannew.glide.PreloadSizeProvider
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
@@ -92,8 +82,8 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
         initRecyclerView()
         initToolbar()
         initSlideHint()
-        mIvCollectCover.loadImage(mImageInfo.HDImageUrl)
-        mPresenter?.getIamgeCollection(mImageInfo.id)
+        mIvCollectCover.loadImage(mImageInfo.thumbSrc)
+        mPresenter?.getImageCollection(mImageInfo.id)
 
         mFabLikeOrDis.onClick {
             if (mIsFavorite) {//收藏夹进来的
@@ -152,8 +142,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun onResume() {
         super.onResume()
-        supportActionBar!!.title = mImageInfo.category
-        supportActionBar!!.subtitle = mImageInfo.title
+        supportActionBar!!.title = mImageInfo.title
     }
 
     private fun initRecyclerView() {

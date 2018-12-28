@@ -9,6 +9,7 @@ import com.jess.arms.http.log.RequestInterceptor
 import com.jess.arms.integration.ConfigModule
 import com.yangyan.xxp.yangyannew.BuildConfig
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Author : zhongwenpeng
@@ -31,13 +32,20 @@ class GlobalConfiguration : ConfigModule {
             baseurl(Constant.API_HOST)
             imageLoaderStrategy(YangYanGlideImageLoaderStrategy())
             responseErrorListener(ResponseErrorListenerImpl())
+
             retrofitConfiguration { context, builder ->
                 builder.addConverterFactory(ScalarsConverterFactory.create())
             }
+//                    .okhttpConfiguration { context, builder ->
+//                        builder.sslSocketFactory(SSLSocketClient.getSSLSocketFactory(), SSLSocketClient.getTrustManager()) //支持 Https,详情请百度
+//                        builder.writeTimeout(30, TimeUnit.SECONDS)
+//                        builder.hostnameVerifier(SSLSocketClient.getHostnameVerifier())
+//                    }
             gsonConfiguration { context, builder ->
                 builder.serializeNulls()
                         .enableComplexMapKeySerialization()
             }
+            globalHttpHandler(GlobalHttpHandlerImpl(context))
         }
 
     }

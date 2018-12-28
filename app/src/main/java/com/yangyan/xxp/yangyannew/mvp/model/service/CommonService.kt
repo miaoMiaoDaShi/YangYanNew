@@ -1,6 +1,8 @@
 package com.yangyan.xxp.yangyannew.mvp.model.service
 
 import com.yangyan.xxp.yangyannew.app.Constant
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesDetailInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.SplashImageInfo
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -19,38 +21,33 @@ interface CommonService {
 
 
     /**
-     * 获取最新的套图推荐
+     * 根据key获取
      */
-    @GET("new/page/{page}")
-    fun getNewAtlasList(@Path("page") page: Int): Observable<String>
+    @GET("{key}")
+    fun getImagesByKey(@Path("key")tag:String, @Query("page") page: Int):Observable<List<ImagesInfo>>
 
     /**
      * 搜索套图
      */
-    @GET("page/{page}")
-    fun searchAtlasByKeyWords(@Path("page") page: Int,@Query("s") keyWords: String): Observable<String>
+    @GET("posts")
+    fun searchImagesByKeyWords(@Path("page") page: Int, @Query("search") keyWords: String): Observable<List<ImagesInfo>>
 
     /**
      * 根据 id  获取详细的套图
      */
-    @GET("/{id}")
-    fun getAtlasDetailById(@Path("id") id: String): Observable<String>
+    @GET("i")
+    fun getImagesDetailById(@Path("id") id: Int): Observable<ImagesDetailInfo>
 
 
-    /**
-     * 获取标志的套图推荐
-     */
-    @GET("tag/page/{page}")
-    fun getTagAtlasList(@Path("page") page: Int): Observable<String>
 
     /**
      * 根据分类
      */
-    @GET("/cat/{category}/page/{page}")
-    fun getAtlasListByCategory(
-            @Path("category") category: String,
+    @GET("posts")
+    fun getImagesByCategory(
+            @Path("tags") category: String,
             @Path("page") page: Int
-    ): Observable<String>
+    ): Observable<List<ImagesInfo>>
 
     /**
      * 启动页的图片  来自gank

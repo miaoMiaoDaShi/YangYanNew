@@ -7,8 +7,6 @@ import com.jess.arms.integration.AppManager
 import com.jess.arms.mvp.BasePresenter
 import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryChildContract
-import com.yangyan.xxp.yangyannew.mvp.contract.CategoryContract
-import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -3,16 +3,12 @@ package com.yangyan.xxp.yangyannew.mvp.ui.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ScrollView
 import com.bumptech.glide.Glide
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
@@ -23,12 +19,10 @@ import com.yangyan.xxp.yangyannew.callback.onActivityBackCallback
 import com.yangyan.xxp.yangyannew.di.component.DaggerHomeComponent
 import com.yangyan.xxp.yangyannew.di.module.HomeModule
 import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.HomePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.ImageCollectionActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 

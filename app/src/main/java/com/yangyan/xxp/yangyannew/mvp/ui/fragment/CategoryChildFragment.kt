@@ -13,7 +13,6 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.DaggerCategoryChildComponent
 import com.yangyan.xxp.yangyannew.di.module.CategoryChildModule
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryChildContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.CategoryChildPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.ImageCollectionActivity
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter

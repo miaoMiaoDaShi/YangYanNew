@@ -1,20 +1,11 @@
 package com.yangyan.xxp.yangyannew.di.module
 
-import android.support.v7.widget.LinearLayoutManager
-import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.di.scope.FragmentScope
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryContract
-import com.yangyan.xxp.yangyannew.mvp.contract.HomeContract
-import com.yangyan.xxp.yangyannew.mvp.contract.MainContract
 import com.yangyan.xxp.yangyannew.mvp.model.CategoryModel
-import com.yangyan.xxp.yangyannew.mvp.model.HomeModel
-import com.yangyan.xxp.yangyannew.mvp.model.MainModel
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.CategoryFragmentPageAdapter
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import dagger.Module
 import dagger.Provides
-import javax.inject.Inject
 
 /**
  * Author : zhongwenpeng

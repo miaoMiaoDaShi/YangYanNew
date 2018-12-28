@@ -13,7 +13,6 @@ import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerGalleryComponent
 import com.yangyan.xxp.yangyannew.di.module.GalleryModule
 import com.yangyan.xxp.yangyannew.mvp.contract.GalleryContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.GalleryPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.GalleryPageAdapter
 import kotlinx.android.synthetic.main.activity_gallery.*
@@ -32,7 +31,7 @@ class GalleryActivity : BaseActivity<GalleryPresenter>(), ViewPager.OnPageChange
     @Inject
     lateinit var mAdapter: GalleryPageAdapter
 
-    override fun loadImageCollectionSuccess(date: List<ImagesInfo>) {
+    override fun loadImageCollectionSuccess(date: List<String>) {
         initViewPager()
 
 
@@ -73,7 +72,7 @@ class GalleryActivity : BaseActivity<GalleryPresenter>(), ViewPager.OnPageChange
 //        }
         mIvback.onClick { killMyself() }
         initViewPager()
-        mPresenter?.getIamgeCollection(intent.getStringExtra("id"))
+        mPresenter?.getIamgeCollection(intent.getIntExtra("id",0))
 
     }
 
