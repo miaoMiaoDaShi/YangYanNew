@@ -30,13 +30,13 @@ interface CommonService {
      * 搜索套图
      */
     @GET("posts")
-    fun searchImagesByKeyWords(@Path("page") page: Int, @Query("search") keyWords: String): Observable<List<ImagesInfo>>
+    fun searchImagesByKeyWords(@Query("page") page: Int, @Query("search") keyWords: String): Observable<List<ImagesInfo>>
 
     /**
      * 根据 id  获取详细的套图
      */
     @GET("i")
-    fun getImagesDetailById(@Path("id") id: Int): Observable<ImagesDetailInfo>
+    fun getImagesDetailById(@Query("id") id: Int): Observable<ImagesDetailInfo>
 
 
 
@@ -45,8 +45,8 @@ interface CommonService {
      */
     @GET("posts")
     fun getImagesByCategory(
-            @Path("tags") category: String,
-            @Path("page") page: Int
+            @Query("tags") category: String,
+            @Query("page") page: Int
     ): Observable<List<ImagesInfo>>
 
     /**

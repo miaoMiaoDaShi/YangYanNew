@@ -161,11 +161,6 @@ class HomeFragment : BaseFragment<HomePresenter>(), HomeContract.View,
         mRvHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && Glide.with(this@HomeFragment).isPaused) {
-                    Glide.with(this@HomeFragment).resumeRequests()
-                } else {
-                    Glide.with(this@HomeFragment).pauseRequests()
-                }
 
             }
 

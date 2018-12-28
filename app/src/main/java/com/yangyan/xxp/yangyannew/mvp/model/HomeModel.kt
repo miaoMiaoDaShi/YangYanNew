@@ -14,6 +14,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.service.cache.CommonCacheService
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
+import io.reactivex.functions.Function
 import io.rx_cache2.DynamicKey
 import io.rx_cache2.Reply
 import io.rx_cache2.Source
@@ -33,7 +34,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun getHomeData(pageIndex: Int): Observable<List<ImagesInfo>> {
         return mRepositoryManager.obtainCacheService(CommonCacheService::class.java)
                 .getImagesByKey(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
-                        .getImagesByKey("rand",pageIndex),
+                        .getImagesByKey("rand", pageIndex),
                         DynamicKey(pageIndex))
                 .map { reply: Reply<List<ImagesInfo>> ->
                     reply.data.apply {
@@ -65,13 +66,11 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 bmobQuery.findObjects(object : FindListener<SystemMsg>() {
                     override fun done(p0: MutableList<SystemMsg>?, p1: BmobException?) {
                         p0?.let {
-                            if(!it[0].content.isNullOrEmpty()){
+                            if (!it[0].content.isNullOrEmpty()) {
                                 emitter.onNext(it[0].content!!)
                                 emitter.onComplete()
                                 return
                             }
-
-
                         }
                         p1?.let {
                             emitter.onError(it)

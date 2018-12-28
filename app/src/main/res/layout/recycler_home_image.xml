@@ -2,32 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    android:padding="15dp"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:padding="15dp">
 
     <TextView
-        android:id="@+id/mTvCategory"
+        android:id="@+id/mTvTitle"
+        android:layout_marginBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="类型"
         android:textColor="@android:color/black"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/mTvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="5dp"
-        android:text="这是标题"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/mIvImage"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@drawable/bg_loading"/>
+        android:layout_height="250dp">
+
+        <ImageView
+            android:id="@+id/mIvImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/bg_loading" />
+
+        <TextView
+            android:id="@+id/mTvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/shape_image_count"
+            tools:text="54P"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
 </LinearLayout>

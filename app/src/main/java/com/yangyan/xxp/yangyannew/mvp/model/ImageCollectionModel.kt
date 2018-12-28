@@ -28,7 +28,7 @@ constructor(repositoryManager: IRepositoryManager) : FavoriteModel(repositoryMan
                         .getImagesDetailById(id),
                         DynamicKey(id))
                 .map { imagesContent: Reply<ImagesDetailInfo> ->
-                    imagesContent.data.content.split(",")
+                    imagesContent.data.content.replace("\"","").split(",")
                 }
     }
 

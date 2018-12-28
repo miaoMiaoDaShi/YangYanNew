@@ -68,7 +68,10 @@ class DownloadService : IntentService("YangYanDownload") {
 
     override fun onDestroy() {
         super.onDestroy()
-        mInputSteam.close()
-        mOutputStream.close()
+        try {
+            mInputSteam.close()
+            mOutputStream.close()
+        } catch (e: Exception) {
+        }
     }
 }

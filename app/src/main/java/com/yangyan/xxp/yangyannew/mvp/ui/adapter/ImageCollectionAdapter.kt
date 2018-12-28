@@ -26,16 +26,8 @@ class ImageCollectionAdapter constructor(val mDatas: MutableList<String>) :
                         .url(item)
                         .placeholder(R.drawable.bg_loading)
                         .build())
-
             }
         }
 
-    }
-
-    val ITEM_TYPE_A = 0x10
-    val ITEM_TYPE_B = 0x11
-
-    override fun getItemViewType(position: Int): Int {
-       return  ITEM_TYPE_A
     }
 }

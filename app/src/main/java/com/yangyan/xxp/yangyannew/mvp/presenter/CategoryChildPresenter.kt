@@ -84,15 +84,15 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
                         }
 
                     }
-
-                    override fun onError(t: Throwable) {
-                        if (t is HttpException) {
-                            //404代表 没有很多的额页数了
-                            if (t.code() == 404) {
-                                mAdapter.loadMoreEnd()
-                            }
-                        }
-                    }
+//
+//                    override fun onError(t: Throwable) {
+//                        if (t is HttpException) {
+//                            //404代表 没有很多的额页数了
+//                            if (t.code() == 404) {
+//                                mAdapter.loadMoreEnd()
+//                            }
+//                        }
+//                    }
                 })
     }
 

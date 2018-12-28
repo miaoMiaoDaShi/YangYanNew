@@ -48,13 +48,9 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
      */
     private var mPageIndex = 1
 
-    private  var mSearchDisposable:Disposable? = null
     fun searchAtlasByKeyword(pullToRefresh: Boolean, keyWords: String) {
-        mSearchDisposable?.dispose()
         if (pullToRefresh) mPageIndex = 1
-
         mAdapter.setKeyWords(keyWords)
-
         Observable.just(keyWords)
                 .filter { keyWords.isNotEmpty() }
                 .concatMap {
@@ -64,7 +60,6 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
                 }
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
-                    mSearchDisposable = it
                     if (pullToRefresh)
                         mRootView.showLoading()//显示下拉刷新的进度条
                     else

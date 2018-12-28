@@ -19,7 +19,7 @@ import jp.wasabeef.glide.transformations.CropTransformation
 class HomeAdapter
 constructor(val mDatas: MutableList<ImagesInfo>) : BaseQuickAdapter<ImagesInfo, BaseViewHolder>(R.layout.recycler_home_image, mDatas) {
     override fun convert(helper: BaseViewHolder, item: ImagesInfo) {
-        helper.setText(R.id.mTvCategory, "共${item.imageCount}")
+        helper.setText(R.id.mTvCount, "${item.imageCount}P")
                 .setText(R.id.mTvTitle, item.title)
         if (BuildConfig.LOG_SHOW_IMAGE) {
             helper.getView<ImageView>(R.id.mIvImage).apply {

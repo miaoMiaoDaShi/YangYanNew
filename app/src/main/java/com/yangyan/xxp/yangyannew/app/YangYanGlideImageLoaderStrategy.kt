@@ -1,12 +1,18 @@
 package com.yangyan.xxp.yangyannew.app
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.jess.arms.http.imageloader.BaseImageLoaderStrategy
 import com.jess.arms.http.imageloader.glide.*
 import io.reactivex.Observable
@@ -38,7 +44,7 @@ class YangYanGlideImageLoaderStrategy : BaseImageLoaderStrategy<YangYanImageConf
         val glideRequest = requests.load(config.url)
 
         when (config.cacheStrategy) {
-        //缓存策略
+            //缓存策略
             0 -> glideRequest.diskCacheStrategy(DiskCacheStrategy.ALL)
             1 -> glideRequest.diskCacheStrategy(DiskCacheStrategy.NONE)
             2 -> glideRequest.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -62,14 +68,14 @@ class YangYanGlideImageLoaderStrategy : BaseImageLoaderStrategy<YangYanImageConf
         if (config.transformation != null) {
             glideRequest.transform(config.transformation!!)
         }
-        if (config.imageRadius!=0) {
+        if (config.imageRadius != 0) {
             glideRequest.transform(RoundedCorners(config.imageRadius))
         }
 
 
 
-        if (config.resizeX!=0&&config.resizeY!=0){
-            glideRequest.override(config.resizeX,config.resizeY)
+        if (config.resizeX != 0 && config.resizeY != 0) {
+            glideRequest.override(config.resizeX, config.resizeY)
         }
 
 
@@ -88,6 +94,16 @@ class YangYanGlideImageLoaderStrategy : BaseImageLoaderStrategy<YangYanImageConf
 
 
         glideRequest
+                .addListener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        e?.printStackTrace()
+                        return false
+                    }
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        return false
+                    }
+                })
                 .into(config.imageView)
     }
 
@@ -95,7 +111,7 @@ class YangYanGlideImageLoaderStrategy : BaseImageLoaderStrategy<YangYanImageConf
         if (ctx == null) throw NullPointerException("Context is required")
         if (config == null) throw NullPointerException("ImageConfigImpl is required")
         config.imageViews?.let {
-            for (imageView in it){
+            for (imageView in it) {
                 GlideArms.get(ctx).requestManagerRetriever.get(ctx).clear(imageView)
             }
         }

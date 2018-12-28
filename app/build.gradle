@@ -64,7 +64,6 @@ dependencies {
         exclude group: 'com.squareup.okio'
     }
     implementation rootProject.ext.dependencies["brvah"]
-    implementation rootProject.ext.dependencies["glide-recyclerview-integration"]
     implementation rootProject.ext.dependencies["glide-transformations"]
     implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["matisse"]

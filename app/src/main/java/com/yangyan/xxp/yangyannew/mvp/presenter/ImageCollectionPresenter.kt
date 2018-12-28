@@ -43,9 +43,7 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<List<String>>(mErrorHandler) {
                     override fun onNext(t: List<String>) {
-                        t.forEach(::println)
-                        mData.addAll(t)
-                        mImageCollectionAdapter.notifyDataSetChanged()
+                        mImageCollectionAdapter.replaceData(t)
                     }
                 })
     }

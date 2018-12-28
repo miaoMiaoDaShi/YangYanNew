@@ -36,28 +36,6 @@ class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
     lateinit var mAdapter: HomeAdapter
     @Inject
     lateinit var mLayoutManager: LinearLayoutManager
-
-//    /**
-//     * objectId
-//     */
-//    private val mObjectId by lazy {
-//        intent.getStringExtra("objectId")
-//    }
-//
-//    /**
-//     * 标题
-//     */
-//    private val mTitle by lazy {
-//        intent.getStringExtra("title")
-//    }
-//
-//    /**
-//     * des  时间
-//     */
-//    private val mSubTitle by lazy {
-//        intent.getStringExtra("subtitle")
-//    }
-
     private val mFavorite by lazy {
         intent.getSerializableExtra("data") as FavoriteInfo
     }

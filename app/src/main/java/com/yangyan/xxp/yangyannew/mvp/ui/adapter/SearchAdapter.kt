@@ -31,7 +31,7 @@ constructor(val mDatas: MutableList<ImagesInfo>)
         } catch (e: Exception) {
 
         }
-        helper.setText(R.id.mTvCategory, "共${item.imageCount}")
+        helper.setText(R.id.mTvCount, "${item.imageCount}P")
                 .setText(R.id.mTvTitle, spannableString)
                 .getView<ImageView>(R.id.mIvImage)
                 .apply {

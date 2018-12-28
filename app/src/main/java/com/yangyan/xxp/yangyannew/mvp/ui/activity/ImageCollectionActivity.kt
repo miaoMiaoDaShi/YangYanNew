@@ -146,17 +146,6 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     }
 
     private fun initRecyclerView() {
-        mLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (mAdapter.getItemViewType(position)) {
-                    mAdapter.ITEM_TYPE_A -> 2
-                    mAdapter.ITEM_TYPE_B -> 1
-                    else -> {
-                        1
-                    }
-                }
-            }
-        }
         mRvImageCollection.layoutManager = mLayoutManager
         mRvImageCollection.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, view, position ->
