@@ -7,6 +7,7 @@ import android.os.Bundle
 import cn.bmob.v3.Bmob
 import com.jaeger.library.StatusBarUtil
 import com.jess.arms.integration.AppManager
+import com.yalantis.ucrop.UCropActivity
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.mvp.ui.activity.*
 import com.zhihu.matisse.ui.MatisseActivity

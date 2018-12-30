@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_login"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-   <android.support.design.widget.AppBarLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <android.support.v7.widget.Toolbar
-           android:id="@+id/mToolbar"
-           android:layout_width="match_parent"
-           android:layout_height="?attr/actionBarSize"
-           android:background="@android:color/white"
-           app:navigationIcon="@drawable/ic_back"
-           app:title="关于">
 
-       </android.support.v7.widget.Toolbar>
-   </android.support.design.widget.AppBarLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="关于">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -47,7 +58,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
@@ -56,9 +67,11 @@
                         android:layout_height="wrap_content"
                         android:text="@string/app_name"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
+                        android:textSize="18sp" />
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -93,8 +106,7 @@
                         android:layout_height="wrap_content"
                         android:text="版本"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/mTvVersion"
@@ -148,7 +160,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
@@ -157,13 +169,15 @@
                         android:layout_height="wrap_content"
                         android:text="MiaoMiaoDaShi"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp" />
 
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:text="1340751953@qq.com"
                         android:textColor="@color/color98989"
                         android:textSize="14sp" />
@@ -189,17 +203,16 @@
                     android:layout_height="wrap_content"
                     android:text="中国·四川·成都"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
-<Space
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_weight="1"/>
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
     <Button
         android:id="@+id/mBtnLoginOut"
         android:layout_marginLeft="10dp"
@@ -208,9 +221,11 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@android:color/holo_red_light"
+        android:backgroundTint="#ff4444"
         android:background="@drawable/bg_btn_dialog_hint"
         android:text="退出登录"
         android:textColor="@android:color/white"
         android:textSize="15sp" />
 </LinearLayout>
+
+</RelativeLayout>

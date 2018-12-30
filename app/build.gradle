@@ -63,6 +63,9 @@ dependencies {
     implementation (rootProject.ext.dependencies["retrofit-converter-scalars"]){
         exclude group: 'com.squareup.okio'
     }
+    implementation (rootProject.ext.dependencies["ucrop"]){
+        exclude group: 'com.squareup.okio'
+    }
     implementation rootProject.ext.dependencies["brvah"]
     implementation rootProject.ext.dependencies["glide-transformations"]
     implementation rootProject.ext.dependencies["multidex"]

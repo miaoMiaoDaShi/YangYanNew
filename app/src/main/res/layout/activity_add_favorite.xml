@@ -35,7 +35,7 @@
         android:layout_margin="25dp"
         android:text="选择图片作为封面"
         android:textColor="@android:color/black"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/mIvCover"
@@ -55,7 +55,7 @@
         android:layout_margin="25dp"
         android:text="取一个好听的名字吧"
         android:textColor="@android:color/black"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/mEtTitle"

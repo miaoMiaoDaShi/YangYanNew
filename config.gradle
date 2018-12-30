@@ -5,8 +5,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 4,
-            versionName      : "1.0.3"
+            versionCode      : 5,
+            versionName      : "1.0.4"
     ]
 
     version = [
@@ -103,6 +103,7 @@ ext {
             "anko"                          : "org.jetbrains.anko:anko-commons:0.10.5",
             "matisse"                       : "com.zhihu.android:matisse:0.4.3",
             "luban"                         : "top.zibin:Luban:1.1.8",
+            "ucrop":"com.github.yalantis:ucrop:2.2.2-native",
             //test
             "junit"                         : "junit:junit:4.12",
             "androidJUnitRunner"            : "android.support.test.runner.AndroidJUnitRunner",

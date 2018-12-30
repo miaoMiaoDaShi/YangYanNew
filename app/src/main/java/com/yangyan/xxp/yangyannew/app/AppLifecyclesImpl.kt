@@ -23,6 +23,7 @@ import com.jess.arms.base.delegate.AppLifecycles
 import com.jess.arms.utils.ArmsUtils
 
 import butterknife.ButterKnife
+import com.jess.arms.integration.AppManager
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.cos.xml.CosXmlServiceConfig
 import com.tencent.cos.xml.CosXmlSimpleService
@@ -70,18 +71,6 @@ class AppLifecyclesImpl : AppLifecycles {
             //                    });
             ButterKnife.setDebug(true)
         }
-        //扩展 AppManager 的远程遥控功能
-        ArmsUtils.obtainAppComponentFromContext(application).appManager().setHandleListener { appManager, message ->
-            when (message.what) {
-
-            }//case 0:
-            //do something ...
-            //   break;
-        }
-        //Usage:
-        //Message msg = new Message();
-        //msg.what = 0;
-        //AppManager.post(msg); like EventBus
 
 
     }

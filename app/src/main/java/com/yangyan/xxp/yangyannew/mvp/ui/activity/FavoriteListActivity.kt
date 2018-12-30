@@ -68,7 +68,7 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
 
     private fun bindListener() {
         mTvDone.onClick {
-            mPresenter?.addImageCollectToFavorite(mFavoriteDatas, intent.getSerializableExtra("imageInfo") as ImagesInfo)
+            mPresenter?.addImageCollectToFavorite(mCheckedFavorite, intent.getSerializableExtra("imageInfo") as ImagesInfo)
         }
 
     }

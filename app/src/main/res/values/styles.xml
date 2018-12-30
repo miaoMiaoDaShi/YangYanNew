@@ -8,6 +8,9 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
+    <style name="UCropActivityTheme" parent="AppTheme">
+    <item name="android:fitsSystemWindows">true</item>
+    </style>
 
     <style name="FavoriteListActivityTheme" parent="AppTheme">
 

@@ -48,7 +48,10 @@
         <activity
             android:name=".mvp.ui.activity.GalleryActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/UCropActivityTheme"/>
         <!-- 添加收藏夹 -->
         <activity
             android:name=".mvp.ui.activity.AddFavoriteActivity"

@@ -3,11 +3,14 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
+import com.yalantis.ucrop.UCrop
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.GlideImageEngine
 import com.yangyan.xxp.yangyannew.app.getRealFilePath
@@ -23,6 +26,8 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_add_favorite.*
 import timber.log.Timber
+import java.io.File
+import java.net.URL
 
 /**
  * Author : zhongwenpeng
@@ -42,8 +47,9 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
     }
 
     private var mImageFilePath = ""
+    //知乎控件
     private val REQUEST_CODE_CHOOSE = 0x11
-    private var mSelectedImageUri = Uri.EMPTY
+
     override fun showLoading() {
         setStatusIsLoading(true)
     }
@@ -102,8 +108,8 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
                     .imageEngine(GlideImageEngine())
                     .forResult(REQUEST_CODE_CHOOSE)
         }
-        mBtnConfirm.onClick{
-            mPresenter?.addFavorite(mImageFilePath,mEtTitle.text.toString().trim())
+        mBtnConfirm.onClick {
+            mPresenter?.addFavorite(mImageFilePath, mEtTitle.text.toString().trim())
         }
 
     }
@@ -112,14 +118,41 @@ class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == Activity.RESULT_OK) {
             data?.let {
-                mSelectedImageUri = Matisse.obtainResult(it)[0]
-                mIvCover.setImageURI(mSelectedImageUri)
-                //mIvImage.load(Matisse.obtainResult(data)[0])
-                val imageFilePath = "${mSelectedImageUri.getRealFilePath(applicationContext)}"
+                val selectedImageUri = Matisse.obtainResult(it)[0]
+                cropSelectImage(selectedImageUri)
+
+            }
+        } else if (requestCode==UCrop.REQUEST_CROP&&resultCode==Activity.RESULT_OK) {
+            data?.let {
+                val cropImageUri = UCrop.getOutput(it)
+                mIvCover.setImageURI(cropImageUri)
+                val imageFilePath = "${cropImageUri?.getRealFilePath(applicationContext)}"
                 Timber.i(imageFilePath)
-                mPresenter?.addFavoriteCover(imageFilePath,applicationContext)
+                mPresenter?.addFavoriteCover(imageFilePath, applicationContext)
             }
 
+        }else if(requestCode==UCrop.REQUEST_CROP&&resultCode==UCrop.RESULT_ERROR) {
+            data?.let {
+                Timber.d(UCrop.getError(it))
+
+            }
         }
+    }
+
+    /**
+     * 图片裁剪
+     */
+    private fun cropSelectImage(selectedImageUri: Uri) {
+        UCrop.of(selectedImageUri,
+                Uri.parse("${
+                        externalCacheDir
+                        .absolutePath}${File.separator}cropImage.yy}"))
+                .withOptions(UCrop.Options().apply {
+                    setStatusBarColor(Color.WHITE)
+                    setToolbarColor(Color.WHITE)
+                    setToolbarWidgetColor(Color.BLACK)
+                    setActiveWidgetColor(Color.RED) })
+                .withAspectRatio(mIvCover.width.toFloat(), mIvCover.height.toFloat())
+                .start(this)
     }
 }
