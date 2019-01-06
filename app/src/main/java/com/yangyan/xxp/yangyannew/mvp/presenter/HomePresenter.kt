@@ -74,31 +74,27 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                         mRootView.hideLoading()//隐藏下拉刷新的进度条
                     else {
                         mRootView.endLoadMore()//隐藏上拉加载更多的进度条
-                        mAdapter.loadMoreComplete()
+
                     }
+                }
+                .doOnError {
+                    mAdapter.loadMoreEnd()
                 }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
                     override fun onNext(t: List<ImagesInfo>) {
                         mPageIndex++
                         if (pullToRefresh) {
-                            mData.clear()
-                            mData.addAll(t)
-                            mAdapter.notifyDataSetChanged()
+                         mAdapter.replaceData(t)
                         } else {
-                            mData.addAll(t)
-                            mAdapter.notifyItemRangeChanged(mData.size - t.size, mData.size)
+                           mAdapter.addData(t)
+                            mAdapter.loadMoreComplete()
                         }
 
                     }
 
                     override fun onError(t: Throwable) {
-                        if (t is HttpException) {
-                            //404代表 没有很多的额页数了
-                            if (t.code() == 404) {
-                                mAdapter.loadMoreEnd()
-                            }
-                        }
+
                     }
 
                 })

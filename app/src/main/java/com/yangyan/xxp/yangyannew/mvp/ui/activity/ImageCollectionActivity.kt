@@ -3,8 +3,10 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.view.Menu
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
@@ -33,13 +35,6 @@ import javax.inject.Named
  */
 class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageCollectionContract.View {
 
-    /**
-     * 收藏夹为空?
-     */
-    override fun favoriteDataStatus(b: Boolean) {
-
-
-    }
 
     /**
      * 打开画廊页面
@@ -50,6 +45,9 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     lateinit var mAdapter: ImageCollectionAdapter
     @Inject
     lateinit var mLayoutManager: GridLayoutManager
+
+    //显示加载
+    private var mShowLoader = true
 
     private val mImageInfo by lazy {
         intent.getSerializableExtra("data") as ImagesInfo
@@ -62,6 +60,19 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun showAddImageToFavoriteSuccess() {
 
+    }
+
+    /**
+     * 是否已近收藏了该图集
+     */
+    override fun thisImageCollectIsFavorited(isFavorited: Boolean) {
+        mIsFavorited = isFavorited
+        mFabLikeOrDis.setImageResource(if (isFavorited) R.drawable.ic_delete else R.drawable.ic_like)
+    }
+
+    override fun setCoverImage(url: String) {
+        initSlideHint()
+        mIvCollectCover.loadImage(url, R.drawable.bg_loading_b)
     }
 
     override fun getContext(): Context = applicationContext
@@ -81,19 +92,9 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     override fun initData(savedInstanceState: Bundle?) {
         initRecyclerView()
         initToolbar()
-        initSlideHint()
-        mIvCollectCover.loadImage(mImageInfo.thumbSrc)
-        mPresenter?.getImageCollection(mImageInfo.id)
-
         mFabLikeOrDis.onClick {
-            if (mIsFavorite) {//收藏夹进来的
-                Toasty.info(applicationContext, "想了一下,删除还是不要了吧.哈哈哈").show()
-
-            } else {//普通进入
-                startActivity<FavoriteListActivity>("imageInfo" to mImageInfo)
-                overridePendingTransition(R.anim.fragment_slide_up, 0)
-            }
-
+            startActivity<FavoriteListActivity>("imageInfo" to mImageInfo)
+            overridePendingTransition(R.anim.fragment_slide_up, 0)
         }
     }
 
@@ -107,7 +108,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     }
 
-    fun slideAnim(count: Int, slideDirection: Boolean) {
+    private fun slideAnim(count: Int, slideDirection: Boolean) {
         val temp = !slideDirection
         mIvSwipeUp.animate()
                 .translationYBy(if (temp) -500f else 500f)
@@ -122,17 +123,12 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
     }
 
 
-    private val mIsFavorite by lazy {
-        intent.getBooleanExtra("isFavorite", false)
-    }
+    //是否已收藏
+    private var mIsFavorited = false
 
     private fun initToolbar() {
-        //收藏夹进去的话 like变成del
-        if (mIsFavorite) {
-            mFabLikeOrDis.setImageResource(R.drawable.ic_delete)
-        }
+        mToolbar.title = mImageInfo.title
         setSupportActionBar(mToolbar)
-
         mToolbar.navigationIcon = resources.getDrawable(R.drawable.ic_back)
         mToolbar.setNavigationOnClickListener {
             killMyself()
@@ -142,7 +138,7 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
 
     override fun onResume() {
         super.onResume()
-        supportActionBar!!.title = mImageInfo.title
+        mPresenter?.getImageCollection(mImageInfo.id)
     }
 
     private fun initRecyclerView() {
@@ -156,16 +152,34 @@ class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageC
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            menuInflater.inflate(R.menu.meun_image_collect_list, it)
+            (it.findItem(R.id.action_loading).icon as Animatable).start()
+        }
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            it.findItem(R.id.action_loading).isVisible = mShowLoader
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun showLoading() {
-        mProbar.visible(true)
+        mShowLoader = true
+        mFabLikeOrDis.visible(false)
+        invalidateOptionsMenu()
     }
 
     override fun launchActivity(intent: Intent) {
     }
 
     override fun hideLoading() {
-        mProbar.visible(false)
-
+        mShowLoader = false
+        mFabLikeOrDis.visible(true)
+        invalidateOptionsMenu()
     }
 
     override fun killMyself() {

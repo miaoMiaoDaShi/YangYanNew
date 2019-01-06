@@ -6,6 +6,7 @@ import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteImageListContract
 import com.yangyan.xxp.yangyannew.mvp.model.FavoriteImageListModel
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
+import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
 import dagger.Module
 import dagger.Provides
 
@@ -41,4 +42,8 @@ constructor(private val view: FavoriteImageListContract.View) {
     @ActivityScope
     @Provides
     internal fun provideAdapter(datas: MutableList<ImagesInfo>) = HomeAdapter(datas)
+
+    @ActivityScope
+    @Provides
+    internal fun provideWarningDialog() = WarningDialog()
 }

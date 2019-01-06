@@ -1,8 +1,10 @@
 package com.yangyan.xxp.yangyannew.mvp.presenter
 
+import cn.bmob.v3.BmobUser
 import com.jess.arms.di.scope.ActivityScope
 import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
+import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.ImageCollectionAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -30,7 +32,11 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
 
 
     fun getImageCollection(id: Int) {
-        mModel.getImageCollection(id)
+        mModel.getImageCollectByIdAndUser(id, BmobUser.getCurrentUser(UserInfo::class.java))
+                .flatMap {
+                    mRootView.thisImageCollectIsFavorited(it.isNotEmpty())
+                    mModel.getImageCollection(id)
+                }
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     mRootView.showLoading()
@@ -43,7 +49,11 @@ constructor(model: ImageCollectionContract.Model, rootView: ImageCollectionContr
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(object : ErrorHandleSubscriber<List<String>>(mErrorHandler) {
                     override fun onNext(t: List<String>) {
-                        mImageCollectionAdapter.replaceData(t)
+                        if (t.isNotEmpty()) {
+                            mRootView.setCoverImage(t[0])
+                            mImageCollectionAdapter.replaceData(t)
+                        }
+
                     }
                 })
     }

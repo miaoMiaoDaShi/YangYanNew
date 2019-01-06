@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Program%20Files/android%20studio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_location_searching_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Program%20Files/android%20studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_loop_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="989898" />
-                            <entry key="outputName" value="ic_location" />
+                            <entry key="outputName" value="ic_refresh" />
                             <entry key="sourceFile" value="C:\Users\Zhong" />
                           </map>
                         </option>

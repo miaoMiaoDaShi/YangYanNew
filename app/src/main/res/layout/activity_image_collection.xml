@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bg_test" />
+                tools:src="@drawable/bg_login"/>
 
             <View
                 android:layout_width="match_parent"
@@ -48,15 +48,6 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
             </android.support.v7.widget.Toolbar>
-            <ProgressBar
-                android:id="@+id/mProbar"
-                android:layout_gravity="bottom"
-                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:visibility="invisible"
-                />
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
@@ -76,7 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_like"
+        android:visibility="invisible"
         app:backgroundTint="@android:color/white"
         app:layout_anchor="@id/mAppBar"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"
+        tools:visibility="visible"/>
 </android.support.design.widget.CoordinatorLayout>

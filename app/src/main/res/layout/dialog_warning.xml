@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:background="@android:color/darker_gray">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_warning_circle" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="center"
+                android:src="@drawable/shape_warning_sigh" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/mTvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="19sp"
+            android:text="确定要这样做嘛???" />
+        <TextView
+            android:id="@+id/mTvDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:textColor="#989898"
+            android:textSize="14sp"
+            android:text="确定要这样做嘛???" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/mBtnCancel"
+                style="@style/DialogButton"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_cancel"
+                android:textColor="@android:color/black"
+                android:text="取消" />
+
+            <Button
+                android:id="@+id/mBtnConfirm"
+                style="@style/DialogButton"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_confirm"
+                android:textColor="@android:color/white"
+                android:text="确认" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

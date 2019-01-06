@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
@@ -14,7 +15,8 @@
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"
           android:background="@android:color/white"
-          app:navigationIcon="@drawable/ic_back">
+          app:navigationIcon="@drawable/ic_back"
+          >
 
       </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>
@@ -24,12 +26,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvImageCover"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/mTvCollectIsEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:maxEms="8"
+                android:text="嗨,你好!你收藏的图集将会展示在这里哦"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRvImageCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

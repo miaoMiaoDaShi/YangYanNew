@@ -7,6 +7,7 @@ import dagger.Provides
 
 import com.yangyan.xxp.yangyannew.mvp.contract.AboutContract
 import com.yangyan.xxp.yangyannew.mvp.model.AboutModel
+import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
 
 
 @Module
@@ -23,4 +24,8 @@ class AboutModule(private val view: AboutContract.View) {
     fun provideAboutModel(model: AboutModel): AboutContract.Model {
         return model
     }
+
+    @ActivityScope
+    @Provides
+    internal fun provideWarningDialog() = WarningDialog()
 }

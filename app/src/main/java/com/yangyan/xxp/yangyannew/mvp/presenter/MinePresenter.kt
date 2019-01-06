@@ -1,23 +1,14 @@
 package com.yangyan.xxp.yangyannew.mvp.presenter
 
-import android.app.Application
-import com.google.gson.Gson
-
-import com.jess.arms.integration.AppManager
 import com.jess.arms.di.scope.FragmentScope
-import com.jess.arms.mvp.BasePresenter
-import com.jess.arms.http.imageloader.ImageLoader
 import com.jess.arms.utils.RxLifecycleUtils
 import com.yangyan.xxp.yangyannew.app.Preference
-
-import me.jessyan.rxerrorhandler.core.RxErrorHandler
 
 import javax.inject.Inject
 
 import com.yangyan.xxp.yangyannew.mvp.contract.MineContract
-import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.MineZipInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
-import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
@@ -48,14 +39,14 @@ constructor(model: MineContract.Model, rootView: MineContract.View)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { mRootView.hideLoading() }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(object : ErrorHandleSubscriber<UserInfo>(mErrorHandler) {
-                    override fun onNext(t: UserInfo) {
-                        mRootView.loadUserInfoSuccess(t)
+                .subscribe(object : ErrorHandleSubscriber<MineZipInfo>(mErrorHandler) {
+                    override fun onNext(t: MineZipInfo) {
+                        mRootView.loadUserInfoSuccess(t.userInfo)
                         Timber.i("用户信息 : ${t.toString()}")
+                        replaceDataForFavorites(t.favorites)
                     }
                 })
     }
-
 
 
     override fun onDestroy() {

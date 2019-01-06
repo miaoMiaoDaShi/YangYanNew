@@ -3,9 +3,11 @@ package com.yangyan.xxp.yangyannew.mvp.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
 import android.view.View
 import com.jess.arms.base.BaseActivity
 import com.jess.arms.di.component.AppComponent
@@ -13,14 +15,25 @@ import com.jess.arms.utils.ArmsUtils
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.getYangYanComponent
 import com.yangyan.xxp.yangyannew.app.onClick
+import com.yangyan.xxp.yangyannew.app.visible
+import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteImageListComponent
+import com.yangyan.xxp.yangyannew.di.component.DaggerFavoriteListComponent
 import com.yangyan.xxp.yangyannew.di.component.DaggerImageCollectionComponent
+import com.yangyan.xxp.yangyannew.di.module.FavoriteListModule
+import com.yangyan.xxp.yangyannew.di.module.FavoriteModule
 import com.yangyan.xxp.yangyannew.di.module.ImageCollectionModule
+import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteContract
+import com.yangyan.xxp.yangyannew.mvp.contract.FavoriteListContract
 import com.yangyan.xxp.yangyannew.mvp.contract.ImageCollectionContract
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteListPresenter
+import com.yangyan.xxp.yangyannew.mvp.presenter.FavoritePresenter
 import com.yangyan.xxp.yangyannew.mvp.presenter.ImageCollectionPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.MineFavoriteAdapter
 import kotlinx.android.synthetic.main.activity_favorite_list.*
+import org.jetbrains.anko.startActivity
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -29,24 +42,32 @@ import javax.inject.Inject
  * Time :  2018/6/2
  * Description : 收藏夹列表页面 点击收藏进入
  */
-class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
-        , ImageCollectionContract.View {
+class FavoriteListActivity : BaseActivity<FavoriteListPresenter>()
+        , FavoriteListContract.View {
+    override fun getContext(): Context {
+        return super.getApplicationContext()
+    }
 
     @Inject
     lateinit var mAdapter: MineFavoriteAdapter
     @Inject
     lateinit var mLayoutManager: LinearLayoutManager
 
-    @Inject
-    lateinit var mFavoriteDatas: List<FavoriteInfo>
-
+    private var mOriginalFavorite = mutableListOf<FavoriteInfo>()
     private val mCheckedFavorite = mutableListOf<FavoriteInfo>()
+    private val mUnCheckedFavorite = mutableListOf<FavoriteInfo>()
 
+    private val mImagesInfo by lazy {
+        intent.getSerializableExtra("imageInfo") as ImagesInfo
+    }
+
+    //显示加载
+    private var mShowLoader = true
 
     override fun setupActivityComponent(appComponent: AppComponent) {
-        DaggerImageCollectionComponent.builder()
+        DaggerFavoriteListComponent.builder()
                 .yangYanComponent(application.getYangYanComponent())
-                .imageCollectionModule(ImageCollectionModule(this))
+                .favoriteListModule(FavoriteListModule(this))
                 .build().inject(this)
     }
 
@@ -56,7 +77,12 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
         initToolbar()
         initRecyclerView()
         bindListener()
-        mPresenter?.getFavoriteList()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPresenter?.getFavoriteListWithStatus(mImagesInfo.id)
     }
 
     private fun initToolbar() {
@@ -64,11 +90,24 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
         mToolbar.setNavigationOnClickListener {
             killMyself()
         }
+
+        mToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_add -> {
+                    startActivity<AddFavoriteActivity>()
+                }
+                else -> {
+                }
+
+            }
+            false
+        }
     }
+
 
     private fun bindListener() {
         mTvDone.onClick {
-            mPresenter?.addImageCollectToFavorite(mCheckedFavorite, intent.getSerializableExtra("imageInfo") as ImagesInfo)
+            mPresenter?.addWithDelImageCollectToFavorite(mCheckedFavorite, mUnCheckedFavorite, mImagesInfo)
         }
 
     }
@@ -93,34 +132,62 @@ class FavoriteListActivity : BaseActivity<ImageCollectionPresenter>()
                     kotlin.run {
                         data as FavoriteInfo
                         data.isChecked = !data.isChecked
-                        if (data.isChecked) {
+                        if (data.isChecked && !mOriginalFavorite[position].isChecked) {//当前选中 原始未选择
                             if (!mCheckedFavorite.contains(data)) {
                                 mCheckedFavorite.add(data)
                             }
-                        } else {
+                        } else if (!data.isChecked && !mOriginalFavorite[position].isChecked) {//当前未选中,原始未选中
                             mCheckedFavorite.remove(data)
+                        } else if (!data.isChecked && mOriginalFavorite[position].isChecked) {//当前未选中 原始选中
+                            if (!mUnCheckedFavorite.contains(data)) {
+                                mUnCheckedFavorite.add(data)
+                            }
+                        } else if (data.isChecked && mOriginalFavorite[position].isChecked) {//当前选中,原始选中
+                            mUnCheckedFavorite.remove(data)
                         }
                         mAdapter.notifyItemChanged(position)
-                        mTvDone.isEnabled = mCheckedFavorite.isNotEmpty()
+                        mTvDone.isEnabled = mCheckedFavorite.isNotEmpty() || mUnCheckedFavorite.isNotEmpty()
                     }
+
                 }
             }
         }
     }
 
 
-    override fun getContext(): Context = applicationContext
+    override fun onLoadFavorites(favorites: List<FavoriteInfo>) {
+        favorites.forEach { mOriginalFavorite.add(it.clone()) }
+    }
 
-    override fun favoriteDataStatus(b: Boolean) {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            menuInflater.inflate(R.menu.meun_favorite_list, it)
+            (it.findItem(R.id.action_loading).icon as Animatable).start()
+        }
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.let {
+            it.findItem(R.id.action_add).isVisible = !mShowLoader
+            it.findItem(R.id.action_loading).isVisible = mShowLoader
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun showLoading() {
+        mShowLoader = true
+        invalidateOptionsMenu()
+        mTvDone.isEnabled = false
     }
 
     override fun launchActivity(intent: Intent) {
     }
 
     override fun hideLoading() {
+        mShowLoader = false
+        invalidateOptionsMenu()
+        mTvDone.isEnabled = mCheckedFavorite.isNotEmpty() || mUnCheckedFavorite.isNotEmpty()
     }
 
     override fun killMyself() {

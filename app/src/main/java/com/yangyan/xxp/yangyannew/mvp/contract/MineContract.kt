@@ -4,6 +4,7 @@ import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.MineZipInfo
 import com.yangyan.xxp.yangyannew.mvp.model.entity.UserInfo
 import io.reactivex.Observable
 
@@ -14,24 +15,24 @@ import io.reactivex.Observable
  * Description :个人页面
  */
 interface MineContract {
-    interface View : FavoriteContract.View{
-        fun getContext(): Context
+    interface View : FavoriteContract.View {
         fun loadUserInfoSuccess(userInfo: UserInfo)
-        override fun onUploadCoverFailed() {
-            //空实现
-        }
-
-        override fun onUploadCoverSuccess(url: String) {
-            //空实现
-        }
-
     }
 
     interface Model : FavoriteContract.Model {
         /**
-         * 加载个人信息
+         * 加载个人页面数据 数据是和收藏列表整合的
          */
-        fun loadMineData(userInfo:UserInfo): Observable<UserInfo>
+        fun loadMineData(userInfo: UserInfo): Observable<MineZipInfo>
 
+        /**
+         * 更改个人信息
+         */
+        fun updateUserInfo(userInfo: UserInfo): Observable<Int>
+
+        /**
+         * 获取个人信息
+         */
+        fun loadUserInfo(userInfo: UserInfo): Observable<UserInfo>
     }
 }

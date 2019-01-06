@@ -1,6 +1,9 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
 import android.content.Context
+import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
+import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import io.reactivex.Observable
 
 /**
  * Author : zhongwenpeng
@@ -9,18 +12,9 @@ import android.content.Context
  * Description :
  */
 interface FavoriteImageListContract {
-    interface View : FavoriteContract.View {
-        fun getContext():Context
-        override fun onUploadCoverFailed() {
-            //空实现
-        }
+    interface View : FavoriteContract.View
 
-        override fun onUploadCoverSuccess(url: String) {
-            //空实现
-        }
-    }
 
-    interface Model : FavoriteContract.Model {
+    interface Model : FavoriteContract.Model
 
-    }
 }

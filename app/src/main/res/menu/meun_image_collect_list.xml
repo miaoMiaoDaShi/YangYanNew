@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_loading"
+        android:checkable="false"
+        android:icon="@drawable/vector_loader_animated"
+        android:title="加载中"
+        app:showAsAction="always" />
+</menu>

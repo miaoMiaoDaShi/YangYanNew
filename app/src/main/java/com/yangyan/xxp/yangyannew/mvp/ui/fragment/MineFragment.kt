@@ -38,19 +38,12 @@ import javax.inject.Inject
  * Description :
  */
 class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnClickListener {
-    override fun favoriteDataStatus(b: Boolean) {
-        mTvCollectIsEmpty.visible(b)
-    }
-
-
     @Inject
     lateinit var mLinearLayoutManager: LinearLayoutManager
     @Inject
     lateinit var mAdapter: MineFavoriteAdapter
     @Inject
     lateinit var mImageLoader: ImageLoader
-
-
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
@@ -71,10 +64,7 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
 
     override fun onResume() {
         super.onResume()
-        mPresenter?.apply {
-            getFavoriteList()
-            getUserInfo()
-        }
+        mPresenter?.getUserInfo()
     }
 
     private fun bindListener() {
@@ -149,12 +139,14 @@ class MineFragment : BaseFragment<MinePresenter>(), MineContract.View, View.OnCl
     override fun getContext(): Context = super.getContext()!!
 
     override fun showLoading() {
+        mProbar.visible(true)
     }
 
     override fun launchActivity(intent: Intent) {
     }
 
     override fun hideLoading() {
+       mProbar.visible(false)
     }
 
     override fun killMyself() {

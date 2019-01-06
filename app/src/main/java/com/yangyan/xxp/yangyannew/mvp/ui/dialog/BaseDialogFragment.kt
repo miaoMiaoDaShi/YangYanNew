@@ -4,11 +4,15 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.visible
 
 
 /**
@@ -20,75 +24,82 @@ import com.yangyan.xxp.yangyannew.R
 
 
 abstract class BaseDialogFragment : DialogFragment() {
-
-    protected abstract fun getResoureId(): Int
+    protected var mContentView: View? = null
+    protected abstract fun getResourcesId(): Int
+    private val mOutAnimation by lazy {
+        AnimationUtils.loadAnimation(context, R.anim.dialog_modal_out)
+    }
+    private val mInAnimation by lazy {
+        AnimationUtils.loadAnimation(context, R.anim.dialog_modal_in)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getResoureId(), container)
+        mContentView = inflater.inflate(getResourcesId(), container)
+        return mContentView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mContentView?.startAnimation(mInAnimation)
     }
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogTransparent)
-        return super.onCreateDialog(savedInstanceState)
+        return object : Dialog(this.activity, this.theme) {
+            override fun dismiss() {
+                dismissWithAnimation()
+            }
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initData()
-        initView()
-        start()
-        initListener()
+    override fun onStart() {
+        super.onStart()
+        setupLayoutParams()
+    }
 
+    override fun show(manager: FragmentManager?, tag: String?) {
+        try {
+            //在每个add事务前增加一个remove事务，防止连续的add
+            manager?.beginTransaction()?.remove(this)?.commit()
+            super.show(manager, tag)
+        } catch (e: Exception) {
+            //同一实例使用不同的tag会异常,这里捕获一下
+            e.printStackTrace()
+        }
 
     }
 
-
-    protected open fun initListener() {}
-
-
-    /**
-     * 初始化数据
-     */
-    protected open fun initData() {}
-
-    /**
-     * 初始化 View
-     */
-    protected open fun initView() {}
-
-    /**
-     * 开始请求
-     */
-    protected open fun start() {}
-
-    override fun onDismiss(dialog: DialogInterface?) {
-        super.onDismiss(dialog)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // getDialog().getWindow().getAttributes().windowAnimations = R.style.dialogHomeListAnim;
+    open fun setupLayoutParams() {
         val dialogWindow = dialog.window
         val lp = dialogWindow!!.attributes
         dialogWindow.setGravity(Gravity.CENTER)
         dialogWindow.attributes = lp
     }
 
-    /**
-     * 调整dialog的size和位置
-     *
-     * @param x
-     * @param y
-     * @param gravity
-     */
-    protected fun adjustSizeGravity(x: Int, y: Int, gravity: Int) {
-        val dialogWindow = dialog.window
-        val lp = dialogWindow!!.attributes
-        lp.width = if (x == -1) lp.width else x
-        lp.height = if (y == -1) lp.height else y
-        dialogWindow.setGravity(gravity)
-        dialogWindow.attributes = lp
-    }
 
+    fun dismissWithAnimation() {
+        mContentView?.startAnimation(mOutAnimation
+                .apply {
+                    setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationRepeat(animation: Animation?) {
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            mContentView?.apply {
+                                visible(false)
+                                post {
+                                    this@BaseDialogFragment.dismiss()
+                                }
+                            }
+
+
+                        }
+
+                        override fun onAnimationStart(animation: Animation?) {
+                        }
+
+                    })
+                })
+    }
 }

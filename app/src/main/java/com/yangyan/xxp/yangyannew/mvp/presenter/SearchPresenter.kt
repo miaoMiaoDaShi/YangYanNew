@@ -21,6 +21,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import retrofit2.HttpException
+import timber.log.Timber
 
 /**
  * Author : zhongwenpeng
@@ -48,11 +49,20 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
      */
     private var mPageIndex = 1
 
+    private var mSearchDisposable: Disposable? = null
     fun searchAtlasByKeyword(pullToRefresh: Boolean, keyWords: String) {
         if (pullToRefresh) mPageIndex = 1
         mAdapter.setKeyWords(keyWords)
         Observable.just(keyWords)
-                .filter { keyWords.isNotEmpty() }
+                .filter {
+                    if (it.isEmpty()) {
+                        mData.clear()
+                        mAdapter.notifyDataSetChanged()
+                        mRootView.searchResultStatus(false)
+                    }
+                    it.isNotEmpty()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .concatMap {
                     mModel.searchImagesByKeyword(mPageIndex, it).apply {
                         mAdapter.setKeyWords(it)
@@ -60,6 +70,8 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
                 }
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
+                    mSearchDisposable?.dispose()
+                    mSearchDisposable = it
                     if (pullToRefresh)
                         mRootView.showLoading()//显示下拉刷新的进度条
                     else
@@ -71,32 +83,27 @@ constructor(model: SearchContract.Model, rootView: SearchContract.View) : BasePr
                     if (pullToRefresh)
                         mRootView.hideLoading()//隐藏下拉刷新的进度条
                     else {
-                        mAdapter.loadMoreComplete()
                         mRootView.endLoadMore()//隐藏上拉加载更多的进度条
                     }
+                }
+                .doOnError {
+                    mAdapter.loadMoreEnd()
                 }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
                     override fun onNext(t: List<ImagesInfo>) {
                         mPageIndex++
                         if (pullToRefresh) {
-                            mData.clear()
-                            mData.addAll(t)
-                            mAdapter.notifyDataSetChanged()
+                            mAdapter.replaceData(t)
                         } else {
-                            mData.addAll(t)
-                            mAdapter.notifyItemRangeChanged(mData.size - t.size, mData.size)
+                            mAdapter.addData(t)
+                            mAdapter.loadMoreComplete()
                         }
-
+                        mRootView.searchResultStatus(mData.isEmpty())
                     }
 
                     override fun onError(t: Throwable) {
-                        if (t is HttpException) {
-                            //404代表 没有很多的额页数了
-                            if (t.code() == 404) {
-                                mAdapter.loadMoreEnd()
-                            }
-                        }
+
                     }
                 })
     }

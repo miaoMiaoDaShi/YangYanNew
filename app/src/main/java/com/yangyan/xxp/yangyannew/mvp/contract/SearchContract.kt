@@ -17,6 +17,7 @@ interface SearchContract {
         fun getContext(): Context
         fun startLoadMore()
         fun endLoadMore()
+        fun searchResultStatus(isEmpty:Boolean)
     }
 
     interface Model : IModel {

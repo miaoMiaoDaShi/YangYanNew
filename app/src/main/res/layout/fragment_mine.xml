@@ -8,11 +8,13 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/mShadowView"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
 
             <ImageView
                 android:id="@+id/mIvToMore"
@@ -44,25 +46,21 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/mProbar"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            />
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="200dp">
-
-        <TextView
-            android:id="@+id/mTvCollectIsEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:maxEms="8"
-            android:text="你收藏的图片或图集将会展示在这里"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:visibility="invisible" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRvMineCollect"
             android:layout_width="match_parent"

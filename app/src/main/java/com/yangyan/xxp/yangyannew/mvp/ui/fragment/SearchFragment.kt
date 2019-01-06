@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.hideKeyboard
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.app.visible
 import com.yangyan.xxp.yangyannew.di.component.DaggerSearchComponent
@@ -36,6 +37,9 @@ import javax.inject.Inject
  */
 class SearchFragment : BaseFragment<SearchPresenter>(), SwipeRefreshLayout.OnRefreshListener
         , SearchContract.View, BaseQuickAdapter.RequestLoadMoreListener {
+    override fun searchResultStatus(isEmpty: Boolean) {
+        mTvCollectIsEmpty.visible(isEmpty)
+    }
 
 
     /**
@@ -97,6 +101,7 @@ class SearchFragment : BaseFragment<SearchPresenter>(), SwipeRefreshLayout.OnRef
 
     private fun bindListener() {
         mIvClose.onClick {
+            hideKeyboard()
             (activity as MainActivity).onBackPressed()
         }
         mEtKeyWords.addTextChangedListener(object : TextWatcher {
@@ -139,7 +144,7 @@ class SearchFragment : BaseFragment<SearchPresenter>(), SwipeRefreshLayout.OnRef
             kotlin.run {
                 val data = adapter.data[position] as ImagesInfo
                 activity?.startActivity<ImageCollectionActivity>(
-                       "data" to data
+                        "data" to data
                 )
             }
         }

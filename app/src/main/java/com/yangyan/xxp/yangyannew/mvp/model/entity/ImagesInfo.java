@@ -26,7 +26,7 @@ public class ImagesInfo extends BmobObject {
     @SerializedName("thumb_src_min")
     private String thumbSrc = "";
     private BmobRelation favorites;//关联收藏夹
-    private UserInfo user;//关联用户
+    private BmobRelation users;//关联用户
 
     public BmobRelation getFavorites() {
         return favorites;
@@ -36,12 +36,12 @@ public class ImagesInfo extends BmobObject {
         this.favorites = favorites;
     }
 
-    public UserInfo getUser() {
-        return user;
+    public BmobRelation getUsers() {
+        return users;
     }
 
-    public void setUser(UserInfo user) {
-        this.user = user;
+    public void setUsers(BmobRelation users) {
+        this.users = users;
     }
 
     public int getId() {

@@ -15,7 +15,9 @@ import com.yangyan.xxp.yangyannew.mvp.presenter.AboutPresenter
 
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
+import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
 import kotlinx.android.synthetic.main.activity_about.*
+import javax.inject.Inject
 
 
 /**
@@ -32,6 +34,8 @@ import kotlinx.android.synthetic.main.activity_about.*
  * }
  */
 class AboutActivity : BaseActivity<AboutPresenter>(), AboutContract.View {
+    @Inject
+    lateinit var mWarningDialog: WarningDialog
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerAboutComponent //如找不到该类,请编译一下项目
@@ -53,19 +57,25 @@ class AboutActivity : BaseActivity<AboutPresenter>(), AboutContract.View {
             killMyself()
         }
     }
+
     override fun initData(savedInstanceState: Bundle?) {
         mTvVersion.text = getVersionName(applicationContext)
         initToolbar()
         bindListener()
-
     }
 
     private fun bindListener() {
-        mBtnLoginOut.onClick {//退出登录
-            startActivity(Intent(applicationContext,LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+        mBtnLoginOut.onClick {
+            mWarningDialog.apply {
+                cancelButton("好的")
+                confirmButton("不了") {
+                    startActivity(Intent(applicationContext, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+                }
+                content("啊哟,要不再看一会吧....")
+                show(supportFragmentManager, "")
+            }
         }
     }
-
 
     override fun showLoading() {
 

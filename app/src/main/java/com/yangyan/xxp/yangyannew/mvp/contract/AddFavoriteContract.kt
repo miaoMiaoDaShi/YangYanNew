@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.contract
 
+import android.content.Context
 import com.jess.arms.mvp.IModel
 import com.jess.arms.mvp.IView
 import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
@@ -13,13 +14,17 @@ import io.reactivex.Observable
  */
 interface AddFavoriteContract {
     interface View : FavoriteContract.View{
-        override fun favoriteDataStatus(b: Boolean) {
+         fun onUploadCoverFailed() {
+            //空实现
+        }
+         fun onUploadCoverSuccess(url: String) {
             //空实现
         }
 
     }
 
     interface Model : FavoriteContract.Model {
+
 
     }
 }

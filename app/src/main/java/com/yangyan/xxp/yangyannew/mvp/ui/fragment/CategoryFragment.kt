@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.jess.arms.base.BaseFragment
 import com.jess.arms.di.component.AppComponent
 import com.yangyan.xxp.yangyannew.R
+import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.di.component.DaggerCategoryComponent
 import com.yangyan.xxp.yangyannew.di.module.CategoryModule
 import com.yangyan.xxp.yangyannew.mvp.contract.CategoryChildContract
@@ -18,6 +20,7 @@ import com.yangyan.xxp.yangyannew.mvp.presenter.CategoryChildPresenter
 import com.yangyan.xxp.yangyannew.mvp.presenter.CategoryPresenter
 import com.yangyan.xxp.yangyannew.mvp.presenter.HomePresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.CategoryFragmentPageAdapter
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_category.*
 import javax.inject.Inject
 
@@ -61,6 +64,13 @@ class CategoryFragment : BaseFragment<CategoryPresenter>(), CategoryContract.Vie
 
     override fun initData(savedInstanceState: Bundle?) {
         setupTab()
+        bindListener()
+    }
+
+    private fun bindListener() {
+        mFabToRefresh.onClick {
+            Toasty.info(context!!, "该功能暂未开放", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupTab() {

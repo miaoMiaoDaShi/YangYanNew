@@ -15,7 +15,7 @@
          android:layout_height="?attr/actionBarSize"
          app:title="选择收藏夹"
          app:navigationIcon="@drawable/ic_back"
-         app:subtitle="你可以同时将图集添加到多个收藏夹"
+         app:subtitle="你可以选择多个进行添加移除"
          android:background="@android:color/white">
 
      </android.support.v7.widget.Toolbar>

@@ -14,7 +14,7 @@ import com.yangyan.xxp.yangyannew.R
  * Description : 选择头像的对话框
  */
 class SelectPortraitDialog : BaseDialogFragment (){
-    override fun getResoureId(): Int {
+    override fun getResourcesId(): Int {
         return  R.layout.dialog_select_portrait
     }
     override fun onResume() {

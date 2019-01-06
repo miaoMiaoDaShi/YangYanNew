@@ -23,6 +23,8 @@ import com.yangyan.xxp.yangyannew.di.component.YangYanComponent
 import org.jetbrains.anko.find
 import java.io.File
 import android.content.res.Resources
+import android.view.inputmethod.InputMethodManager
+
 /**
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
@@ -40,8 +42,8 @@ val Int.px: Int get() = ((this * Resources.getSystem().displayMetrics.density).t
 /**
  * 点击事件扩展方法
  */
-fun View.onClick(method: () -> Unit): View {
-    setOnClickListener { method.invoke() }
+fun View.onClick(method: (() -> Unit)?): View {
+    setOnClickListener { method?.invoke() }
     return this
 }
 
@@ -125,5 +127,25 @@ fun Uri.getRealFilePath(context: Context): String? {
 }
 fun Context.getYangYanComponent(): YangYanComponent {
     return( this as YangYan ).yangYangComponent()
+}
+
+fun Fragment.hideKeyboard() {
+   activity?.hideKeyboard()
+
+}
+
+fun Activity.hideKeyboard() {
+        val imm =
+                getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocus = window.currentFocus
+        val windowToken = if (currentFocus != null) {
+            currentFocus.windowToken
+        } else {
+            window.decorView.windowToken
+        }
+        if (windowToken != null) {
+            imm.hideSoftInputFromWindow(windowToken, 0)
+        }
+
 }
 

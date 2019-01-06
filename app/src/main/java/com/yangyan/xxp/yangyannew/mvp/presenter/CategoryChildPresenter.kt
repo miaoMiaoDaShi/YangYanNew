@@ -65,10 +65,13 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
                 .doFinally {
                     if (pullToRefresh)
                         mRootView.hideLoading()//隐藏下拉刷新的进度条
-                    else{
-                        mAdapter.loadMoreComplete()
+                    else {
                         mRootView.endLoadMore()//隐藏上拉加载更多的进度条
+
                     }
+                }
+                .doOnError {
+                    mAdapter.loadMoreEnd()
                 }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))//使用 Rxlifecycle,使 Disposable 和 Activity 一起销毁
                 .subscribe(object : ErrorHandleSubscriber<List<ImagesInfo>>(mErrorHandler) {
@@ -81,18 +84,13 @@ constructor(model: CategoryChildContract.Model, rootView: CategoryChildContract.
                         } else {
                             mData.addAll(t)
                             mAdapter.notifyItemRangeChanged(mData.size - t.size, mData.size)
+                            mAdapter.loadMoreComplete()
                         }
 
                     }
-//
-//                    override fun onError(t: Throwable) {
-//                        if (t is HttpException) {
-//                            //404代表 没有很多的额页数了
-//                            if (t.code() == 404) {
-//                                mAdapter.loadMoreEnd()
-//                            }
-//                        }
-//                    }
+                    override fun onError(t: Throwable) {
+
+                    }
                 })
     }
 

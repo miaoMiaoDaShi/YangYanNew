@@ -1,6 +1,7 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
@@ -37,6 +38,10 @@ import java.net.URL
  */
 class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
         AddFavoriteContract.View {
+    override fun getContext(): Context {
+        return applicationContext
+    }
+
     override fun onUploadCoverSuccess(url: String) {
         mImageFilePath = url
         Toasty.success(applicationContext, "上传封面文件成功").show()

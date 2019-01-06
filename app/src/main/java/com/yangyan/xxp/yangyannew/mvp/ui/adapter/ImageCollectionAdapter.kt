@@ -24,7 +24,7 @@ class ImageCollectionAdapter constructor(val mDatas: MutableList<String>) :
                 loadImage(YangYanImageConfig.Builder()
                         .imageView(this)
                         .url(item)
-                        .placeholder(R.drawable.bg_loading)
+                        .placeholder(R.drawable.bg_loading_b)
                         .build())
             }
         }
