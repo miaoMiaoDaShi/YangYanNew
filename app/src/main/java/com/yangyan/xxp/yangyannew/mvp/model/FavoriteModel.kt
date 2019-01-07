@@ -234,6 +234,9 @@ constructor(val repositoryManager: IRepositoryManager) : BaseModel(repositoryMan
         }
     }
 
+    /**
+     * 获取图集关联的收藏夹
+     */
     override fun getFavoritesByImageCollectId(id: Int): Observable<List<FavoriteInfo>> {
         Timber.i("图集id: ${id}")
         return getImageObjectIdById(id)
@@ -262,6 +265,9 @@ constructor(val repositoryManager: IRepositoryManager) : BaseModel(repositoryMan
 
     }
 
+    /**
+     * 根据图集的id 获取(如果有 ) bmob的imageInfo表中对应的objectId
+     */
     private fun getImageObjectIdById(id: Int): Observable<String> {
         return Observable.create { emitter ->
             val bmobQuery = BmobQuery<ImagesInfo>()
