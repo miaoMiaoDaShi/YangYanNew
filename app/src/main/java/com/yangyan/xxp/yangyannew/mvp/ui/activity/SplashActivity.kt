@@ -29,7 +29,7 @@ import javax.inject.Inject
  * Time :  2018/5/23
  * Description : 启动页面
  */
-class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
+class SplashActivity : YangYanBaseActivity<SplashPresenter>(), SplashContract.View {
     @Inject
     lateinit var mImageLoader: ImageLoader
 
@@ -88,6 +88,7 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
 
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.getSplashImageInfo()
+        mTvOneDay.show()
     }
 
 

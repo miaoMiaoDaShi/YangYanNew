@@ -24,7 +24,7 @@ import javax.inject.Inject
  * Time :  2018/5/21
  * Description : 幻灯片播放页面
  */
-class GalleryActivity : BaseActivity<GalleryPresenter>(), ViewPager.OnPageChangeListener
+class GalleryActivity : YangYanBaseActivity<GalleryPresenter>(), ViewPager.OnPageChangeListener
         , GalleryContract.View {
 
 

@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity<MainPresenter>(), MainContract.View, BottomNavigationBar.OnTabSelectedListener {
+class MainActivity : YangYanBaseActivity<MainPresenter>(), MainContract.View, BottomNavigationBar.OnTabSelectedListener {
 
 
     @Inject

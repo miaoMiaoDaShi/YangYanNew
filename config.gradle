@@ -103,7 +103,9 @@ ext {
             "anko"                          : "org.jetbrains.anko:anko-commons:0.10.5",
             "matisse"                       : "com.zhihu.android:matisse:0.4.3",
             "luban"                         : "top.zibin:Luban:1.1.8",
-            "ucrop":"com.github.yalantis:ucrop:2.2.2-native",
+            "ucrop"                         : "com.github.yalantis:ucrop:2.2.2-native",
+            //字体
+            "calligraphy"                   : "uk.co.chrisjenx:calligraphy:2.3.0",
             //test
             "junit"                         : "junit:junit:4.12",
             "androidJUnitRunner"            : "android.support.test.runner.AndroidJUnitRunner",

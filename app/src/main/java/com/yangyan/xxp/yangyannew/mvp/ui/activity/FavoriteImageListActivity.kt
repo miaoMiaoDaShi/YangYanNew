@@ -19,6 +19,7 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteImageListPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_favorite_image_list.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -31,7 +32,7 @@ import javax.inject.Named
  * Time :  2018/5/29
  * Description : 图集的封面列表  和分类那个差不多 只不过 这个是个activity
  */
-class FavoriteImageListActivity : BaseActivity<FavoriteImageListPresenter>()
+class FavoriteImageListActivity : YangYanBaseActivity<FavoriteImageListPresenter>()
         , FavoriteImageListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
 

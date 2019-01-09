@@ -1,5 +1,6 @@
 package com.yangyan.xxp.yangyannew.mvp.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 
@@ -16,6 +17,7 @@ import com.yangyan.xxp.yangyannew.mvp.presenter.AboutPresenter
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_about.*
 import javax.inject.Inject
 
@@ -33,7 +35,7 @@ import javax.inject.Inject
  * }
  * }
  */
-class AboutActivity : BaseActivity<AboutPresenter>(), AboutContract.View {
+class AboutActivity : YangYanBaseActivity<AboutPresenter>(), AboutContract.View {
     @Inject
     lateinit var mWarningDialog: WarningDialog
 
@@ -96,4 +98,5 @@ class AboutActivity : BaseActivity<AboutPresenter>(), AboutContract.View {
     override fun killMyself() {
         finish()
     }
+
 }

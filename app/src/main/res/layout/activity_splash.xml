@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,31 +9,29 @@
         android:id="@+id/mIvSplash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_default_splash" />
+        android:scaleType="centerCrop" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#60000000" />
-    <ImageView
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="65dp"
-        android:layout_centerHorizontal="true"
+
+
+    <com.yangyan.xxp.yangyannew.widget.SecretTextView
+        android:id="@+id/mTvOneDay"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_splash_logo"/>
-    <TextView
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="45dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:visibility="invisible"
-        android:typeface="monospace"
+        android:layout_centerHorizontal="true"
+        android:text="年青人仍然所見極有限，又迷失在太多訊息中。訊息不等於眼界。"
         android:textColor="@android:color/white"
-        android:text="每日精选图片,让你大开眼界"/>
+        android:lineSpacingMultiplier="1.3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="wrap_content"

@@ -25,6 +25,7 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 import es.dmoral.toasty.Toasty
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_add_favorite.*
 import timber.log.Timber
 import java.io.File
@@ -36,7 +37,7 @@ import java.net.URL
  * Time :  2018/5/28
  * Description :
  */
-class AddFavoriteActivity : BaseActivity<AddFavoritePresenter>(),
+class AddFavoriteActivity : YangYanBaseActivity<AddFavoritePresenter>(),
         AddFavoriteContract.View {
     override fun getContext(): Context {
         return applicationContext

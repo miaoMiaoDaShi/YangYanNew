@@ -28,7 +28,7 @@ import org.jetbrains.anko.startActivity
  * Time :  2018/5/23
  * Description :登录页面
  */
-class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View {
+class LoginActivity : YangYanBaseActivity<LoginPresenter>(), LoginContract.View {
     /**
      * 用户的登录信息
      */

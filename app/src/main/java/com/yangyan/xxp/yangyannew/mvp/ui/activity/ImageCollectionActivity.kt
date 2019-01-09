@@ -33,7 +33,7 @@ import javax.inject.Named
  * Time :  2018/5/25
  * Description :  套图列表
  */
-class ImageCollectionActivity : BaseActivity<ImageCollectionPresenter>(), ImageCollectionContract.View {
+class ImageCollectionActivity : YangYanBaseActivity<ImageCollectionPresenter>(), ImageCollectionContract.View {
 
 
     /**

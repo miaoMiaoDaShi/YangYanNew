@@ -1,10 +1,17 @@
 package com.yangyan.xxp.yangyannew.app
 
+import android.content.Context
 import com.jess.arms.base.BaseApplication
 import com.jess.arms.utils.ArmsUtils
+import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.DaggerYangYanComponent
 import com.yangyan.xxp.yangyannew.di.component.YangYanComponent
 import com.yangyan.xxp.yangyannew.di.module.YangYanModule
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
+
 
 /**
  * Author : zhongwenpeng
@@ -17,12 +24,23 @@ class YangYanApplication : BaseApplication(), YangYan {
     private lateinit var yangYanComponent: YangYanComponent
     override fun onCreate() {
         super.onCreate()
-        yangYanComponent =  DaggerYangYanComponent
+
+        yangYanComponent = DaggerYangYanComponent
                 .builder()
                 .appComponent(ArmsUtils.obtainAppComponentFromContext(this))
                 .yangYanModule(YangYanModule())
                 .build()
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/SourceHanSansCN-Normal.otf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build())
+
     }
+
 
     override fun yangYangComponent(): YangYanComponent {
         return yangYanComponent

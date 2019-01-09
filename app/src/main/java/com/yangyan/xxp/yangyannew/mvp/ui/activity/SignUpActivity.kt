@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
  * Time :  2018/5/23
  * Description :
  */
-class SignUpActivity : BaseActivity<SignUpPresenter>(), SignUpContract.View {
+class SignUpActivity : YangYanBaseActivity<SignUpPresenter>(), SignUpContract.View {
 
 
     override fun showLoading() {

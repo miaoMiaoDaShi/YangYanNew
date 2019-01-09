@@ -73,6 +73,7 @@ dependencies {
     implementation rootProject.ext.dependencies["luban"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["lottie"]
+
     implementation (rootProject.ext.dependencies["photoview"]){
         exclude group: 'com.android.support'
     }
@@ -106,4 +107,7 @@ dependencies {
     }
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     // implementation 'cn.bmob.android:http-legacy:1.0'
+
+    implementation 'io.github.inflationx:calligraphy3:3.0.0'
+    implementation 'io.github.inflationx:viewpump:1.0.0'
 }

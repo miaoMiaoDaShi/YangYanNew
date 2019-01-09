@@ -42,7 +42,7 @@ import javax.inject.Inject
  * Time :  2018/6/2
  * Description : 收藏夹列表页面 点击收藏进入
  */
-class FavoriteListActivity : BaseActivity<FavoriteListPresenter>()
+class FavoriteListActivity : YangYanBaseActivity<FavoriteListPresenter>()
         , FavoriteListContract.View {
     override fun getContext(): Context {
         return super.getApplicationContext()
