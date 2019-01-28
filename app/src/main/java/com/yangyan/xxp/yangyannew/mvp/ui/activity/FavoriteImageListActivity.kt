@@ -19,7 +19,6 @@ import com.yangyan.xxp.yangyannew.mvp.model.entity.FavoriteInfo
 import com.yangyan.xxp.yangyannew.mvp.presenter.FavoriteImageListPresenter
 import com.yangyan.xxp.yangyannew.mvp.ui.adapter.HomeAdapter
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_favorite_image_list.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast

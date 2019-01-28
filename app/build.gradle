@@ -78,8 +78,8 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.tencent.bugly:crashreport:2.8.6' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:3.6.0.1' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     implementation rootProject.ext.dependencies["bottom-navigation-bar"]
     kapt rootProject.ext.dependencies["dagger2-compiler"]
     implementation('me.jessyan:arms:2.5.0') {
@@ -108,6 +108,4 @@ dependencies {
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     // implementation 'cn.bmob.android:http-legacy:1.0'
 
-    implementation 'io.github.inflationx:calligraphy3:3.0.0'
-    implementation 'io.github.inflationx:viewpump:1.0.0'
 }

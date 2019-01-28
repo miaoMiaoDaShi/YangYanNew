@@ -7,11 +7,6 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.di.component.DaggerYangYanComponent
 import com.yangyan.xxp.yangyannew.di.component.YangYanComponent
 import com.yangyan.xxp.yangyannew.di.module.YangYanModule
-import io.github.inflationx.calligraphy3.CalligraphyConfig
-import io.github.inflationx.calligraphy3.CalligraphyInterceptor
-import io.github.inflationx.viewpump.ViewPump
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
-
 
 /**
  * Author : zhongwenpeng
@@ -30,15 +25,6 @@ class YangYanApplication : BaseApplication(), YangYan {
                 .appComponent(ArmsUtils.obtainAppComponentFromContext(this))
                 .yangYanModule(YangYanModule())
                 .build()
-
-        ViewPump.init(ViewPump.builder()
-                .addInterceptor(CalligraphyInterceptor(
-                        CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/SourceHanSansCN-Normal.otf")
-                                .setFontAttrId(R.attr.fontPath)
-                                .build()))
-                .build())
-
     }
 
 

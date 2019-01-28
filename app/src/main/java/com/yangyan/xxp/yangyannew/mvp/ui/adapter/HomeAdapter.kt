@@ -8,6 +8,7 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 
 /**
@@ -23,6 +24,17 @@ constructor(val mDatas: MutableList<ImagesInfo>) : BaseQuickAdapter<ImagesInfo, 
                 .setText(R.id.mTvTitle, item.title)
         if (BuildConfig.LOG_SHOW_IMAGE) {
             helper.getView<ImageView>(R.id.mIvImage).apply {
+                post {
+                    loadImage(YangYanImageConfig.Builder()
+                            .bitmapTransformation(BlurTransformation(50))
+                            .imageView(this)
+                            .url(item.thumbSrc)
+                            .placeholder(R.drawable.bg_loading)
+                            .build())
+                }
+
+            }
+            helper.getView<ImageView>(R.id.mCircleIvImage).apply {
                 post {
                     loadImage(YangYanImageConfig.Builder()
                             .bitmapTransformation(CropTransformation(this.width, this.height, CropTransformation.CropType.TOP))

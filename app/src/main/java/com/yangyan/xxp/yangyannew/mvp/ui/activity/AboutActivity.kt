@@ -17,7 +17,6 @@ import com.yangyan.xxp.yangyannew.mvp.presenter.AboutPresenter
 import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.onClick
 import com.yangyan.xxp.yangyannew.mvp.ui.dialog.WarningDialog
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_about.*
 import javax.inject.Inject
 

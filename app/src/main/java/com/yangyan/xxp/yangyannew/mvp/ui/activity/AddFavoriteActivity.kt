@@ -25,7 +25,6 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 import es.dmoral.toasty.Toasty
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_add_favorite.*
 import timber.log.Timber
 import java.io.File
