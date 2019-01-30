@@ -10,6 +10,7 @@ import com.yangyan.xxp.yangyannew.R
 import com.yangyan.xxp.yangyannew.app.YangYanImageConfig
 import com.yangyan.xxp.yangyannew.app.loadImage
 import com.yangyan.xxp.yangyannew.mvp.model.entity.ImagesInfo
+import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 
 /**
@@ -31,19 +32,34 @@ constructor(val mDatas: MutableList<ImagesInfo>)
         } catch (e: Exception) {
 
         }
-        helper.setText(R.id.mTvCount, "${item.imageCount}P")
-                .setText(R.id.mTvTitle, spannableString)
-                .getView<ImageView>(R.id.mIvImage)
+        helper
                 .apply {
-                    post {
-                        loadImage(YangYanImageConfig.Builder()
-                                .bitmapTransformation(CropTransformation(this.width,this.height, CropTransformation.CropType.TOP))
-                                .imageView(this)
-                                .url(item.thumbSrc)
-                                .placeholder(R.drawable.bg_loading)
-                                .build())
+                    setText(R.id.mTvCount, "${item.imageCount}P")
+                    setText(R.id.mTvTitle, spannableString)
+                    getView<ImageView>(R.id.mIvImage).apply {
+                        post {
+                            loadImage(YangYanImageConfig.Builder()
+                                    .bitmapTransformation(BlurTransformation(50))
+                                    .imageView(this)
+                                    .url(item.thumbSrc)
+                                    .placeholder(R.drawable.bg_loading)
+                                    .build())
+                        }
+
+                    }
+                    getView<ImageView>(R.id.mCircleIvImage).apply {
+                        post {
+                            loadImage(YangYanImageConfig.Builder()
+                                    .bitmapTransformation(CropTransformation(this.width, this.height, CropTransformation.CropType.TOP))
+                                    .imageView(this)
+                                    .url(item.thumbSrc)
+                                    .placeholder(R.drawable.bg_loading)
+                                    .build())
+                        }
+
                     }
                 }
+
 
     }
 
