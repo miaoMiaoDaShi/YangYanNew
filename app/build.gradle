@@ -49,11 +49,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["circleimageview"]
     implementation rootProject.ext.dependencies["shadow"]
     // implementation rootProject.ext.dependencies["rxkotlin2"]
