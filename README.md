@@ -29,4 +29,3 @@ Kotlin 团队为 Android 开发提供了一套超越标准语言功能的工具�
  ## apk下载体验地址
 ![](screenshot/download_orcode.png)
  ## 如果你觉得不错,就下载一个吧,无条件接受任何邪恶PR
- ## QQ:1340751953 如果你对我满意或者不满意请QQ联系哦
